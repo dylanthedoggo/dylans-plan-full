@@ -474,7 +474,7 @@
     <div class="section-header fade-in">
       <div class="section-label">RETIREMENT OUTCOMES</div>
       <h2 class="section-title">Two Paths to Financial Independence</h2>
-      <p class="section-sub">Both scenarios result in my complete financial independence before age 50, with lifetime Army pension income and a fully funded investment portfolio.</p>
+      <p class="section-sub">Scenario A uses defense contracting to fund lifestyle while the entire portfolio compounds untouched. Scenario B uses a standard SWR bridge. Both reach full financial independence well before 60.</p>
     </div>
     <div class="ret-grid" id="ret-grid"></div>
     <div class="notes-box fade-in">
@@ -957,25 +957,111 @@ function buildDetailedProjection() {
 
 const projection = buildDetailedProjection();
 
-// ─── BRIDGE SIMULATION ────────────────────────────────────────────────────
-// The "bridge" is the gap between military retirement and age 59.5 when
-// tax-advantaged accounts (TSP + Roth IRA earnings) become penalty-free accessible.
+// ─── SCENARIO A: CONTRACTING BRIDGE ──────────────────────────────────────
 //
-// During the bridge:
-//   - Pension provides baseline income.
-//   - A 4% SWR is drawn from the accessible pool only (taxable + Roth IRA basis).
-//   - Locked accounts compound completely untouched at 7%.
+// Scenario A does NOT use SWR during the bridge period. Instead:
 //
-// At 59.5, all accounts unlock. A new 4% SWR is calculated on the full portfolio.
-// The locked accounts have grown substantially, producing a large income step-up.
+//   Phase 1 (Age 41-45, 5 yrs): Defense contracting alongside pension.
+//     - Year 1-2: $200k contracting income.
+//     - Year 3-5: $250k contracting income.
+//     - Lifestyle target: $150k/yr. Surplus saved into a contracting pool (taxable, 7%).
+//     - Original portfolio: completely untouched, compounding at 7%.
 //
-// At 65 (5.5 years after 59.5), the portfolio is projected continuing the same SWR.
+//   Phase 2 (Age 46-52, 7 yrs): Contracting ends. Live on pension + contracting pool draw.
+//     - Pension ($62,954) covers base. Pool fills the gap to $150k ($87,046/yr draw).
+//     - Pool continues compounding at 7% on remaining balance.
+//     - Original portfolio: still completely untouched.
+//
+//   Phase 3 (Age 53-59.5, 6.5 yrs): Pool + accessible portfolio SWR fills $150k goal.
+//     - Combine remaining contracting pool with accessible portfolio for SWR base.
+//     - Locked portfolio still compounding untouched.
+//
+//   At 59.5: Everything unlocks. New SWR on full combined portfolio.
+
+function contractingBridgeSim(exitRow, pension) {
+  const lifestyle   = 150000;
+  const gapNeeded   = lifestyle - pension;           // $87,046/yr needed beyond pension
+  const contracting = [200000, 200000, 250000, 250000, 250000]; // ages 41-45
+
+  // Phase 1: contracting years, build pool
+  const phase1 = [];
+  let pool = 0;
+  contracting.forEach((cIncome, i) => {
+    const age       = exitRow.age + i;
+    const total     = pension + cIncome;
+    const saved     = total - lifestyle;
+    pool            = (pool + saved) * GROWTH;
+    phase1.push({ age, cIncome, total, saved, poolEnd: Math.round(pool) });
+  });
+  const poolAt46 = Math.round(pool);
+
+  // Phase 2: post-contracting, draw from pool (ages 46-52, 7 years)
+  const phase2 = [];
+  for (let i = 0; i < 7; i++) {
+    const age = 46 + i;
+    pool      = pool * GROWTH - gapNeeded;
+    phase2.push({ age, poolEnd: Math.round(pool) });
+  }
+  const poolAt53 = Math.round(Math.max(0, pool));
+
+  // Phase 3: original portfolio has been compounding untouched for 12 years (age 41 to 53)
+  const yrsToAge53  = 12;
+  const accAt53     = Math.round(exitRow.acc * Math.pow(GROWTH, yrsToAge53));
+  const lkdAt53     = Math.round(exitRow.lkd * Math.pow(GROWTH, yrsToAge53));
+  const portAt53    = accAt53 + lkdAt53;
+
+  // Accessible pool at 53 = compounded portfolio accessible + remaining contracting pool
+  const totalAcc53  = accAt53 + poolAt53;
+  const swr53       = Math.round(totalAcc53 * 0.04);
+  const inc53       = pension + swr53;
+
+  // Phase 3 bridge: age 53 to 59.5 (6.5 years)
+  // Draw gapNeeded/yr from accessible combined pool; locked still compounds untouched
+  let acc = totalAcc53;
+  let lkd = lkdAt53;
+  const bridgeDraw  = gapNeeded;
+  const phase3Yrs   = 6;
+  const phase3Frac  = 0.5;
+
+  for (let i = 0; i < phase3Yrs; i++) {
+    acc = acc * GROWTH - bridgeDraw;
+    lkd = lkd * GROWTH;
+  }
+  acc = acc * Math.pow(GROWTH, phase3Frac) - bridgeDraw * phase3Frac;
+  lkd = lkd * Math.pow(GROWTH, phase3Frac);
+
+  const accAt59   = Math.round(Math.max(0, acc));
+  const lkdAt59   = Math.round(lkd);
+  const totAt59   = accAt59 + lkdAt59;
+  const swr59     = Math.round(totAt59 * 0.04);
+  const inc59     = pension + swr59;
+
+  // Age 65: 5.5 years of continued SWR from 59.5
+  let p65 = totAt59;
+  for (let i = 0; i < 5; i++) p65 = p65 * GROWTH - swr59;
+  p65 = Math.round(p65 * Math.pow(GROWTH, 0.5) - swr59 * 0.5);
+  p65 = Math.max(0, p65);
+
+  return {
+    lifestyle, gapNeeded,
+    phase1, poolAt46,
+    phase2, poolAt53,
+    accAt53, lkdAt53, portAt53, totalAcc53,
+    swr53, inc53,
+    accAt59, lkdAt59, totAt59,
+    swr59, inc59,
+    p65, inc65: pension + Math.round(p65 * 0.04)
+  };
+}
+
+// ─── SCENARIO B: STANDARD SWR BRIDGE ─────────────────────────────────────
+// Scenario B uses a standard 4% SWR on the accessible pool during the bridge.
 
 function bridgeSim(exitRow, pension) {
-  const bridgeYrs  = 59.5 - exitRow.age;
-  const acc0       = exitRow.acc;
-  const lkd0       = exitRow.lkd;
-  const annDraw    = Math.round(acc0 * 0.04);    // 4% SWR on accessible only
+  const bridgeYrs = 59.5 - exitRow.age;
+  const acc0      = exitRow.acc;
+  const lkd0      = exitRow.lkd;
+  const annDraw   = Math.round(acc0 * 0.04);
 
   let acc = acc0;
   let lkd = lkd0;
@@ -986,17 +1072,15 @@ function bridgeSim(exitRow, pension) {
     acc = acc * GROWTH - annDraw;
     lkd = lkd * GROWTH;
   }
-  // Partial final year
   acc = acc * Math.pow(GROWTH, fracYr) - annDraw * fracYr;
   lkd = lkd * Math.pow(GROWTH, fracYr);
 
-  const accAt59  = Math.round(Math.max(0, acc));
-  const lkdAt59  = Math.round(lkd);
-  const totAt59  = accAt59 + lkdAt59;
-  const swr59    = Math.round(totAt59 * 0.04);
-  const inc59    = pension + swr59;
+  const accAt59 = Math.round(Math.max(0, acc));
+  const lkdAt59 = Math.round(lkd);
+  const totAt59 = accAt59 + lkdAt59;
+  const swr59   = Math.round(totAt59 * 0.04);
+  const inc59   = pension + swr59;
 
-  // Age 65: 5.5 years of continued SWR from 59.5 baseline
   let p65 = totAt59;
   for (let i = 0; i < 5; i++) p65 = p65 * GROWTH - swr59;
   p65 = Math.round(p65 * Math.pow(GROWTH, 0.5) - swr59 * 0.5);
@@ -1005,20 +1089,19 @@ function bridgeSim(exitRow, pension) {
   return {
     acc0, lkd0, bridgeYrs,
     annDraw,
-    preIncome:  pension + annDraw,
+    preIncome: pension + annDraw,
     accAt59, lkdAt59, totAt59,
     swr59, inc59,
-    p65,
-    inc65: pension + Math.round(p65 * 0.04)
+    p65, inc65: pension + Math.round(p65 * 0.04)
   };
 }
 
-const pension20  = Math.round(157384.80 * 0.40);  // 40% of O-6 base at 20 yrs (BRS)
-const pension25  = Math.round(201812.4  * 0.50);  // 50% of O-7 base at 25 yrs (BRS)
-const exit20     = projection[19];
-const exit25     = projection[24];
-const bridge20   = bridgeSim(exit20, pension20);
-const bridge25   = bridgeSim(exit25, pension25);
+const pension20    = Math.round(157384.80 * 0.40);  // 40% of O-6 base at 20 yrs (BRS)
+const pension25    = Math.round(201812.4  * 0.50);  // 50% of O-7 base at 25 yrs (BRS)
+const exit20       = projection[19];
+const exit25       = projection[24];
+const contracting20 = contractingBridgeSim(exit20, pension20);
+const bridge25      = bridgeSim(exit25, pension25);
 
 // Keep legacy variable names for chart/hero compatibility
 const port20 = exit20.portfolio;
@@ -1252,98 +1335,187 @@ function renderTable() {
 function renderRetirement() {
   const grid = document.getElementById('ret-grid');
 
-  const scenarios = [
-    {
-      label:"SCENARIO A", title:"20-Year Retirement", color:"#30d158",
-      exit: exit20, pension: pension20, bridge: bridge20,
-      pensionPct:"40%", rank:"O-6", rankName:"Colonel",
-      desc:"Retire at 41 with an immediate Army pension and a diversified investment portfolio. The accessible portion (taxable + Roth IRA contributions) sustains income through the bridge period. Locked accounts compound untouched for 18.5 years, producing a dramatic income step-up at 59.5."
-    },
-    {
-      label:"SCENARIO B", title:"25-Year Retirement", color:"#60a5fa",
-      exit: exit25, pension: pension25, bridge: bridge25,
-      pensionPct:"50%", rank:"O-7", rankName:"Brigadier General",
-      desc:"Five more years yields O-7 retirement, a 50% pension, and a substantially larger portfolio. The accessible pool nearly doubles versus Scenario A, reducing bridge period risk. The income step-up at 59.5 is even more pronounced."
-    }
-  ];
+  // ── SCENARIO A: CONTRACTING BRIDGE CARD ──────────────────────────────────
+  const c = contracting20;
+  const ex20 = exit20;
+  const iraEarnings20 = ex20.rIRA - ex20.rIRABasis;
+  const colorA = '#30d158';
 
-  scenarios.forEach(s => {
-    const { exit: ex, bridge: b, color } = s;
-    const div = document.createElement('div');
-    div.className = 'ret-card fade-in';
-    div.style.border = `1px solid ${color}22`;
-    div.style.borderTop = `3px solid ${color}`;
+  const divA = document.createElement('div');
+  divA.className = 'ret-card fade-in';
+  divA.style.border = `1px solid ${colorA}22`;
+  divA.style.borderTop = `3px solid ${colorA}`;
+  divA.innerHTML = `
+    <div class="ret-label" style="color:${colorA}">SCENARIO A · O-6 · 40% PENSION + CONTRACTING</div>
+    <div class="ret-title">20-Year Retirement + Defense Contracting</div>
+    <p class="ret-desc">Retire at 41, contract for 5 years at $200-250k. The entire investment portfolio compounds completely untouched until age 53. No SWR until 53. Portfolio never touched during contracting or post-contracting phases.</p>
 
-    const iraEarnings = ex.rIRA - ex.rIRABasis;
+    <div class="ret-stats">
+      <div class="ret-stat"><div class="ret-stat-label">MILITARY RETIREMENT</div><div class="ret-stat-val">Age 41</div></div>
+      <div class="ret-stat"><div class="ret-stat-label">CONTRACTING ENDS</div><div class="ret-stat-val">Age 45</div></div>
+      <div class="ret-stat"><div class="ret-stat-label">PORTFOLIO AT EXIT</div><div class="ret-stat-val" style="color:${colorA}">${fmtM(ex20.portfolio)}</div></div>
+      <div class="ret-stat"><div class="ret-stat-label">ARMY PENSION</div><div class="ret-stat-val">${fmt(pension20)}/yr</div></div>
+    </div>
 
-    div.innerHTML = `
-      <div class="ret-label" style="color:${color}">${s.label} · ${s.rank} · ${s.pensionPct} PENSION</div>
-      <div class="ret-title">${s.title}</div>
-      <p class="ret-desc">${s.desc}</p>
-
-      <div class="ret-stats">
-        <div class="ret-stat"><div class="ret-stat-label">RETIREMENT AGE</div><div class="ret-stat-val">${ex.age}</div></div>
-        <div class="ret-stat"><div class="ret-stat-label">CALENDAR YEAR</div><div class="ret-stat-val">${ex.calYear}</div></div>
-        <div class="ret-stat"><div class="ret-stat-label">TOTAL PORTFOLIO</div><div class="ret-stat-val" style="color:${color}">${fmtM(ex.portfolio)}</div></div>
-        <div class="ret-stat"><div class="ret-stat-label">ARMY PENSION</div><div class="ret-stat-val">${fmt(s.pension)}/yr</div></div>
+    <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(30,58,95,0.5);">
+      <div class="ret-income-label" style="margin-bottom:10px;">ACCOUNT BREAKDOWN AT MILITARY EXIT (AGE 41)</div>
+      <div class="ret-income-row"><span>Taxable Brokerage</span><span>${fmt(ex20.taxable)} <span style="font-family:'DM Mono',monospace;font-size:9px;color:#30d158;border:1px solid rgba(48,209,88,0.3);padding:1px 5px;border-radius:3px;">ACCESSIBLE</span></span></div>
+      <div class="ret-income-row"><span>Roth IRA contributions (basis)</span><span>${fmt(ex20.rIRABasis)} <span style="font-family:'DM Mono',monospace;font-size:9px;color:#30d158;border:1px solid rgba(48,209,88,0.3);padding:1px 5px;border-radius:3px;">ACCESSIBLE</span></span></div>
+      <div class="ret-income-row"><span>Roth IRA earnings</span><span>${fmt(iraEarnings20)} <span style="font-family:'DM Mono',monospace;font-size:9px;color:#ef4444;border:1px solid rgba(239,68,68,0.3);padding:1px 5px;border-radius:3px;">LOCKED</span></span></div>
+      <div class="ret-income-row"><span>Roth TSP (employee)</span><span>${fmtM(ex20.rTSP)} <span style="font-family:'DM Mono',monospace;font-size:9px;color:#ef4444;border:1px solid rgba(239,68,68,0.3);padding:1px 5px;border-radius:3px;">LOCKED</span></span></div>
+      <div class="ret-income-row"><span>Traditional TSP (army match)</span><span>${fmtM(ex20.tTSP)} <span style="font-family:'DM Mono',monospace;font-size:9px;color:#ef4444;border:1px solid rgba(239,68,68,0.3);padding:1px 5px;border-radius:3px;">LOCKED · TAXABLE</span></span></div>
+      <div style="display:flex;justify-content:space-between;border-top:1px solid rgba(30,58,95,0.4);margin-top:8px;padding-top:8px;">
+        <span style="font-family:'DM Mono',monospace;font-size:11px;color:#30d158;">ACCESSIBLE TOTAL</span>
+        <span style="font-family:'DM Mono',monospace;font-size:11px;color:#30d158;font-weight:700;">${fmtM(ex20.acc)}</span>
       </div>
-
-      <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(30,58,95,0.5);">
-        <div class="ret-income-label" style="margin-bottom:10px;">ACCOUNT BREAKDOWN AT EXIT</div>
-        <div class="ret-income-row"><span>Taxable Brokerage</span><span>${fmt(ex.taxable)} <span style="font-family:'DM Mono',monospace;font-size:9px;color:#30d158;border:1px solid rgba(48,209,88,0.3);padding:1px 5px;border-radius:3px;">ACCESSIBLE</span></span></div>
-        <div class="ret-income-row"><span>Roth IRA contributions (basis)</span><span>${fmt(ex.rIRABasis)} <span style="font-family:'DM Mono',monospace;font-size:9px;color:#30d158;border:1px solid rgba(48,209,88,0.3);padding:1px 5px;border-radius:3px;">ACCESSIBLE</span></span></div>
-        <div class="ret-income-row" style="margin-top:4px;"><span>Roth IRA earnings</span><span>${fmt(iraEarnings)} <span style="font-family:'DM Mono',monospace;font-size:9px;color:#ef4444;border:1px solid rgba(239,68,68,0.3);padding:1px 5px;border-radius:3px;">LOCKED</span></span></div>
-        <div class="ret-income-row"><span>Roth TSP (employee)</span><span>${fmtM(ex.rTSP)} <span style="font-family:'DM Mono',monospace;font-size:9px;color:#ef4444;border:1px solid rgba(239,68,68,0.3);padding:1px 5px;border-radius:3px;">LOCKED</span></span></div>
-        <div class="ret-income-row"><span>Traditional TSP (army match)</span><span>${fmtM(ex.tTSP)} <span style="font-family:'DM Mono',monospace;font-size:9px;color:#ef4444;border:1px solid rgba(239,68,68,0.3);padding:1px 5px;border-radius:3px;">LOCKED · TAXABLE</span></span></div>
-        <div style="display:flex;justify-content:space-between;border-top:1px solid rgba(30,58,95,0.4);margin-top:8px;padding-top:8px;">
-          <span style="font-family:'DM Mono',monospace;font-size:11px;color:#30d158;">ACCESSIBLE TOTAL</span>
-          <span style="font-family:'DM Mono',monospace;font-size:11px;color:#30d158;font-weight:700;">${fmtM(ex.acc)}</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;margin-top:4px;">
-          <span style="font-family:'DM Mono',monospace;font-size:11px;color:#ef4444;">LOCKED TOTAL</span>
-          <span style="font-family:'DM Mono',monospace;font-size:11px;color:#ef4444;font-weight:700;">${fmtM(ex.lkd)}</span>
-        </div>
+      <div style="display:flex;justify-content:space-between;margin-top:4px;">
+        <span style="font-family:'DM Mono',monospace;font-size:11px;color:#ef4444;">LOCKED TOTAL</span>
+        <span style="font-family:'DM Mono',monospace;font-size:11px;color:#ef4444;font-weight:700;">${fmtM(ex20.lkd)}</span>
       </div>
+    </div>
 
-      <div class="ret-income" style="margin-top:16px;">
-        <div class="ret-income-label">BRIDGE PERIOD · AGE ${ex.age} TO 59.5 · ${Math.round(b.bridgeYrs * 10) / 10} YEARS</div>
-        <div class="ret-income-row"><span>Army pension (lifetime, COLA-adjusted)</span><span>${fmt(s.pension)}/yr</span></div>
-        <div class="ret-income-row"><span>Accessible SWR (4% of ${fmtM(ex.acc)})</span><span>${fmt(b.annDraw)}/yr</span></div>
-        <div class="ret-total">
-          <span class="ret-total-label" style="color:${color}">TOTAL INCOME (AGE ${ex.age}–59)</span>
-          <span class="ret-total-val" style="color:${color}">${fmt(b.preIncome)}/yr</span>
-        </div>
+    <div class="ret-income" style="margin-top:16px;">
+      <div class="ret-income-label">PHASE 1 · CONTRACTING · AGE 41-45 · LIFESTYLE $150K</div>
+      <div class="ret-income-row"><span>Pension</span><span>${fmt(pension20)}/yr</span></div>
+      <div class="ret-income-row"><span>Contracting Yr 1-2</span><span>$200,000/yr</span></div>
+      <div class="ret-income-row"><span>Contracting Yr 3-5</span><span>$250,000/yr</span></div>
+      <div class="ret-income-row"><span>Annual surplus saved into pool (7%)</span><span>${fmt(c.phase1[0].saved)} / ${fmt(c.phase1[2].saved)}</span></div>
+      <div class="ret-total" style="margin-top:8px;">
+        <span class="ret-total-label" style="color:${colorA}">CONTRACTING POOL AT AGE 46</span>
+        <span class="ret-total-val" style="color:${colorA}">${fmt(c.poolAt46)}</span>
       </div>
+    </div>
 
-      <div style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(30,58,95,0.5);">
-        <div class="ret-income-label" style="margin-bottom:10px;">AT AGE 59.5 · ALL ACCOUNTS UNLOCK</div>
-        <div class="ret-income-row"><span>Accessible (drawn down during bridge)</span><span>${fmtM(b.accAt59)}</span></div>
-        <div class="ret-income-row"><span>Locked accounts (compounded ${Math.round(b.bridgeYrs * 10) / 10} yrs untouched)</span><span style="color:#60a5fa;font-weight:600;">${fmtM(b.lkdAt59)}</span></div>
-        <div style="display:flex;justify-content:space-between;border-top:1px solid rgba(30,58,95,0.4);margin-top:8px;padding-top:8px;">
-          <span style="font-family:'DM Mono',monospace;font-size:11px;color:#f0f6fc;">TOTAL PORTFOLIO AT 59.5</span>
-          <span style="font-family:'DM Mono',monospace;font-size:14px;color:#f0f6fc;font-weight:700;">${fmtM(b.totAt59)}</span>
-        </div>
-        <div class="ret-income-row" style="margin-top:10px;"><span>New SWR (4% of ${fmtM(b.totAt59)})</span><span>${fmt(b.swr59)}/yr</span></div>
-        <div class="ret-income-row"><span>Army pension (continues)</span><span>${fmt(s.pension)}/yr</span></div>
-        <div class="ret-total" style="margin-top:4px;">
-          <span class="ret-total-label" style="color:${color}">TOTAL INCOME AT 59.5+</span>
-          <span class="ret-total-val" style="color:${color}">${fmt(b.inc59)}/yr</span>
-        </div>
+    <div class="ret-income" style="margin-top:16px;">
+      <div class="ret-income-label">PHASE 2 · POST-CONTRACTING · AGE 46-52 · PORTFOLIO UNTOUCHED</div>
+      <div class="ret-income-row"><span>Pension</span><span>${fmt(pension20)}/yr</span></div>
+      <div class="ret-income-row"><span>Draw from contracting pool</span><span>${fmt(c.gapNeeded)}/yr</span></div>
+      <div class="ret-income-row"><span>Pool at end of phase (age 52)</span><span>${fmt(c.phase2[c.phase2.length-1].poolEnd)}</span></div>
+      <div class="ret-total" style="margin-top:8px;">
+        <span class="ret-total-label" style="color:${colorA}">TOTAL INCOME AGE 46-52</span>
+        <span class="ret-total-val" style="color:${colorA}">$150,000/yr</span>
       </div>
+    </div>
 
-      <div class="ret-65" style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(30,58,95,0.2);">
-        <div>
-          <div class="ret-65-label" style="color:#e2c77b;">PORTFOLIO AT AGE 65</div>
-          <div class="ret-65-sub">continued 4% SWR for 5.5 yrs from 59.5</div>
-        </div>
-        <div style="text-align:right;">
-          <div class="ret-65-val" style="color:#e2c77b;">${fmtM(b.p65)}</div>
-          <div style="font-size:11px;color:#64748b;margin-top:2px;">${fmt(b.inc65)}/yr income</div>
-        </div>
-      </div>`;
+    <div class="ret-income" style="margin-top:16px;">
+      <div class="ret-income-label">AGE 53 · ORIGINAL PORTFOLIO UNTOUCHED FOR 12 YEARS</div>
+      <div class="ret-income-row"><span>Original portfolio compounded 12 yrs</span><span style="color:#60a5fa;font-weight:600;">${fmtM(c.portAt53)}</span></div>
+      <div class="ret-income-row"><span>Accessible portion</span><span>${fmtM(c.accAt53)}</span></div>
+      <div class="ret-income-row"><span>Remaining contracting pool</span><span>${fmt(c.poolAt53)}</span></div>
+      <div class="ret-income-row"><span>Combined accessible at 53</span><span>${fmtM(c.totalAcc53)}</span></div>
+      <div class="ret-income-row"><span>4% SWR on combined accessible</span><span>${fmt(c.swr53)}/yr</span></div>
+      <div class="ret-total" style="margin-top:8px;">
+        <span class="ret-total-label" style="color:${colorA}">TOTAL INCOME FROM AGE 53</span>
+        <span class="ret-total-val" style="color:${colorA}">${fmt(c.inc53)}/yr</span>
+      </div>
+    </div>
 
-    grid.appendChild(div);
-  });
+    <div style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(30,58,95,0.5);">
+      <div class="ret-income-label" style="margin-bottom:10px;">AT AGE 59.5 · ALL ACCOUNTS UNLOCK</div>
+      <div class="ret-income-row"><span>Accessible pool (after 6.5 yr SWR from 53)</span><span>${fmtM(c.accAt59)}</span></div>
+      <div class="ret-income-row"><span>Locked accounts (compounded 18.5 yrs untouched)</span><span style="color:#60a5fa;font-weight:600;">${fmtM(c.lkdAt59)}</span></div>
+      <div style="display:flex;justify-content:space-between;border-top:1px solid rgba(30,58,95,0.4);margin-top:8px;padding-top:8px;">
+        <span style="font-family:'DM Mono',monospace;font-size:11px;color:#f0f6fc;">TOTAL PORTFOLIO AT 59.5</span>
+        <span style="font-family:'DM Mono',monospace;font-size:14px;color:#f0f6fc;font-weight:700;">${fmtM(c.totAt59)}</span>
+      </div>
+      <div class="ret-income-row" style="margin-top:10px;"><span>New SWR (4% of ${fmtM(c.totAt59)})</span><span>${fmt(c.swr59)}/yr</span></div>
+      <div class="ret-income-row"><span>Army pension (continues)</span><span>${fmt(pension20)}/yr</span></div>
+      <div class="ret-total" style="margin-top:4px;">
+        <span class="ret-total-label" style="color:${colorA}">TOTAL INCOME AT 59.5+</span>
+        <span class="ret-total-val" style="color:${colorA}">${fmt(c.inc59)}/yr</span>
+      </div>
+    </div>
+
+    <div class="ret-65" style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(30,58,95,0.2);">
+      <div>
+        <div class="ret-65-label" style="color:#e2c77b;">PORTFOLIO AT AGE 65</div>
+        <div class="ret-65-sub">continued 4% SWR for 5.5 yrs from 59.5</div>
+      </div>
+      <div style="text-align:right;">
+        <div class="ret-65-val" style="color:#e2c77b;">${fmtM(c.p65)}</div>
+        <div style="font-size:11px;color:#64748b;margin-top:2px;">${fmt(c.inc65)}/yr income</div>
+      </div>
+    </div>`;
+
+  grid.appendChild(divA);
+
+  // ── SCENARIO B: STANDARD BRIDGE CARD ─────────────────────────────────────
+  const b = bridge25;
+  const ex25 = exit25;
+  const iraEarnings25 = ex25.rIRA - ex25.rIRABasis;
+  const colorB = '#60a5fa';
+
+  const divB = document.createElement('div');
+  divB.className = 'ret-card fade-in';
+  divB.style.border = `1px solid ${colorB}22`;
+  divB.style.borderTop = `3px solid ${colorB}`;
+  divB.innerHTML = `
+    <div class="ret-label" style="color:${colorB}">SCENARIO B · O-7 · 50% PENSION</div>
+    <div class="ret-title">25-Year Retirement</div>
+    <p class="ret-desc">Five more years yields O-7 retirement, a 50% pension, and a substantially larger portfolio. The accessible pool nearly doubles versus Scenario A at exit. Standard SWR bridge to 59.5.</p>
+
+    <div class="ret-stats">
+      <div class="ret-stat"><div class="ret-stat-label">RETIREMENT AGE</div><div class="ret-stat-val">${ex25.age}</div></div>
+      <div class="ret-stat"><div class="ret-stat-label">CALENDAR YEAR</div><div class="ret-stat-val">${ex25.calYear}</div></div>
+      <div class="ret-stat"><div class="ret-stat-label">TOTAL PORTFOLIO</div><div class="ret-stat-val" style="color:${colorB}">${fmtM(ex25.portfolio)}</div></div>
+      <div class="ret-stat"><div class="ret-stat-label">ARMY PENSION</div><div class="ret-stat-val">${fmt(pension25)}/yr</div></div>
+    </div>
+
+    <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(30,58,95,0.5);">
+      <div class="ret-income-label" style="margin-bottom:10px;">ACCOUNT BREAKDOWN AT EXIT</div>
+      <div class="ret-income-row"><span>Taxable Brokerage</span><span>${fmt(ex25.taxable)} <span style="font-family:'DM Mono',monospace;font-size:9px;color:#30d158;border:1px solid rgba(48,209,88,0.3);padding:1px 5px;border-radius:3px;">ACCESSIBLE</span></span></div>
+      <div class="ret-income-row"><span>Roth IRA contributions (basis)</span><span>${fmt(ex25.rIRABasis)} <span style="font-family:'DM Mono',monospace;font-size:9px;color:#30d158;border:1px solid rgba(48,209,88,0.3);padding:1px 5px;border-radius:3px;">ACCESSIBLE</span></span></div>
+      <div class="ret-income-row"><span>Roth IRA earnings</span><span>${fmt(iraEarnings25)} <span style="font-family:'DM Mono',monospace;font-size:9px;color:#ef4444;border:1px solid rgba(239,68,68,0.3);padding:1px 5px;border-radius:3px;">LOCKED</span></span></div>
+      <div class="ret-income-row"><span>Roth TSP (employee)</span><span>${fmtM(ex25.rTSP)} <span style="font-family:'DM Mono',monospace;font-size:9px;color:#ef4444;border:1px solid rgba(239,68,68,0.3);padding:1px 5px;border-radius:3px;">LOCKED</span></span></div>
+      <div class="ret-income-row"><span>Traditional TSP (army match)</span><span>${fmtM(ex25.tTSP)} <span style="font-family:'DM Mono',monospace;font-size:9px;color:#ef4444;border:1px solid rgba(239,68,68,0.3);padding:1px 5px;border-radius:3px;">LOCKED · TAXABLE</span></span></div>
+      <div style="display:flex;justify-content:space-between;border-top:1px solid rgba(30,58,95,0.4);margin-top:8px;padding-top:8px;">
+        <span style="font-family:'DM Mono',monospace;font-size:11px;color:#30d158;">ACCESSIBLE TOTAL</span>
+        <span style="font-family:'DM Mono',monospace;font-size:11px;color:#30d158;font-weight:700;">${fmtM(ex25.acc)}</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;margin-top:4px;">
+        <span style="font-family:'DM Mono',monospace;font-size:11px;color:#ef4444;">LOCKED TOTAL</span>
+        <span style="font-family:'DM Mono',monospace;font-size:11px;color:#ef4444;font-weight:700;">${fmtM(ex25.lkd)}</span>
+      </div>
+    </div>
+
+    <div class="ret-income" style="margin-top:16px;">
+      <div class="ret-income-label">BRIDGE PERIOD · AGE ${ex25.age} TO 59.5 · ${Math.round(b.bridgeYrs * 10) / 10} YEARS</div>
+      <div class="ret-income-row"><span>Army pension (lifetime, COLA-adjusted)</span><span>${fmt(pension25)}/yr</span></div>
+      <div class="ret-income-row"><span>Accessible SWR (4% of ${fmtM(ex25.acc)})</span><span>${fmt(b.annDraw)}/yr</span></div>
+      <div class="ret-total">
+        <span class="ret-total-label" style="color:${colorB}">TOTAL INCOME AGE 46-59</span>
+        <span class="ret-total-val" style="color:${colorB}">${fmt(b.preIncome)}/yr</span>
+      </div>
+    </div>
+
+    <div style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(30,58,95,0.5);">
+      <div class="ret-income-label" style="margin-bottom:10px;">AT AGE 59.5 · ALL ACCOUNTS UNLOCK</div>
+      <div class="ret-income-row"><span>Accessible (drawn down during bridge)</span><span>${fmtM(b.accAt59)}</span></div>
+      <div class="ret-income-row"><span>Locked accounts (compounded ${Math.round(b.bridgeYrs * 10) / 10} yrs untouched)</span><span style="color:#60a5fa;font-weight:600;">${fmtM(b.lkdAt59)}</span></div>
+      <div style="display:flex;justify-content:space-between;border-top:1px solid rgba(30,58,95,0.4);margin-top:8px;padding-top:8px;">
+        <span style="font-family:'DM Mono',monospace;font-size:11px;color:#f0f6fc;">TOTAL PORTFOLIO AT 59.5</span>
+        <span style="font-family:'DM Mono',monospace;font-size:14px;color:#f0f6fc;font-weight:700;">${fmtM(b.totAt59)}</span>
+      </div>
+      <div class="ret-income-row" style="margin-top:10px;"><span>New SWR (4% of ${fmtM(b.totAt59)})</span><span>${fmt(b.swr59)}/yr</span></div>
+      <div class="ret-income-row"><span>Army pension (continues)</span><span>${fmt(pension25)}/yr</span></div>
+      <div class="ret-total" style="margin-top:4px;">
+        <span class="ret-total-label" style="color:${colorB}">TOTAL INCOME AT 59.5+</span>
+        <span class="ret-total-val" style="color:${colorB}">${fmt(b.inc59)}/yr</span>
+      </div>
+    </div>
+
+    <div class="ret-65" style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(30,58,95,0.2);">
+      <div>
+        <div class="ret-65-label" style="color:#e2c77b;">PORTFOLIO AT AGE 65</div>
+        <div class="ret-65-sub">continued 4% SWR for 5.5 yrs from 59.5</div>
+      </div>
+      <div style="text-align:right;">
+        <div class="ret-65-val" style="color:#e2c77b;">${fmtM(b.p65)}</div>
+        <div style="font-size:11px;color:#64748b;margin-top:2px;">${fmt(b.inc65)}/yr income</div>
+      </div>
+    </div>`;
+
+  grid.appendChild(divB);
 }
 
 function renderGlossary() {
