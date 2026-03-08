@@ -310,6 +310,7 @@
     <a href="#oer" onclick="navTo(event,'oer')">OER</a>
     <a href="#languages" onclick="navTo(event,'languages')">LANGUAGES</a>
     <a href="#glossary" onclick="navTo(event,'glossary')">GLOSSARY</a>
+    <a href="#summary" onclick="navTo(event,'summary')">SUMMARY</a>
   </div>
 </nav>
 
@@ -781,6 +782,29 @@
   </div>
 </section>
 
+<section id="summary" style="background: linear-gradient(180deg, #050a12 0%, #060d1a 100%); padding: 100px 24px;">
+  <div class="section-inner">
+    <div class="section-header fade-in">
+      <div class="section-label">PLAN SUMMARY</div>
+      <h2 class="section-title">Everything at a Glance</h2>
+      <p class="section-sub">The full 30-year arc, from high school graduation to financial independence, condensed into one view.</p>
+    </div>
+
+    <div style="background:rgba(10,18,32,0.8);border:1px solid rgba(30,58,95,0.5);border-top:3px solid #60a5fa;border-radius:8px;padding:36px 40px;max-width:760px;margin:0 auto;" class="fade-in">
+      <p style="font-size:15px;color:#94a3b8;line-height:1.85;margin:0;">
+        I graduate from Crosby High School in May 2027 at age 17 with a Medical Certificate, an Associate's Degree, a 4.5+ GPA, a 1450 SAT, and a 90 ASVAB. College is fully funded: tuition covered by a 4-year National ROTC Scholarship, room by miscellaneous scholarships, food by my parents. I enter with sophomore-level credits and finish both a bachelor's and master's degree before commissioning.
+        <br><br>
+        In 2031, I commission as a Second Lieutenant in the U.S. Army, branched 35A Military Intelligence, at age 21. I report to BOLC at Fort Huachuca, earn my TS/SCI clearance, and begin investing immediately at a 40% savings rate across Roth TSP, Roth IRA, and a taxable brokerage. No student debt. Clean slate.
+        <br><br>
+        The early career runs through the S2 role as a Captain, which is the most critical key developmental position for 35A. A top-block OER there sets the trajectory for everything after. Mid-career brings promotion to Major, a joint assignment at NSA or DIA, two strategic language certifications, ILE, and selection for Lieutenant Colonel. The goal is MI Battalion command as an LTC, then Colonel and potential MI Brigade command as a senior officer.
+        <br><br>
+        The financial plan has two exits. Scenario A: retire at 20 years (age 41) at O-6 with a 40% pension, contract in defense for five years while the investment portfolio compounds completely untouched, then draw a 4% SWR from age 53 onward. Scenario B: stay to 25 years (age 46), retire as Brigadier General with a 50% pension and a portfolio exceeding $4M. In both cases, all accounts unlock at 59.5 and total income exceeds $200,000 per year. The wealth ceiling is $9M. The goal behind all of it is not the money — it's the freedom to spend the back half of life on faith, family, and peace.
+      </p>
+    </div>
+
+  </div>
+</section>
+
 <footer>
   <div class="footer-brand">MY U.S. ARMY OFFICER PLAN</div>
   <div class="footer-sub">Commission 2031 · 35A Intelligence Branch · All projections are estimates · Not financial advice</div>
@@ -1114,6 +1138,10 @@ const timelineEvents = [
     title:"ROTC Cadet",
     subtitle:"4 Years of Army Leadership Training · Targeting 35A Branch",
     detail:"Throughout college I train as an Army ROTC cadet: military science courses, field exercises, leadership labs, and summer training at Cadet Summer Training (CST). Cadets compete for branch assignments based on OML (Order of Merit List) standing. 35A (Intelligence) is a competitive branch. Strong academics, physical fitness, and extracurricular leadership improve OML standing. I also pursue language study during this period, targeting ILR 2 proficiency in a strategic language before graduation." },
+  { year:"2027–2031", age:17, phase:"foundation", color:"#e2c77b", icon:"💰",
+    title:"College Funding: Zero Out-of-Pocket",
+    subtitle:"ROTC Scholarship · Miscellaneous Scholarships · Parental Support",
+    detail:"College is fully funded without loans. Tuition and fees are covered by a 4-year National ROTC Scholarship, awarded competitively based on academics, fitness, and leadership. Room is covered by miscellaneous scholarships earned through academic performance and extracurriculars. Food is covered by my parents. The result: I commission at 21 with a bachelor's and master's degree, zero student debt, and a clean financial slate to begin aggressive investing from day one of service." },
   { year:"2031", age:21, phase:"commission", color:"#60a5fa", icon:"⭐",
     title:"Commissioned as 2LT · U.S. Army",
     subtitle:"Bachelor's + Master's Complete · Age 21 · Branch: 35A",
@@ -1839,7 +1867,7 @@ function navTo(e, id) {
 
 window.addEventListener('scroll', () => {
   document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
-  const sections = ['timeline','ranks','mos35a','oer','languages','finance','retirement','glossary'];
+  const sections = ['timeline','ranks','mos35a','oer','languages','finance','retirement','glossary','summary'];
   let current = '';
   sections.forEach(id => {
     const el = document.getElementById(id);
