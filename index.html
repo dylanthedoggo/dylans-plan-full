@@ -1,13 +1,1707 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My 30-Year Plan · U.S. Army Officer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@400;500&family=DM+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: #050a12; color: #c9d1d9; font-family: 'DM Sans', sans-serif; }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #050a12; }
+  ::-webkit-scrollbar-thumb { background: #1e3a5f; border-radius: 3px; }
+
+  .mono { font-family: 'DM Mono', monospace; }
+  .serif { font-family: 'Playfair Display', serif; }
+
+  .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; height: 56px;
+    padding: 0 32px; transition: all 0.3s ease;
+    border-bottom: 1px solid transparent;
+  }
+  nav.scrolled { background: rgba(5,10,18,0.95); backdrop-filter: blur(12px); border-bottom-color: rgba(96,165,250,0.15); }
+  nav .brand { font-family: 'DM Mono', monospace; font-size: 11px; color: #60a5fa; letter-spacing: 3px; margin-right: auto; }
+  nav .nav-links { display: flex; gap: 4px; flex-wrap: wrap; }
+  nav a {
+    padding: 6px 12px; font-family: 'DM Mono', monospace; font-size: 10px;
+    letter-spacing: 1.5px; color: #64748b; background: transparent;
+    border-radius: 4px; text-decoration: none; transition: all 0.2s;
+    border: 1px solid transparent;
+  }
+  nav a:hover, nav a.active { color: #f0f6fc; background: rgba(96,165,250,0.15); border-color: rgba(96,165,250,0.3); }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh; display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    padding: 80px 24px; text-align: center; position: relative; overflow: hidden;
+    background: radial-gradient(ellipse at 50% 30%, rgba(30,58,95,0.5) 0%, transparent 70%), #050a12;
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image: linear-gradient(rgba(30,58,95,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(30,58,95,0.15) 1px, transparent 1px);
+    background-size: 60px 60px;
+    -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  }
+  .hero-inner { position: relative; max-width: 800px; }
+  .hero-label { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 5px; color: #60a5fa; margin-bottom: 24px; opacity: 0.8; }
+  .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(42px,8vw,80px); font-weight: 700; color: #f0f6fc; margin-bottom: 16px; line-height: 1.1; letter-spacing: -1px; }
+  .hero-title span { color: #60a5fa; }
+  .hero-sub { font-size: 18px; color: #94a3b8; line-height: 1.7; max-width: 600px; margin: 0 auto 48px; }
+  .hero-stats { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 64px; }
+  .hero-stat { background: rgba(15,25,45,0.9); border: 1px solid rgba(96,165,250,0.25); border-radius: 8px; padding: 16px 24px; min-width: 140px; }
+  .hero-stat .stat-label { font-family: 'DM Mono', monospace; font-size: 10px; color: #60a5fa; letter-spacing: 2px; margin-bottom: 6px; }
+  .hero-stat .stat-value { font-family: 'Playfair Display', serif; font-size: 22px; color: #f0f6fc; font-weight: 700; }
+  .scroll-hint { display: flex; flex-direction: column; align-items: center; gap: 8px; color: #475569; font-family: 'DM Mono', monospace; font-size: 13px; }
+  .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, #475569, transparent); }
+
+  /* SECTIONS */
+  section { padding: 100px 24px; }
+  #timeline { background: #050a12; }
+  #ranks { background: linear-gradient(180deg, #050a12 0%, #060d1a 100%); }
+  #finance { background: #060d1a; }
+  #retirement { background: linear-gradient(180deg, #060d1a 0%, #050a12 100%); }
+  #mos35a { background: linear-gradient(180deg, #050a12 0%, #060d1a 100%); }
+  #oer { background: linear-gradient(180deg, #060d1a 0%, #070e1c 100%); }
+  #languages { background: #070e1c; }
+  #glossary { background: #050a12; }
+
+  .section-inner { max-width: 960px; margin: 0 auto; }
+  .section-inner.narrow { max-width: 760px; }
+  .section-inner.wide { max-width: 1100px; }
+
+  .section-header { text-align: center; margin-bottom: 64px; }
+  .section-label { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 4px; color: #60a5fa; margin-bottom: 12px; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(32px,5vw,52px); color: #f0f6fc; margin-bottom: 16px; font-weight: 700; }
+  .section-sub { color: #64748b; font-size: 16px; max-width: 560px; margin: 0 auto; line-height: 1.7; }
+
+  /* TIMELINE */
+  .timeline-wrap { position: relative; }
+  .timeline-line { position: absolute; left: 24px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, transparent, #1e3a5f 10%, #1e3a5f 90%, transparent); }
+  .tl-item { display: flex; gap: 32px; margin-bottom: 8px; }
+  .tl-dot-col { position: relative; flex-shrink: 0; width: 50px; display: flex; align-items: flex-start; padding-top: 20px; z-index: 1; }
+  .tl-dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid #050a12; margin-left: 17px; flex-shrink: 0; cursor: pointer; }
+  .tl-card { flex: 1; border-radius: 8px; padding: 18px 24px; cursor: pointer; transition: all 0.25s ease; margin-bottom: 8px; background: rgba(10,18,32,0.6); border: 1px solid rgba(30,58,95,0.4); }
+  .tl-card.open { background: rgba(15,25,45,0.95); }
+  .tl-card-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .tl-icon { font-size: 20px; }
+  .tl-meta { flex: 1; }
+  .tl-tags { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 4px; }
+  .tl-date { font-family: 'DM Mono', monospace; font-size: 10px; color: #475569; letter-spacing: 2px; }
+  .tl-phase { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 1px; }
+  .tl-title { font-family: 'Playfair Display', serif; font-size: 18px; color: #f0f6fc; font-weight: 600; margin-bottom: 2px; }
+  .tl-subtitle { font-size: 13px; color: #64748b; }
+  .tl-chevron { font-family: 'DM Mono', monospace; font-size: 12px; color: #475569; }
+  .tl-detail { margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(30,58,95,0.5); font-size: 14px; color: #94a3b8; line-height: 1.75; display: none; }
+  .tl-card.open .tl-detail { display: block; }
+
+  /* RANKS */
+  .rank-list { display: grid; gap: 12px; }
+  .rank-row { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; background: rgba(10,18,32,0.8); border: 1px solid rgba(30,58,95,0.4); border-radius: 8px; padding: 20px 28px; }
+  .rank-grade-col { text-align: center; min-width: 60px; }
+  .rank-grade { font-family: 'DM Mono', monospace; font-size: 18px; font-weight: 700; }
+  .rank-abbr { font-family: 'DM Mono', monospace; font-size: 10px; color: #475569; margin-top: 2px; }
+  .rank-info { flex: 1; min-width: 160px; }
+  .rank-title-el { font-family: 'Playfair Display', serif; font-size: 17px; color: #f0f6fc; margin-bottom: 4px; }
+  .rank-desc { font-size: 13px; color: #64748b; line-height: 1.6; }
+  .rank-pay-cols { display: flex; gap: 24px; flex-shrink: 0; flex-wrap: wrap; justify-content: flex-end; }
+  .rank-pay-col { text-align: right; }
+  .pay-label { font-family: 'DM Mono', monospace; font-size: 9px; color: #475569; letter-spacing: 1px; }
+  .pay-value { font-family: 'DM Mono', monospace; font-size: 12px; color: #94a3b8; margin-top: 3px; }
+  .pay-value.total { font-size: 13px; font-weight: 700; }
+
+  .pay-cards { margin-top: 48px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 16px; }
+  .pay-card { background: rgba(10,18,32,0.6); border: 1px solid rgba(30,58,95,0.4); border-top: 2px solid #60a5fa; border-radius: 8px; padding: 20px; }
+  .pay-card-label { font-family: 'DM Mono', monospace; font-size: 11px; color: #60a5fa; letter-spacing: 2px; margin-bottom: 8px; }
+  .pay-card-desc { font-size: 13px; color: #64748b; line-height: 1.65; }
+
+
+  /* 35A SECTION */
+  .mos-header { display: flex; align-items: flex-start; gap: 32px; margin-bottom: 48px; flex-wrap: wrap; }
+  .mos-badge { background: rgba(15,25,45,0.9); border: 1px solid rgba(96,165,250,0.3); border-top: 3px solid #60a5fa; border-radius: 8px; padding: 24px 32px; text-align: center; flex-shrink: 0; min-width: 160px; }
+  .mos-code { font-family: 'DM Mono', monospace; font-size: 48px; font-weight: 700; color: #60a5fa; line-height: 1; }
+  .mos-branch { font-family: 'DM Mono', monospace; font-size: 10px; color: #475569; letter-spacing: 2px; margin-top: 8px; }
+  .mos-intro { flex: 1; min-width: 240px; }
+  .mos-intro h3 { font-family: 'Playfair Display', serif; font-size: 26px; color: #f0f6fc; margin-bottom: 12px; }
+  .mos-intro p { font-size: 15px; color: #94a3b8; line-height: 1.75; }
+  .mos-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 16px; margin-bottom: 32px; }
+  .mos-card { background: rgba(5,10,18,0.8); border: 1px solid rgba(30,58,95,0.4); border-left: 3px solid #60a5fa; border-radius: 6px; padding: 20px 24px; }
+  .mos-card-label { font-family: 'DM Mono', monospace; font-size: 10px; color: #60a5fa; letter-spacing: 2px; margin-bottom: 12px; }
+  .mos-card-item { font-size: 13px; color: #94a3b8; margin-bottom: 7px; padding-left: 12px; position: relative; line-height: 1.55; }
+  .mos-card-item::before { content: '·'; position: absolute; left: 0; color: #1e3a5f; }
+  .mos-card-item.highlight { color: #60a5fa; }
+  .clearance-banner { display: flex; align-items: center; gap: 20px; background: rgba(239,68,68,0.07); border: 1px solid rgba(239,68,68,0.25); border-radius: 8px; padding: 18px 24px; margin-bottom: 32px; flex-wrap: wrap; }
+  .clearance-badge { font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 700; color: #ef4444; letter-spacing: 3px; border: 1px solid rgba(239,68,68,0.4); padding: 6px 14px; flex-shrink: 0; }
+  .clearance-text { font-size: 13px; color: #94a3b8; line-height: 1.6; flex: 1; }
+  .progression-track { display: flex; flex-direction: column; gap: 0; }
+  .prog-row { display: flex; gap: 20px; align-items: flex-start; padding: 16px 0; border-bottom: 1px solid rgba(30,58,95,0.25); }
+  .prog-row:last-child { border-bottom: none; }
+  .prog-rank { font-family: 'DM Mono', monospace; font-size: 11px; color: #60a5fa; width: 80px; flex-shrink: 0; padding-top: 2px; }
+  .prog-role { font-family: 'Playfair Display', serif; font-size: 15px; color: #f0f6fc; margin-bottom: 4px; }
+  .prog-desc { font-size: 13px; color: #64748b; line-height: 1.55; }
+
+  /* OER SECTION */
+  .oer-intro { background: rgba(5,10,18,0.8); border: 1px solid rgba(30,58,95,0.4); border-radius: 8px; padding: 28px; margin-bottom: 32px; }
+  .oer-intro p { font-size: 14px; color: #94a3b8; line-height: 1.8; }
+  .oer-ratings { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap: 12px; margin-bottom: 32px; }
+  .oer-rating-box { border-radius: 6px; padding: 16px 18px; border: 1px solid; text-align: center; }
+  .oer-rating-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2px; margin-bottom: 6px; }
+  .oer-rating-pct { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+  .oer-rating-desc { font-size: 11px; color: #64748b; line-height: 1.5; }
+  .oer-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .oer-block { background: rgba(5,10,18,0.8); border: 1px solid rgba(30,58,95,0.4); border-radius: 8px; padding: 24px; }
+  .oer-block-label { font-family: 'DM Mono', monospace; font-size: 10px; color: #60a5fa; letter-spacing: 2px; margin-bottom: 16px; }
+  .oer-item { font-size: 13px; color: #94a3b8; padding: 9px 0; border-bottom: 1px solid rgba(30,58,95,0.2); line-height: 1.55; display: flex; gap: 12px; }
+  .oer-item:last-child { border-bottom: none; }
+  .oer-item-dot { color: #60a5fa; flex-shrink: 0; }
+  .oer-board-box { background: rgba(239,68,68,0.05); border: 1px solid rgba(239,68,68,0.2); border-radius: 8px; padding: 24px; margin-top: 24px; }
+  .oer-board-label { font-family: 'DM Mono', monospace; font-size: 10px; color: #ef4444; letter-spacing: 2px; margin-bottom: 16px; }
+  .oer-board-item { font-size: 13px; color: #94a3b8; padding: 8px 0; border-bottom: 1px solid rgba(239,68,68,0.1); display: flex; gap: 10px; align-items: flex-start; }
+  .oer-board-item:last-child { border-bottom: none; }
+  .oer-board-num { font-family: 'DM Mono', monospace; font-size: 11px; color: #ef4444; flex-shrink: 0; width: 20px; }
+
+  /* LANGUAGES */
+  .lang-timeline { display: flex; flex-direction: column; gap: 0; margin-bottom: 40px; }
+  .lang-row { display: grid; grid-template-columns: 120px 1fr; gap: 0; }
+  .lang-year-col { display: flex; flex-direction: column; align-items: center; padding-top: 20px; }
+  .lang-year { font-family: 'DM Mono', monospace; font-size: 10px; color: #475569; letter-spacing: 2px; margin-bottom: 8px; }
+  .lang-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+  .lang-line { width: 2px; flex: 1; background: rgba(30,58,95,0.5); margin-top: 4px; }
+  .lang-card { background: rgba(10,18,32,0.7); border: 1px solid rgba(30,58,95,0.35); border-radius: 8px; padding: 20px 24px; margin: 12px 0; }
+  .lang-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 12px; }
+  .lang-card-title { font-family: 'Playfair Display', serif; font-size: 18px; color: #f0f6fc; margin-bottom: 4px; }
+  .lang-card-sub { font-size: 12px; color: #64748b; }
+  .ilr-badge { font-family: 'DM Mono', monospace; font-size: 11px; padding: 4px 12px; border-radius: 4px; border: 1px solid; flex-shrink: 0; }
+  .lang-card-body { font-size: 13px; color: #94a3b8; line-height: 1.7; }
+  .lang-why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 16px; margin-top: 32px; }
+  .lang-why-card { background: rgba(5,10,18,0.8); border: 1px solid rgba(30,58,95,0.4); border-top: 2px solid #60a5fa; border-radius: 6px; padding: 18px 20px; }
+  .lang-why-label { font-family: 'DM Mono', monospace; font-size: 10px; color: #60a5fa; letter-spacing: 2px; margin-bottom: 10px; }
+  .lang-why-text { font-size: 13px; color: #94a3b8; line-height: 1.65; }
+  .ilr-scale { margin-top: 32px; }
+  .ilr-scale-label { font-family: 'DM Mono', monospace; font-size: 10px; color: #475569; letter-spacing: 3px; margin-bottom: 16px; }
+  .ilr-row { display: flex; align-items: center; gap: 16px; padding: 10px 0; border-bottom: 1px solid rgba(30,58,95,0.2); }
+  .ilr-level { font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 700; width: 32px; flex-shrink: 0; }
+  .ilr-name { font-size: 13px; color: #f0f6fc; width: 120px; flex-shrink: 0; }
+  .ilr-desc { font-size: 12px; color: #64748b; flex: 1; }
+  .ilr-target { font-family: 'DM Mono', monospace; font-size: 9px; padding: 2px 8px; border-radius: 4px; flex-shrink: 0; }
+
+  /* FINANCE */
+  .metric-bar { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 48px; justify-content: center; }
+  .metric-card { background: rgba(10,18,32,0.9); border: 1px solid rgba(30,58,95,0.5); border-top: 2px solid #60a5fa; border-radius: 8px; padding: 20px 28px; min-width: 200px; flex: 1 1 200px; max-width: 260px; }
+  .metric-label { font-family: 'DM Mono', monospace; font-size: 9px; color: #475569; letter-spacing: 3px; margin-bottom: 8px; }
+  .metric-value { font-family: 'Playfair Display', serif; font-size: 26px; color: #60a5fa; font-weight: 700; }
+  .metric-sub { font-family: 'DM Mono', monospace; font-size: 10px; color: #475569; margin-top: 4px; }
+  .tab-bar { display: flex; border-bottom: 1px solid rgba(30,58,95,0.5); margin-bottom: 32px; overflow-x: auto; }
+  .tab-btn { background: none; border: none; border-bottom: 2px solid transparent; color: #475569; font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 2px; padding: 12px 20px; cursor: pointer; margin-bottom: -1px; transition: all 0.2s; white-space: nowrap; }
+  .tab-btn.active { color: #f0f6fc; border-bottom-color: #60a5fa; }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+  .chart-box { background: rgba(5,10,18,0.8); border: 1px solid rgba(30,58,95,0.4); border-radius: 8px; padding: 32px; }
+  .chart-label { font-family: 'DM Mono', monospace; font-size: 10px; color: #475569; letter-spacing: 3px; margin-bottom: 24px; }
+  canvas { max-height: 360px; }
+  .info-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 16px; margin-top: 24px; }
+  .info-card { background: rgba(5,10,18,0.8); border: 1px solid rgba(30,58,95,0.4); border-top: 2px solid #60a5fa; border-radius: 8px; padding: 24px; }
+  .info-card-label { font-family: 'DM Mono', monospace; font-size: 10px; color: #60a5fa; letter-spacing: 2px; margin-bottom: 14px; }
+  .info-card-item { font-family: 'DM Mono', monospace; font-size: 12px; color: #64748b; margin-bottom: 7px; line-height: 1.5; }
+  .info-card-item.highlight { color: #60a5fa; }
+  .yr-table-wrap { background: rgba(5,10,18,0.8); border: 1px solid rgba(30,58,95,0.4); border-radius: 8px; overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-family: 'DM Mono', monospace; font-size: 12px; }
+  th { padding: 12px 14px; color: #475569; font-weight: 600; letter-spacing: 1.5px; font-size: 10px; text-align: right; background: rgba(10,18,32,0.9); border-bottom: 1px solid rgba(30,58,95,0.5); white-space: nowrap; }
+  th:first-child { text-align: left; }
+  td { padding: 9px 14px; border-bottom: 1px solid rgba(30,58,95,0.2); text-align: right; white-space: nowrap; }
+  td:first-child { text-align: left; color: #475569; }
+  tr.milestone { background: rgba(96,165,250,0.05); }
+
+  /* RETIREMENT */
+  .ret-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px,1fr)); gap: 24px; margin-bottom: 48px; }
+  .ret-card { background: rgba(5,10,18,0.9); border-radius: 12px; padding: 32px; }
+  .ret-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 4px; margin-bottom: 8px; }
+  .ret-title { font-family: 'Playfair Display', serif; font-size: 26px; color: #f0f6fc; margin-bottom: 12px; }
+  .ret-desc { font-size: 13px; color: #64748b; line-height: 1.65; margin-bottom: 24px; }
+  .ret-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+  .ret-stat { background: rgba(10,18,32,0.8); border-radius: 6px; padding: 12px 16px; }
+  .ret-stat-label { font-family: 'DM Mono', monospace; font-size: 9px; color: #475569; letter-spacing: 2px; margin-bottom: 4px; }
+  .ret-stat-val { font-family: 'Playfair Display', serif; font-size: 18px; color: #f0f6fc; }
+  .ret-income { border-top: 1px solid rgba(30,58,95,0.5); padding-top: 20px; }
+  .ret-income-label { font-family: 'DM Mono', monospace; font-size: 9px; color: #475569; letter-spacing: 2px; margin-bottom: 12px; }
+  .ret-income-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 13px; }
+  .ret-income-row span:first-child { color: #64748b; }
+  .ret-income-row span:last-child { font-family: 'DM Mono', monospace; color: #94a3b8; }
+  .ret-total { display: flex; justify-content: space-between; align-items: baseline; border-top: 1px solid rgba(30,58,95,0.5); padding-top: 10px; margin-top: 4px; }
+  .ret-total-label { font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 1px; }
+  .ret-total-val { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; }
+  .ret-65 { display: flex; justify-content: space-between; align-items: flex-start; border-top: 1px solid rgba(30,58,95,0.2); padding-top: 10px; margin-top: 8px; }
+  .ret-65-label { font-family: 'DM Mono', monospace; font-size: 12px; color: #30d158; letter-spacing: 1px; }
+  .ret-65-sub { font-size: 11px; color: #475569; margin-top: 2px; }
+  .ret-65-val { font-family: 'Playfair Display', serif; font-size: 20px; color: #30d158; font-weight: 700; white-space: nowrap; margin-left: 12px; }
+  .notes-box { background: rgba(5,10,18,0.8); border: 1px solid rgba(30,58,95,0.4); border-radius: 8px; padding: 28px; }
+  .notes-label { font-family: 'DM Mono', monospace; font-size: 10px; color: #475569; letter-spacing: 3px; margin-bottom: 16px; }
+  .notes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 8px; }
+  .notes-item { font-family: 'DM Mono', monospace; font-size: 11px; color: #475569; display: flex; gap: 8px; }
+  .notes-dot { color: #1e3a5f; }
+
+  /* GLOSSARY */
+  .gloss-list { display: flex; flex-direction: column; gap: 4px; }
+  .gloss-item { background: rgba(10,18,32,0.5); border: 1px solid rgba(30,58,95,0.4); border-left: 3px solid rgba(30,58,95,0.6); border-radius: 6px; padding: 16px 24px; cursor: pointer; transition: all 0.2s; }
+  .gloss-item.open { background: rgba(15,25,45,0.95); border-left-color: #60a5fa; }
+  .gloss-head { display: flex; justify-content: space-between; align-items: center; }
+  .gloss-term { font-family: 'Playfair Display', serif; font-size: 16px; color: #f0f6fc; }
+  .gloss-chevron { font-family: 'DM Mono', monospace; font-size: 11px; color: #475569; }
+  .gloss-def { font-size: 14px; color: #94a3b8; margin-top: 12px; line-height: 1.7; display: none; }
+  .gloss-item.open .gloss-def { display: block; }
+
+  footer { padding: 48px 32px; background: #050a12; border-top: 1px solid rgba(30,58,95,0.4); text-align: center; }
+  .footer-brand { font-family: 'DM Mono', monospace; font-size: 11px; color: #60a5fa; letter-spacing: 4px; margin-bottom: 8px; }
+  .footer-sub { font-family: 'DM Mono', monospace; font-size: 11px; color: #334155; letter-spacing: 2px; }
+
+  @media (max-width: 640px) {
+    nav { padding: 0 10px; }
+    nav a { padding: 4px 7px; font-size: 9px; letter-spacing: 0; }
+    section { padding: 64px 16px; }
+    .rank-pay-cols { display: none; }
+    .ret-grid { grid-template-columns: 1fr; }
+    .oer-two-col { grid-template-columns: 1fr; }
+    .mos-header { flex-direction: column; }
+    .lang-row { grid-template-columns: 80px 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-inner fade-in visible">
+    <div class="hero-label">UNITED STATES ARMY · OFFICER CAREER &amp; FINANCIAL PLAN</div>
+    <h1 class="hero-title">My<br><span>30-Year Plan</span></h1>
+    <p class="hero-sub">From ROTC cadet to Army officer. A full-career roadmap covering my military education, rank progression, intelligence branch specialization, and a financial strategy built for early retirement.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="stat-label">HS GRADUATION</div><div class="stat-value">May 2027</div></div>
+      <div class="hero-stat"><div class="stat-label">COMMISSION YEAR</div><div class="stat-value">2031</div></div>
+      <div class="hero-stat"><div class="stat-label">COMMISSION AGE</div><div class="stat-value">21</div></div>
+      <div class="hero-stat"><div class="stat-label">TARGET MOS</div><div class="stat-value">35A MI</div></div>
+      <div class="hero-stat"><div class="stat-label">TOTAL PORTFOLIO @ 20 YRS</div><div class="stat-value" id="hero-port20">—</div></div>
+    </div>
+    <div class="scroll-hint"><span>SCROLL TO EXPLORE</span><div class="scroll-line"></div></div>
+  </div>
+</section>
+
+<!-- NAV -->
+<nav id="navbar">
+  <span class="brand">MY PLAN</span>
+  <div class="nav-links">
+    <a href="#timeline" onclick="navTo(event,'timeline')">TIMELINE</a>
+    <a href="#ranks" onclick="navTo(event,'ranks')">RANKS</a>
+    <a href="#finance" onclick="navTo(event,'finance')">FINANCE</a>
+    <a href="#retirement" onclick="navTo(event,'retirement')">RETIREMENT</a>
+    <a href="#mos35a" onclick="navTo(event,'mos35a')">35A</a>
+    <a href="#oer" onclick="navTo(event,'oer')">OER</a>
+    <a href="#languages" onclick="navTo(event,'languages')">LANGUAGES</a>
+    <a href="#glossary" onclick="navTo(event,'glossary')">GLOSSARY</a>
+  </div>
+</nav>
+
+<!-- TIMELINE -->
+<section id="timeline">
+  <div class="section-inner">
+    <div class="section-header fade-in">
+      <div class="section-label">CAREER TIMELINE</div>
+      <h2 class="section-title">From ROTC to Retirement</h2>
+      <p class="section-sub">Every major milestone, school, and promotion from age 17 to financial independence.</p>
+    </div>
+    <div class="timeline-wrap">
+      <div class="timeline-line"></div>
+      <div id="timeline-events"></div>
+    </div>
+  </div>
+</section>
+
+<!-- RANKS -->
+<section id="ranks">
+  <div class="section-inner">
+    <div class="section-header fade-in">
+      <div class="section-label">RANK &amp; STRUCTURE</div>
+      <h2 class="section-title">The Army Officer Pay Scale</h2>
+      <p class="section-sub">Military compensation is structured around rank (O-1 through O-7) and years of service. Every promotion comes with a pay increase and expanded responsibility.</p>
+    </div>
+    <div class="rank-list" id="rank-list"></div>
+    <div class="pay-cards fade-in">
+      <div class="pay-card"><div class="pay-card-label">BASE PAY</div><p class="pay-card-desc">Taxable salary tied to rank and years of service. Increases with each promotion and time-in-service milestone.</p></div>
+      <div class="pay-card"><div class="pay-card-label">BAH</div><p class="pay-card-desc">Basic Allowance for Housing. Tax-free monthly stipend covering rent in your duty station's local market. Varies widely by location.</p></div>
+      <div class="pay-card"><div class="pay-card-label">BAS</div><p class="pay-card-desc">Basic Allowance for Subsistence. A tax-free monthly food stipend paid to all officers regardless of rank.</p></div>
+      <div class="pay-card"><div class="pay-card-label">TSP MATCH</div><p class="pay-card-desc">Under BRS, the Army matches TSP contributions up to 5% of base pay, free money starting Year 2 of service.</p></div>
+      <div class="pay-card"><div class="pay-card-label">FLPP</div><p class="pay-card-desc">Foreign Language Proficiency Pay. Up to $1,000/month extra for tested and certified language skills. Highly relevant for 35A.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 35A DEEP DIVE -->
+<section id="finance">
+  <div class="section-inner wide">
+    <div class="section-header fade-in">
+      <div class="section-label">FINANCIAL PROJECTION</div>
+      <h2 class="section-title">Building Wealth in Uniform</h2>
+      <p class="section-sub">Projecting 25 years of my Army income with a 40% savings rate and 7% annual return.</p>
+    </div>
+    <div class="metric-bar fade-in">
+      <div class="metric-card"><div class="metric-label">20-YR TOTAL PORTFOLIO</div><div class="metric-value" id="m-port20">—</div><div class="metric-sub">Age 41 · All Accounts</div></div>
+      <div class="metric-card"><div class="metric-label">20-YR ACCESSIBLE</div><div class="metric-value" id="m-acc20">—</div><div class="metric-sub">Age 41 · Pre-59.5 Only</div></div>
+      <div class="metric-card"><div class="metric-label">25-YR TOTAL PORTFOLIO</div><div class="metric-value" id="m-port25">—</div><div class="metric-sub">Age 46 · All Accounts</div></div>
+      <div class="metric-card"><div class="metric-label">25-YR ACCESSIBLE</div><div class="metric-value" id="m-acc25">—</div><div class="metric-sub">Age 46 · Pre-59.5 Only</div></div>
+    </div>
+
+    <div class="tab-bar fade-in">
+      <button class="tab-btn active" onclick="switchTab('growth')">PORTFOLIO GROWTH</button>
+      <button class="tab-btn" onclick="switchTab('accounts')">ACCOUNT BREAKDOWN</button>
+      <button class="tab-btn" onclick="switchTab('income')">INCOME &amp; SAVINGS</button>
+      <button class="tab-btn" onclick="switchTab('table')">YEAR-BY-YEAR</button>
+    </div>
+
+    <div id="tab-growth" class="tab-panel active">
+      <div class="chart-box fade-in" style="position:relative;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px;">
+          <div class="chart-label" style="margin-bottom:0;" id="growth-chart-label">PORTFOLIO VALUE &middot; 25 YEARS OF SERVICE (7% ANNUAL RETURN)</div>
+          <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+            <div style="display:flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1px;">
+              <span style="display:inline-block;width:24px;height:2px;background:#60a5fa;"></span><span style="color:#475569;">SERVICE</span>
+              <span style="display:inline-block;width:24px;height:2px;background:#ef4444;margin-left:10px;"></span><span style="color:#475569;">POST-RETIREMENT</span>
+              <span style="display:inline-block;width:2px;height:14px;background:#30d158;margin-left:10px;vertical-align:middle;"></span><span style="color:#475569;">20-YR EXIT</span>
+              <span style="display:inline-block;width:2px;height:14px;background:#f59e0b;margin-left:6px;vertical-align:middle;"></span><span style="color:#475569;">25-YR EXIT</span>
+            </div>
+            <button id="expand-btn" onclick="toggleGrowthExpand()" style="display:flex;align-items:center;gap:8px;background:rgba(96,165,250,0.1);border:1px solid rgba(96,165,250,0.3);color:#60a5fa;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;padding:7px 14px;cursor:pointer;border-radius:4px;transition:all 0.2s;white-space:nowrap;">
+              <span id="expand-label">EXPAND TO AGE 65</span>
+              <span id="expand-arrow" style="font-size:12px;transition:transform 0.3s;">&#8594;</span>
+            </button>
+          </div>
+        </div>
+        <canvas id="chart-growth"></canvas>
+      </div>
+    </div>
+
+    <div id="tab-income" class="tab-panel">
+      <div class="chart-box fade-in">
+        <div class="chart-label">ANNUAL COMPENSATION BREAKDOWN · TAXABLE + NON-TAXABLE</div>
+        <canvas id="chart-income"></canvas>
+      </div>
+      <div class="info-cards fade-in">
+        <div class="info-card"><div class="info-card-label">INVESTMENT ORDER</div>
+          <div class="info-card-item">1. Roth TSP to 5% (capture BRS match)</div>
+          <div class="info-card-item">2. Max Roth IRA: $7,000/yr</div>
+          <div class="info-card-item">3. Max Roth TSP: $23,500/yr</div>
+          <div class="info-card-item">4. Taxable brokerage (VTI/VXUS/BND)</div>
+          <div class="info-card-item highlight">* O-6+: shift TSP to Traditional</div>
+        </div>
+        <div class="info-card"><div class="info-card-label">TAX STRATEGY BY PHASE</div>
+          <div class="info-card-item">O-1 to O-3: 100% Roth (low bracket)</div>
+          <div class="info-card-item">O-4 to O-5: blend Roth + Traditional</div>
+          <div class="info-card-item">O-6 to O-7: lean Traditional (24–32%)</div>
+          <div class="info-card-item">Post-retire: Roth conversions as needed</div>
+        </div>
+        <div class="info-card"><div class="info-card-label">BRS MATCH DETAILS</div>
+          <div class="info-card-item">Match begins: Year 2 of service</div>
+          <div class="info-card-item">100% match up to 3% of base pay</div>
+          <div class="info-card-item">50% match from 3% to 5%</div>
+          <div class="info-card-item">Contribute 5%, receive effective +4%</div>
+          <div class="info-card-item">Fully vested at 2 years</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-accounts" class="tab-panel">
+      <div class="chart-box fade-in">
+        <div class="chart-label">PORTFOLIO BY ACCOUNT TYPE · TAXABLE / ROTH IRA / ROTH TSP / TRADITIONAL TSP (ARMY MATCH)</div>
+        <canvas id="chart-accounts"></canvas>
+      </div>
+      <div class="info-cards fade-in">
+        <div class="info-card"><div class="info-card-label">ACCESSIBLE PRE-59.5</div>
+          <div class="info-card-item">Taxable brokerage: always accessible, no age restriction</div>
+          <div class="info-card-item">Roth IRA contributions (basis): withdraw anytime, no penalty or tax</div>
+          <div class="info-card-item">Roth IRA earnings: locked until 59.5 + 5-year rule</div>
+          <div class="info-card-item highlight">20-YR EXIT ACCESSIBLE: <span id="acc-20-text">—</span></div>
+          <div class="info-card-item highlight">25-YR EXIT ACCESSIBLE: <span id="acc-25-text">—</span></div>
+        </div>
+        <div class="info-card"><div class="info-card-label">LOCKED UNTIL 59.5</div>
+          <div class="info-card-item">Roth TSP: locked at 59.5 (Rule of 55 requires separation at 55+)</div>
+          <div class="info-card-item">Traditional TSP (army match): locked at 59.5, taxable on withdrawal</div>
+          <div class="info-card-item">Roth IRA earnings: locked until 59.5, then tax-free</div>
+          <div class="info-card-item highlight">20-YR EXIT LOCKED: <span id="lkd-20-text">—</span></div>
+          <div class="info-card-item highlight">25-YR EXIT LOCKED: <span id="lkd-25-text">—</span></div>
+        </div>
+        <div class="info-card"><div class="info-card-label">ARMY BRS MATCH</div>
+          <div class="info-card-item">1% automatic contribution (regardless of your contribution)</div>
+          <div class="info-card-item">100% match on your first 3% of base pay</div>
+          <div class="info-card-item">50% match from 3% to 5%; contribute 5%, receive 5% from Army</div>
+          <div class="info-card-item">Match always goes to Traditional TSP (IRS rule)</div>
+          <div class="info-card-item">Starts Year 2, fully vested at 2 years of service</div>
+          <div class="info-card-item highlight">TOTAL MATCH CONTRIBUTED (25 YRS): <span id="match-total-text">—</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-table" class="tab-panel">
+      <div class="yr-table-wrap fade-in">
+        <table>
+          <thead>
+            <tr>
+              <th style="text-align:left">YR</th>
+              <th>YEAR</th><th>AGE</th><th>RANK</th>
+              <th>TOTAL COMP</th><th>SAVED</th>
+              <th>EE TSP</th><th>ARMY MATCH</th>
+              <th>ROTH IRA</th><th>TAXABLE</th>
+              <th>ACCESSIBLE</th><th>LOCKED</th><th>TOTAL PORTFOLIO</th>
+            </tr>
+          </thead>
+          <tbody id="table-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="retirement">
+  <div class="section-inner">
+    <div class="section-header fade-in">
+      <div class="section-label">RETIREMENT OUTCOMES</div>
+      <h2 class="section-title">Two Paths to Financial Independence</h2>
+      <p class="section-sub">Both scenarios result in my complete financial independence before age 50, with lifetime Army pension income and a fully funded investment portfolio.</p>
+    </div>
+    <div class="ret-grid" id="ret-grid"></div>
+    <div class="notes-box fade-in">
+      <div class="notes-label">ASSUMPTIONS &amp; NOTES</div>
+      <div class="notes-grid">
+        <div class="notes-item"><span class="notes-dot">·</span>7% nominal annual return assumed throughout</div>
+        <div class="notes-item"><span class="notes-dot">·</span>40% savings rate applied to total compensation</div>
+        <div class="notes-item"><span class="notes-dot">·</span>BRS pension: 40% base pay at 20yr, 50% at 25yr (immediate, COLA-adjusted for life)</div>
+        <div class="notes-item"><span class="notes-dot">·</span>Army BRS match modeled on top of 40% savings rate (it is real additional compensation)</div>
+        <div class="notes-item"><span class="notes-dot">·</span>TSP employee limit: $23,500 (2025). Roth IRA limit: $7,000 (2025). Both increase with inflation.</div>
+        <div class="notes-item"><span class="notes-dot">·</span>Roth IRA phase-out applied: O-6 base ($157k) is partially phased out; O-7 ($201k) is fully phased out</div>
+        <div class="notes-item"><span class="notes-dot">·</span>Military MAGI approx. = base pay only (BAH, BAS, FLPP excluded from AGI)</div>
+        <div class="notes-item"><span class="notes-dot">·</span>4% SWR pre-59.5 applies to accessible accounts only (taxable + Roth IRA contributions)</div>
+        <div class="notes-item"><span class="notes-dot">·</span>Locked accounts (TSP + Roth IRA earnings) compound untouched until 59.5</div>
+        <div class="notes-item"><span class="notes-dot">·</span>Traditional TSP (army match) withdrawals are subject to ordinary income tax</div>
+        <div class="notes-item"><span class="notes-dot">·</span>FLPP: $1,000/month ($12,000/yr) from Year 5, taxable income</div>
+        <div class="notes-item"><span class="notes-dot">·</span>Not financial advice. Consult a CFP.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="mos35a">
+  <div class="section-inner">
+    <div class="section-header fade-in">
+      <div class="section-label">MOS DEEP DIVE</div>
+      <h2 class="section-title">Military Intelligence Officer</h2>
+      <p class="section-sub">35A is one of the Army's most strategically important branches. This is what the role looks like from my commission to senior officer.</p>
+    </div>
+
+    <div class="mos-header fade-in">
+      <div class="mos-badge">
+        <div class="mos-code">35A</div>
+        <div class="mos-branch">INTELLIGENCE BRANCH</div>
+        <div style="font-family:'DM Mono',monospace;font-size:10px;color:#60a5fa;letter-spacing:1px;margin-top:8px;">U.S. ARMY</div>
+      </div>
+      <div class="mos-intro">
+        <h3>All-Source Intelligence Officer</h3>
+        <p>As a 35A, I am responsible for producing finished intelligence that enables commanders to understand the battlefield and make decisions. This means fusing raw data from signals, human sources, imagery, cyber, and open-source channels into actionable analysis. Unlike a technician, the MI officer advises senior commanders, which means the job is as much about communication and credibility as it is technical skill.</p>
+      </div>
+    </div>
+
+    <div class="clearance-banner fade-in">
+      <div class="clearance-badge">TS/SCI</div>
+      <div class="clearance-text">
+        <strong style="color:#f0f6fc;">Top Secret / Sensitive Compartmented Information</strong> clearance is required and initiated at commissioning. Involves a full background investigation, polygraph, and periodic re-investigation every 5 years. This clearance opens doors to the most sensitive national security work in the government and opens a significant post-military career track in defense contracting and federal agencies (NSA, DIA, CIA).
+      </div>
+    </div>
+
+    <div class="mos-cards fade-in">
+      <div class="mos-card">
+        <div class="mos-card-label">DAY-TO-DAY RESPONSIBILITIES</div>
+        <div class="mos-card-item">Brief commanders on enemy courses of action and threat assessments</div>
+        <div class="mos-card-item">Lead an intelligence section (analysts, HUMINT collectors, SIGINT operators)</div>
+        <div class="mos-card-item">Fuse all-source intelligence into coherent products</div>
+        <div class="mos-card-item">Coordinate collection requirements across multiple disciplines</div>
+        <div class="mos-card-item">Identify gaps in intelligence coverage and task assets to fill them</div>
+        <div class="mos-card-item highlight">The senior analyst and the advisor, not just the data</div>
+      </div>
+      <div class="mos-card">
+        <div class="mos-card-label">KEY SCHOOLS &amp; TRAINING</div>
+        <div class="mos-card-item">BOLC: Ft. Huachuca, AZ (~6 months, all-source focus)</div>
+        <div class="mos-card-item">MICCC: MI Captain's Career Course at Ft. Huachuca</div>
+        <div class="mos-card-item">JIPOE: Joint Intelligence Preparation of the Operational Environment</div>
+        <div class="mos-card-item">JCAC: Joint Cyber Analysis Course (optional but competitive)</div>
+        <div class="mos-card-item">ILE: Required at ~10 yrs for O-5 promotion</div>
+        <div class="mos-card-item">War College: Selective, ~20 yrs service</div>
+      </div>
+      <div class="mos-card">
+        <div class="mos-card-label">DEPLOYMENT PROFILE</div>
+        <div class="mos-card-item">High operational tempo; MI is always in demand in theater</div>
+        <div class="mos-card-item">Typical 9–12 month deployment cycles, sometimes shorter for special programs</div>
+        <div class="mos-card-item">OCONUS options: Korea, Germany, Middle East, INDOPACOM</div>
+        <div class="mos-card-item highlight">Combat zone tax exclusion applies during deployed months</div>
+        <div class="mos-card-item">Can include joint assignments: NSA, DIA, JSOC, NGA</div>
+      </div>
+      <div class="mos-card">
+        <div class="mos-card-label">POST-MILITARY VALUE</div>
+        <div class="mos-card-item">Active TS/SCI = significant salary premium in defense sector</div>
+        <div class="mos-card-item">Defense contractors: Booz Allen, SAIC, Leidos, Palantir</div>
+        <div class="mos-card-item">Federal agencies: NSA, CIA, DIA direct hire paths</div>
+        <div class="mos-card-item">O-5/O-6 MI officers routinely receive $180–250k+ first-year contractor offers</div>
+        <div class="mos-card-item highlight">Clearance + leadership experience is rare and highly compensated</div>
+      </div>
+    </div>
+
+    <div class="section-header fade-in" style="margin-top:48px;margin-bottom:24px;">
+      <div class="section-label">CAREER PROGRESSION</div>
+      <h3 class="section-title" style="font-size:clamp(22px,3vw,34px);">What 35A Looks Like by Rank</h3>
+    </div>
+    <div class="progression-track fade-in">
+      <div class="prog-row">
+        <div class="prog-rank">O-1 / O-2<br><span style="color:#475569;font-size:9px;">2LT / 1LT</span></div>
+        <div><div class="prog-role">Assistant S2 / Platoon Leader</div><div class="prog-desc">Serves as assistant intelligence officer at battalion or brigade level. Learns the collection management cycle, processes intelligence requests, and supports the S2 section chief. Some 35As receive platoon leader assignments in other branches first, broadening their leadership base before returning to intelligence roles.</div></div>
+      </div>
+      <div class="prog-row">
+        <div class="prog-rank">O-3<br><span style="color:#475569;font-size:9px;">CPT</span></div>
+        <div><div class="prog-role">Battalion/Brigade S2 (Primary Intelligence Officer)</div><div class="prog-desc">The S2 is the commander's primary intelligence advisor. Responsible for the full intelligence picture: threat analysis, enemy disposition, collection priorities. This is the highest-stakes position in the 35A early career. A strong S2 tour is a prerequisite for competitive follow-on assignments and O-4 promotion.</div></div>
+      </div>
+      <div class="prog-row">
+        <div class="prog-rank">O-4<br><span style="color:#475569;font-size:9px;">MAJ</span></div>
+        <div><div class="prog-role">Division G2 Staff / Joint Assignment</div><div class="prog-desc">As a Major, the 35A moves to higher headquarters, typically a division G2 section or a joint assignment (NSA, DIA, J2 staff at a combatant command). This is where strategic intelligence replaces tactical. Officers who earn joint duty assignments here build the résumé for senior positions. Language proficiency pays dividends at this level.</div></div>
+      </div>
+      <div class="prog-row">
+        <div class="prog-rank">O-5<br><span style="color:#475569;font-size:9px;">LTC</span></div>
+        <div><div class="prog-role">MI Battalion Command / Senior Staff</div><div class="prog-desc">Select Lieutenant Colonels command an MI Battalion, responsible for a dedicated intelligence unit. Others serve as senior G2 advisors at corps or Army level. ILE and a competitive assignment history are required to reach this grade. Fewer than half of all Majors make O-5.</div></div>
+      </div>
+      <div class="prog-row">
+        <div class="prog-rank">O-6<br><span style="color:#475569;font-size:9px;">COL</span></div>
+        <div><div class="prog-role">MI Brigade Commander / Senior Intelligence Advisor</div><div class="prog-desc">Colonels in MI branch can command an MI Brigade or serve as the senior intelligence officer for a corps or theater Army. At this level, they work directly with general officers and interagency partners. War College is typically completed at O-6.</div></div>
+      </div>
+      <div class="prog-row" style="border-bottom:none;">
+        <div class="prog-rank">O-7<br><span style="color:#475569;font-size:9px;">BG</span></div>
+        <div><div class="prog-role">Brigadier General: Senior Intelligence Leadership</div><div class="prog-desc">A small number of MI colonels are selected for Brigadier General. At this level, the role is national-level strategic intelligence leadership, advising the Army Chief of Staff, SECDEF, or combatant commanders on intelligence matters. Selection is highly competitive and based on career-long performance across key developmental positions.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="oer">
+  <div class="section-inner">
+    <div class="section-header fade-in">
+      <div class="section-label">OFFICER EVALUATION REPORT</div>
+      <h2 class="section-title">How the Army Decides Who Advances</h2>
+      <p class="section-sub">The OER is the primary document used by promotion boards to determine who gets promoted, who gets choice assignments, and who gets passed over. This is how I intend to compete.</p>
+    </div>
+
+    <div class="oer-intro fade-in">
+      <p>Every officer receives an OER at least annually, and after key developmental events (end of command, PCS, etc.). The report has two parts: the <strong style="color:#f0f6fc;">Rater</strong> (my direct supervisor) and the <strong style="color:#f0f6fc;">Senior Rater</strong> (their boss). The Senior Rater's block check is the most critical part of the entire document; it directly drives promotion board outcomes. An officer with consistently top-block Senior Rater ratings across key developmental positions will be competitive for battalion command and above. One mediocre OER at a key position can end a career at O-5.</p>
+    </div>
+
+    <div class="section-label fade-in" style="text-align:center;margin-bottom:16px;">SENIOR RATER BLOCK CHECK RATINGS</div>
+    <div class="oer-ratings fade-in">
+      <div class="oer-rating-box" style="border-color:rgba(48,209,88,0.4);background:rgba(48,209,88,0.05);">
+        <div class="oer-rating-label" style="color:#30d158;">MOST QUALIFIED</div>
+        <div class="oer-rating-pct" style="color:#30d158;">MQ</div>
+        <div class="oer-rating-desc">Top block. Senior Raters are limited to 24% MQ across all their ratees. This is the only box that drives selection for command and senior positions.</div>
+      </div>
+      <div class="oer-rating-box" style="border-color:rgba(96,165,250,0.3);background:rgba(96,165,250,0.04);">
+        <div class="oer-rating-label" style="color:#60a5fa;">HIGHLY QUALIFIED</div>
+        <div class="oer-rating-pct" style="color:#60a5fa;">HQ</div>
+        <div class="oer-rating-desc">Strong officer, competitive for promotion. Will promote to O-4 and O-5 but is unlikely to be selected for battalion command without multiple MQ reports.</div>
+      </div>
+      <div class="oer-rating-box" style="border-color:rgba(245,158,11,0.3);background:rgba(245,158,11,0.04);">
+        <div class="oer-rating-label" style="color:#f59e0b;">QUALIFIED</div>
+        <div class="oer-rating-pct" style="color:#f59e0b;">Q</div>
+        <div class="oer-rating-desc">Meets standards. Unlikely to promote above O-4. Multiple Q blocks will result in separation at a below-zone board.</div>
+      </div>
+      <div class="oer-rating-box" style="border-color:rgba(239,68,68,0.3);background:rgba(239,68,68,0.04);">
+        <div class="oer-rating-label" style="color:#ef4444;">NOT QUALIFIED</div>
+        <div class="oer-rating-pct" style="color:#ef4444;">NQ</div>
+        <div class="oer-rating-desc">Career-ending for that period. Triggers a relief-for-cause and is preserved in the permanent record. Boards see every NQ.</div>
+      </div>
+    </div>
+
+    <div class="oer-two-col fade-in">
+      <div class="oer-block">
+        <div class="oer-block-label">WHAT DRIVES MQ RATINGS</div>
+        <div class="oer-item"><span class="oer-item-dot">→</span><span>Completing Key Developmental (KD) positions with distinction, especially S2, company-equivalent command, and battalion command</span></div>
+        <div class="oer-item"><span class="oer-item-dot">→</span><span>Physical fitness: ACFT scores. Officers who max or near-max the ACFT signal discipline and standard-setting</span></div>
+        <div class="oer-item"><span class="oer-item-dot">→</span><span>Advanced civil schooling and graduate degrees (already checked (Baylor/TAMU plan))</span></div>
+        <div class="oer-item"><span class="oer-item-dot">→</span><span>Joint duty assignments: J2 or DIA-level work demonstrates interagency credibility</span></div>
+        <div class="oer-item"><span class="oer-item-dot">→</span><span>Language proficiency and FLPP: especially high-demand languages (Arabic, Mandarin, Russian)</span></div>
+        <div class="oer-item"><span class="oer-item-dot">→</span><span>Awards above the MSM level at KD positions: impact awards tell the board you performed under pressure</span></div>
+      </div>
+      <div class="oer-block">
+        <div class="oer-block-label">KEY DEVELOPMENTAL POSITIONS (35A)</div>
+        <div class="oer-item"><span class="oer-item-dot">★</span><span><strong style="color:#f0f6fc;">Battalion/Brigade S2</strong>: The foundational KD position for 35A. Must be at the top block as CPT or it limits O-4 selection.</span></div>
+        <div class="oer-item"><span class="oer-item-dot">★</span><span><strong style="color:#f0f6fc;">Division G2 or Joint J2 Staff</strong>: As a Major. Joint credit here is essential for O-6 command consideration.</span></div>
+        <div class="oer-item"><span class="oer-item-dot">★</span><span><strong style="color:#f0f6fc;">MI Battalion Command</strong>: As LTC. The single most competitive selection in the MI branch below general officer.</span></div>
+        <div class="oer-item"><span class="oer-item-dot">★</span><span><strong style="color:#f0f6fc;">ILE / SAMS Completion</strong>: ILE required for O-5. SAMS selection (~250 officers/year) is a strong indicator for senior leadership.</span></div>
+        <div class="oer-item"><span class="oer-item-dot">★</span><span><strong style="color:#f0f6fc;">War College</strong>: Required for O-7 consideration. Selective. Attended as O-6 or late O-5.</span></div>
+      </div>
+    </div>
+
+    <div class="oer-board-box fade-in">
+      <div class="oer-board-label">WHAT A PROMOTION BOARD ACTUALLY LOOKS AT</div>
+      <div class="oer-board-item"><span class="oer-board-num">01</span><span><strong style="color:#f0f6fc;">Senior Rater profile across all OERs.</strong> Boards see the cumulative percentage of MQ ratings a Senior Rater has given; a 24% MQ rate on a senior rater profile carries more weight than one from a rater who gives everyone MQ.</span></div>
+      <div class="oer-board-item"><span class="oer-board-num">02</span><span><strong style="color:#f0f6fc;">KD position completion and quality.</strong> Was the officer in a high-visibility role? Did they earn an impact award? Did their unit perform?</span></div>
+      <div class="oer-board-item"><span class="oer-board-num">03</span><span><strong style="color:#f0f6fc;">Narrative language in the rater block.</strong> Boards look for specific language: "best officer I've rated in 20 years," "promote ahead of peers," "above-zone potential." Generic praise is invisible.</span></div>
+      <div class="oer-board-item"><span class="oer-board-num">04</span><span><strong style="color:#f0f6fc;">Broadening assignments and joint service.</strong> Officers with only one installation or one branch's assignments are considered narrow. Joint credit demonstrates strategic adaptability.</span></div>
+      <div class="oer-board-item"><span class="oer-board-num">05</span><span><strong style="color:#f0f6fc;">Education record.</strong> Graduate degree, advanced civil schooling, War College selection. My plan to finish a master's before commissioning is already a strong differentiator; most peers earn theirs at ILE age.</span></div>
+      <div class="oer-board-item" style="border-bottom:none;"><span class="oer-board-num">06</span><span><strong style="color:#f0f6fc;">Physical fitness and ACFT scores.</strong> Boards read ACFT scores in OERs. Officers who sustain high scores throughout their career signal that they hold the standard they enforce.</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="languages">
+  <div class="section-inner">
+    <div class="section-header fade-in">
+      <div class="section-label">LANGUAGE DEVELOPMENT</div>
+      <h2 class="section-title">Linguistic Edge in Intelligence</h2>
+      <p class="section-sub">For a 35A, foreign language proficiency is both a tactical tool and a career multiplier. Two additional languages by O-4 places me in the top tier of MI officers nationally.</p>
+    </div>
+
+    <div class="lang-timeline fade-in">
+      <div class="lang-row">
+        <div class="lang-year-col">
+          <div class="lang-year">NOW</div>
+          <div class="lang-dot" style="background:#94a3b8;"></div>
+          <div class="lang-line"></div>
+        </div>
+        <div class="lang-card" style="border-left:3px solid #94a3b8;">
+          <div class="lang-card-top">
+            <div><div class="lang-card-title">English</div><div class="lang-card-sub">Native · Full Professional Proficiency</div></div>
+            <div class="ilr-badge" style="color:#94a3b8;border-color:rgba(148,163,184,0.3);">ILR 5</div>
+          </div>
+          <div class="lang-card-body">My native language. Baseline for every intelligence product, briefing, and officer evaluation report. Strong written English is one of the most underrated skills in the Army; officers who write and brief clearly get noticed at every level.</div>
+        </div>
+      </div>
+      <div class="lang-row">
+        <div class="lang-year-col">
+          <div class="lang-year">~2031</div>
+          <div class="lang-dot" style="background:#60a5fa;"></div>
+          <div class="lang-line"></div>
+        </div>
+        <div class="lang-card" style="border-left:3px solid #60a5fa;">
+          <div class="lang-card-top">
+            <div><div class="lang-card-title">Language 1 <span style="color:#64748b;font-size:14px;">by Commission</span></div><div class="lang-card-sub">Target: ILR 2+ by commissioning · Update this field with your chosen language</div></div>
+            <div class="ilr-badge" style="color:#60a5fa;border-color:rgba(96,165,250,0.3);">ILR 2+ TARGET</div>
+          </div>
+          <div class="lang-card-body">Achieving ILR 2 (Limited Working Proficiency) in a second language before commissioning is exceptional. Most officers begin language study after BOLC. Arriving at my first unit with a tested language on file immediately qualifies me for FLPP, makes me a more attractive S2 candidate, and signals initiative to my rater. Target languages for 35A: <strong style="color:#f0f6fc;">Arabic, Mandarin, Russian, or Korean</strong>, all Category III/IV languages with the highest FLPP rates and highest operational demand.</div>
+        </div>
+      </div>
+      <div class="lang-row">
+        <div class="lang-year-col">
+          <div class="lang-year">~2041</div>
+          <div class="lang-dot" style="background:#a78bfa;"></div>
+          <div class="lang-line" style="background:transparent;"></div>
+        </div>
+        <div class="lang-card" style="border-left:3px solid #a78bfa;">
+          <div class="lang-card-top">
+            <div><div class="lang-card-title">Language 2 <span style="color:#64748b;font-size:14px;">by O-4</span></div><div class="lang-card-sub">Target: ILR 2+ at Major · Update this field with your chosen language</div></div>
+            <div class="ilr-badge" style="color:#a78bfa;border-color:rgba(167,139,250,0.3);">ILR 2+ TARGET</div>
+          </div>
+          <div class="lang-card-body">A second language at the O-4 level is a genuine differentiator. At Major, I will be operating at division or joint staff level where OCONUS assignments, liaison roles, and theater-specific analysis drive demand for language skills. An officer fluent in two strategic languages at this rank will be actively competed over for joint duty assignments, attaché programs, and special programs. FLPP at ILR 2+ in two languages adds $1,000–$2,000/month in untaxed income.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lang-why-grid fade-in">
+      <div class="lang-why-card">
+        <div class="lang-why-label">FLPP: LANGUAGE PAY</div>
+        <div class="lang-why-text">Foreign Language Proficiency Pay ranges from $100–$1,000/month per tested language depending on category and proficiency level. Category IV languages (Arabic, Chinese, Korean, Japanese) at ILR 2/2 pay the maximum. Two languages at max FLPP = $2,000/month tax-free on top of base compensation. That is $24,000/year additional, permanently.</div>
+      </div>
+      <div class="lang-why-card">
+        <div class="lang-why-label">DLAB: THE GATEWAY TEST</div>
+        <div class="lang-why-text">The Defense Language Aptitude Battery (DLAB) determines which languages you're eligible to study at the Defense Language Institute (DLI). A high DLAB score (~110+) qualifies you for Category IV languages. The test measures linguistic aptitude: grammar pattern recognition, not prior language knowledge. Preparing for it now is on my list.</div>
+      </div>
+      <div class="lang-why-card">
+        <div class="lang-why-label">STRATEGIC DEMAND (2031+)</div>
+        <div class="lang-why-text">The Army's priority language list is driven by threat environment. Current and projected high-demand languages: Mandarin (INDOPACOM), Arabic (CENTCOM/AFRICOM), Russian (EUCOM), Korean (USFK). For a 35A targeting joint and senior leadership positions, these languages directly align with the most relevant theaters and intelligence missions.</div>
+      </div>
+      <div class="lang-why-card">
+        <div class="lang-why-label">CAREER LEVERAGE</div>
+        <div class="lang-why-text">Language skills open assignment tracks that are otherwise inaccessible: Defense Attaché Program (diplomatic postings in foreign capitals), NSA language analyst roles, JSOC support elements, and theater-specific advisory positions. At the O-5/O-6 level, an officer who is both a proven MI leader and a language-qualified area expert is extraordinarily rare.</div>
+      </div>
+    </div>
+
+    <div class="ilr-scale fade-in">
+      <div class="ilr-scale-label">ILR PROFICIENCY SCALE: REFERENCE</div>
+      <div class="ilr-row">
+        <div class="ilr-level" style="color:#ef4444;">0</div>
+        <div class="ilr-name">No Proficiency</div>
+        <div class="ilr-desc">No practical ability to communicate.</div>
+        <div></div>
+      </div>
+      <div class="ilr-row">
+        <div class="ilr-level" style="color:#f59e0b;">1</div>
+        <div class="ilr-name">Elementary</div>
+        <div class="ilr-desc">Basic survival communication in highly predictable contexts.</div>
+        <div></div>
+      </div>
+      <div class="ilr-row" style="background:rgba(96,165,250,0.04);">
+        <div class="ilr-level" style="color:#60a5fa;">2</div>
+        <div class="ilr-name">Limited Working</div>
+        <div class="ilr-desc">Can handle basic work-related tasks and routine social situations. Minimum FLPP threshold.</div>
+        <div class="ilr-target" style="color:#60a5fa;background:rgba(96,165,250,0.1);border:1px solid rgba(96,165,250,0.3);">TARGET BY COMMISSION</div>
+      </div>
+      <div class="ilr-row">
+        <div class="ilr-level" style="color:#a78bfa;">3</div>
+        <div class="ilr-name">Professional</div>
+        <div class="ilr-desc">Full professional proficiency. Can discuss complex topics with precision and nuance.</div>
+        <div class="ilr-target" style="color:#a78bfa;background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.3);">TARGET BY O-4</div>
+      </div>
+      <div class="ilr-row">
+        <div class="ilr-level" style="color:#30d158;">4</div>
+        <div class="ilr-name">Distinguished</div>
+        <div class="ilr-desc">Near-native proficiency. Can operate in virtually any context in the language.</div>
+        <div></div>
+      </div>
+      <div class="ilr-row" style="border-bottom:none;">
+        <div class="ilr-level" style="color:#94a3b8;">5</div>
+        <div class="ilr-name">Native</div>
+        <div class="ilr-desc">Complete mastery. The benchmark for evaluating other speakers.</div>
+        <div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GLOSSARY -->
+<section id="glossary">
+  <div class="section-inner narrow">
+    <div class="section-header fade-in">
+      <div class="section-label">GLOSSARY</div>
+      <h2 class="section-title">Military Terms, Explained</h2>
+      <p class="section-sub">A plain-English reference for anyone unfamiliar with Army structure, intelligence operations, pay, and education.</p>
+    </div>
+    <div class="gloss-list" id="gloss-list"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-brand">MY U.S. ARMY OFFICER PLAN</div>
+  <div class="footer-sub">Commission 2031 · 35A Intelligence Branch · All projections are estimates · Not financial advice</div>
+</footer>
+
+<script>
+
+// ─── DATA ─────────────────────────────────────────────────────────────────
+
+const rankMap = {
+  1:"O-1",2:"O-1",3:"O-2",4:"O-2",
+  5:"O-3",6:"O-3",7:"O-3",8:"O-3",9:"O-3",
+  10:"O-4",11:"O-4",12:"O-4",13:"O-4",
+  14:"O-5",15:"O-5",16:"O-5",17:"O-5",18:"O-5",
+  19:"O-6",20:"O-6",21:"O-6",22:"O-6",23:"O-6",
+  24:"O-7",25:"O-7"
+};
+const rankNames = {
+  "O-1":"Second Lieutenant","O-2":"First Lieutenant","O-3":"Captain",
+  "O-4":"Major","O-5":"Lieutenant Colonel","O-6":"Colonel","O-7":"Brigadier General"
+};
+
+const incomeData = [
+  {year:1, ti:49802,      nti:17150,     flpp:0},
+  {year:2, ti:49802,      nti:17150,     flpp:0},
+  {year:3, ti:65354,      nti:19324,     flpp:0},
+  {year:4, ti:75268,      nti:19324,     flpp:0},
+  {year:5, ti:88592,      nti:26985,     flpp:12000},
+  {year:6, ti:88592,      nti:26985,     flpp:12000},
+  {year:7, ti:92844,      nti:26985,     flpp:12000},
+  {year:8, ti:92844,      nti:26985,     flpp:12000},
+  {year:9, ti:97506,      nti:26985,     flpp:12000},
+  {year:10,ti:105796,     nti:31791.36,  flpp:12000},
+  {year:11,ti:113040,     nti:31791.36,  flpp:12000},
+  {year:12,ti:113040,     nti:31791.36,  flpp:12000},
+  {year:13,ti:118659.6,   nti:31791.36,  flpp:12000},
+  {year:14,ti:123260.40,  nti:35542.56,  flpp:12000},
+  {year:15,ti:128581.2,   nti:35542.56,  flpp:12000},
+  {year:16,ti:128581.2,   nti:35542.56,  flpp:12000},
+  {year:17,ti:136695.6,   nti:35542.56,  flpp:12000},
+  {year:18,ti:136695.6,   nti:35542.56,  flpp:12000},
+  {year:19,ti:157384.80,  nti:36723.36,  flpp:12000},
+  {year:20,ti:157384.80,  nti:36723.36,  flpp:12000},
+  {year:21,ti:165013.2,   nti:36723.36,  flpp:12000},
+  {year:22,ti:165013.2,   nti:36723.36,  flpp:12000},
+  {year:23,ti:169354.8,   nti:36723.36,  flpp:12000},
+  {year:24,ti:201812.4,   nti:40362.96,  flpp:12000},
+  {year:25,ti:201812.4,   nti:40362.96,  flpp:12000}
+];
+
+// ─── PROJECTION CONSTANTS ─────────────────────────────────────────────────
+// TSP and IRA limits are 2025 values. Both increase with inflation over time,
+// so real-world balances will be higher. Projections are conservative floor estimates.
+
+const TSP_EE_LIMIT = 23500;    // 2025 IRS employee contribution limit (TSP / 401k)
+const ROTH_IRA_MAX = 7000;     // 2025 Roth IRA annual contribution limit
+const IRA_PO_LOW   = 146000;   // Single filer Roth IRA phase-out start (2024)
+const IRA_PO_HIGH  = 161000;   // Single filer Roth IRA phase-out end
+const GROWTH       = 1.07;     // 7% nominal annual return assumed across all accounts
+const SAVE_RATE    = 0.40;     // 40% savings rate applied to total compensation
+
+// ─── DETAILED PROJECTION ──────────────────────────────────────────────────
+// Tracks four separate account buckets each year:
+//
+//   rTSP    - Roth TSP (employee contributions, O-1 through O-5)
+//   tTSP    - Traditional TSP (employee O-6+, plus ALL army BRS match)
+//   rIRA    - Roth IRA (full balance including earnings)
+//   taxable - Taxable brokerage (overflow after tax-advantaged limits are met)
+//
+// rIRABasis tracks cumulative Roth IRA contributions only (no growth).
+// Under IRS rules, Roth IRA contributions (basis) are always withdrawable
+// without penalty at any age. Only earnings are locked until 59.5.
+//
+// Army BRS match is modeled ON TOP of the 40% savings rate because it is
+// real additional compensation, free money that compounds separately.
+// This is the key difference from a naive single-portfolio model.
+//
+// Investment order per year:
+//   1. Roth TSP: 5% of base pay (captures full BRS match)
+//   2. Roth IRA: up to $7,000 (income phase-out applied for high earners)
+//   3. Roth TSP: fill to $23,500 annual employee limit
+//   4. Taxable brokerage: all remaining savings
+//
+// O-6+ (years 19-25): employee TSP contributions shift to Traditional TSP
+// for tax efficiency (24-32% bracket). Roth IRA phase-out also applies.
+// Military MAGI approximation: base pay only (BAH/BAS/FLPP excluded from AGI).
+
+function buildDetailedProjection() {
+  let rTSP = 0, tTSP = 0, rIRA = 0, taxable = 0;
+  let rIRABasis = 0;
+
+  return incomeData.map(({ year, ti, nti, flpp }) => {
+    const total   = ti + nti + flpp;
+    const savings = Math.round(total * SAVE_RATE);
+    const isO6p   = year >= 19;   // O-6+ shifts EE TSP to Traditional
+    let rem = savings;
+
+    // Step 1: TSP at 5% of base pay to capture full BRS match
+    const tsp1 = Math.min(Math.round(ti * 0.05), TSP_EE_LIMIT, rem);
+    rem -= tsp1;
+
+    // Step 2: Roth IRA with income-based phase-out
+    // MAGI for military ≈ base pay (allowances and FLPP excluded from AGI)
+    let iraC = 0;
+    if (ti < IRA_PO_HIGH) {
+      const po = Math.max(0, (ti - IRA_PO_LOW) / (IRA_PO_HIGH - IRA_PO_LOW));
+      iraC = Math.min(Math.round(ROTH_IRA_MAX * (1 - po)), rem);
+      rem -= iraC;
+    }
+    // O-7 base ($201,812) fully exceeds phase-out; no Roth IRA.
+    // Backdoor Roth is a viable workaround but is not modeled here.
+
+    // Step 3: Fill TSP to annual employee limit
+    const tsp3  = Math.min(TSP_EE_LIMIT - tsp1, rem);
+    rem -= tsp3;
+    const eeTSP = tsp1 + tsp3;
+
+    // Step 4: Overflow to taxable brokerage
+    const taxC = rem;
+
+    // BRS Army Match (starts Year 2):
+    //   1% automatic contribution (regardless of employee contribution)
+    //   + 100% match on employee contributions up to 3% of base pay
+    //   + 50% match on employee contributions from 3% to 5% of base pay
+    //   = up to 5% total from Army when employee contributes 5%
+    // Army match ALWAYS goes to Traditional TSP (IRS requirement for matching).
+    let matchC = 0;
+    if (year >= 2) {
+      const ep = eeTSP / ti;
+      matchC = Math.round(
+        ti * (0.01 + Math.min(ep, 0.03) + 0.5 * Math.max(0, Math.min(ep - 0.03, 0.02)))
+      );
+    }
+
+    // Compound: contributions credited at start of year, then 7% annual growth
+    rTSP    = (rTSP    + (isO6p ? 0     : eeTSP)) * GROWTH;
+    tTSP    = (tTSP    + (isO6p ? eeTSP : 0) + matchC) * GROWTH;
+    rIRA    = (rIRA    + iraC) * GROWTH;
+    rIRABasis += iraC;         // basis does not compound; tracks withdrawable principal
+    taxable = (taxable + taxC) * GROWTH;
+
+    const port = rTSP + tTSP + rIRA + taxable;
+
+    // Accessible pre-59.5: taxable brokerage + Roth IRA contributions (basis only)
+    // NOTE: Roth IRA earnings (rIRA - rIRABasis) are locked until 59.5.
+    const acc = taxable + rIRABasis;
+
+    // Locked until 59.5: all TSP balances + Roth IRA earnings
+    // NOTE: Traditional TSP withdrawals will also be subject to ordinary income tax.
+    const lkd = rTSP + tTSP + (rIRA - rIRABasis);
+
+    return {
+      year, age: 21 + year, calYear: 2031 + year,
+      rank: rankMap[year], rankName: rankNames[rankMap[year]],
+      ti, nti, flpp,
+      total: Math.round(total), savings,
+      eeTSP, matchC, iraC: Math.round(iraC), taxC,
+      rTSP: Math.round(rTSP), tTSP: Math.round(tTSP),
+      rIRA: Math.round(rIRA), rIRABasis: Math.round(rIRABasis),
+      taxable: Math.round(taxable),
+      acc: Math.round(acc), lkd: Math.round(lkd),
+      portfolio: Math.round(port),
+      portfolioM: parseFloat((port / 1e6).toFixed(3))
+    };
+  });
+}
+
+const projection = buildDetailedProjection();
+
+// ─── BRIDGE SIMULATION ────────────────────────────────────────────────────
+// The "bridge" is the gap between military retirement and age 59.5 when
+// tax-advantaged accounts (TSP + Roth IRA earnings) become penalty-free accessible.
+//
+// During the bridge:
+//   - Pension provides baseline income.
+//   - A 4% SWR is drawn from the accessible pool only (taxable + Roth IRA basis).
+//   - Locked accounts compound completely untouched at 7%.
+//
+// At 59.5, all accounts unlock. A new 4% SWR is calculated on the full portfolio.
+// The locked accounts have grown substantially, producing a large income step-up.
+//
+// At 65 (5.5 years after 59.5), the portfolio is projected continuing the same SWR.
+
+function bridgeSim(exitRow, pension) {
+  const bridgeYrs  = 59.5 - exitRow.age;
+  const acc0       = exitRow.acc;
+  const lkd0       = exitRow.lkd;
+  const annDraw    = Math.round(acc0 * 0.04);    // 4% SWR on accessible only
+
+  let acc = acc0;
+  let lkd = lkd0;
+  const fullYrs = Math.floor(bridgeYrs);
+  const fracYr  = bridgeYrs - fullYrs;
+
+  for (let i = 0; i < fullYrs; i++) {
+    acc = acc * GROWTH - annDraw;
+    lkd = lkd * GROWTH;
+  }
+  // Partial final year
+  acc = acc * Math.pow(GROWTH, fracYr) - annDraw * fracYr;
+  lkd = lkd * Math.pow(GROWTH, fracYr);
+
+  const accAt59  = Math.round(Math.max(0, acc));
+  const lkdAt59  = Math.round(lkd);
+  const totAt59  = accAt59 + lkdAt59;
+  const swr59    = Math.round(totAt59 * 0.04);
+  const inc59    = pension + swr59;
+
+  // Age 65: 5.5 years of continued SWR from 59.5 baseline
+  let p65 = totAt59;
+  for (let i = 0; i < 5; i++) p65 = p65 * GROWTH - swr59;
+  p65 = Math.round(p65 * Math.pow(GROWTH, 0.5) - swr59 * 0.5);
+  p65 = Math.max(0, p65);
+
+  return {
+    acc0, lkd0, bridgeYrs,
+    annDraw,
+    preIncome:  pension + annDraw,
+    accAt59, lkdAt59, totAt59,
+    swr59, inc59,
+    p65,
+    inc65: pension + Math.round(p65 * 0.04)
+  };
+}
+
+const pension20  = Math.round(157384.80 * 0.40);  // 40% of O-6 base at 20 yrs (BRS)
+const pension25  = Math.round(201812.4  * 0.50);  // 50% of O-7 base at 25 yrs (BRS)
+const exit20     = projection[19];
+const exit25     = projection[24];
+const bridge20   = bridgeSim(exit20, pension20);
+const bridge25   = bridgeSim(exit25, pension25);
+
+// Keep legacy variable names for chart/hero compatibility
+const port20 = exit20.portfolio;
+const port25 = exit25.portfolio;
+
+function fmt(n)  { return "$" + Math.round(n).toLocaleString(); }
+function fmtM(n) { return "$" + (n / 1e6).toFixed(2) + "M"; }
+
+// ─── TIMELINE DATA ────────────────────────────────────────────────────────
+
+const timelineEvents = [
+  { year:"May 2027", age:17, phase:"foundation", color:"#94a3b8", icon:"🎓",
+    title:"High School Graduation",
+    subtitle:"Associates Degree · 4.5 GPA · 1450 SAT · Medical Certificate",
+    detail:"I graduate high school at age 17 with both a Medical Certificate and an Associate's Degree, college-level credentials earned through full-time dual enrollment. Academic record: 4.5 GPA (weighted), 1450 SAT, 90 ASVAB. I begin college that fall on an Army ROTC scholarship, entering with sophomore-level credits that accelerate my bachelor's and master's completion timeline." },
+  { year:"2027–2031", age:17, phase:"foundation", color:"#94a3b8", icon:"⚔️",
+    title:"ROTC Cadet",
+    subtitle:"4 Years of Army Leadership Training · Targeting 35A Branch",
+    detail:"Throughout college I train as an Army ROTC cadet: military science courses, field exercises, leadership labs, and summer training at Cadet Summer Training (CST). Cadets compete for branch assignments based on OML (Order of Merit List) standing. 35A (Intelligence) is a competitive branch. Strong academics, physical fitness, and extracurricular leadership improve OML standing. I also pursue language study during this period, targeting ILR 2 proficiency in a strategic language before graduation." },
+  { year:"2031", age:21, phase:"commission", color:"#60a5fa", icon:"⭐",
+    title:"Commissioned as 2LT · U.S. Army",
+    subtitle:"Bachelor's + Master's Complete · Age 21 · Branch: 35A",
+    detail:"I am commissioned as a Second Lieutenant (O-1) in the United States Army, branched 35A, Military Intelligence. I complete both a bachelor's and master's degree before this point. I take the Oath of Office, receive my gold bars, and report to BOLC within 90 days. At this point, the TS/SCI clearance investigation is already underway, initiated through my ROTC program." },
+  { year:"2031–2032", age:21, phase:"commission", color:"#60a5fa", icon:"🪖",
+    title:"BOLC: Basic Officer Leaders Course",
+    subtitle:"Ft. Huachuca, AZ · ~6 months · Intelligence Branch",
+    detail:"All-Source Intelligence BOLC is conducted at Fort Huachuca, Arizona, the home of Army Intelligence. I learn the intelligence cycle, collection management, JIPOE (Joint Intelligence Preparation of the Operational Environment), and all-source fusion. BOLC introduces me to classified systems and teaches the technical foundation of the MI officer role. Performance at BOLC is the first OER-like evaluation in my record." },
+  { year:"2032", age:22, phase:"early", color:"#34d399", icon:"🪖",
+    title:"First Duty Assignment: Assistant S2",
+    subtitle:"2LT → 1LT · Brigade/Battalion Intelligence Section",
+    detail:"My first posting places me as an Assistant S2 in an intelligence section. I support the senior S2 officer, process intelligence requests, manage the collection plan, and produce daily intelligence products for the commander. This is the learning phase, absorbing how the intelligence picture is built and maintained under real operational conditions. Promotion from 2LT to 1LT is automatic after 18 months of satisfactory service." },
+  { year:"2034", age:24, phase:"early", color:"#34d399", icon:"📋",
+    title:"MICCC: MI Captain's Career Course",
+    subtitle:"Ft. Huachuca, AZ · Required before O-3 promotion",
+    detail:"The Military Intelligence Captain's Career Course (MICCC) is required for promotion to Captain and for assuming the S2 role at battalion or brigade. It is more advanced than BOLC, focused on brigade-level intelligence operations, multi-domain analysis, and planning as part of an operations staff. Graduates are expected to walk directly into their first S2 role." },
+  { year:"2035", age:25, phase:"captain", color:"#a78bfa", icon:"⭐⭐⭐",
+    title:"Promoted to Captain (O-3): S2",
+    subtitle:"Primary Intelligence Officer · Brigade or Battalion",
+    detail:"As Captain, I assume the role of S2, the unit's primary intelligence officer and direct advisor to the commanding officer on all matters related to enemy, terrain, and weather. This is the critical KD position for every 35A. A strong S2 tour with an MQ Senior Rater block is the most important career event between commissioning and O-4 selection. I manage my intelligence section, brief commanders daily, and produce the intelligence products that drive operational decisions." },
+  { year:"~2036", age:26, phase:"captain", color:"#a78bfa", icon:"🌐",
+    title:"Language 1: FLPP Qualified",
+    subtitle:"ILR 2+ Tested and Certified · Foreign Language Proficiency Pay Begins",
+    detail:"I test for and earn ILR 2+ proficiency in my first strategic language, qualifying for Foreign Language Proficiency Pay, up to $1,000/month additional untaxed income. Beyond the pay, the language certification opens doors to theater-specific assignments and signals to the branch manager and senior raters that I am building toward a regionally-focused intelligence career." },
+  { year:"2041", age:31, phase:"mid", color:"#f59e0b", icon:"⭐⭐⭐⭐",
+    title:"Promoted to Major (O-4)",
+    subtitle:"Division G2 Staff or Joint Assignment (NSA/DIA)",
+    detail:"As a Major, I move from direct tactical intelligence to strategic-level staff work, typically a Division G2 section, a combatant command J2, or a joint duty assignment at NSA, DIA, or NGA. Joint duty credit is essential at this stage. Officers without joint assignments are at a disadvantage for O-5 selection. My language proficiency makes me a competitive candidate for theater-specific assignments or foreign area officer broadening." },
+  { year:"~2041", age:31, phase:"mid", color:"#f59e0b", icon:"🌐",
+    title:"Language 2: Second FLPP Qualification",
+    subtitle:"ILR 2+ in Second Strategic Language · Maximum FLPP Rate",
+    detail:"I certify my second language at ILR 2+ as a Major. With two strategic languages, I qualify for maximum FLPP on both, potentially $2,000/month additional. More importantly, two languages at O-4 makes me a top candidate for the Defense Attaché Program, JSOC support billets, and senior intelligence advisory roles that are otherwise inaccessible. This is rare enough that branch managers notice." },
+  { year:"2042", age:32, phase:"mid", color:"#f59e0b", icon:"🎓",
+    title:"Intermediate Level Education (ILE)",
+    subtitle:"~1 year · Required for O-5 Promotion",
+    detail:"ILE is a year-long Army professional education program studying advanced military doctrine, joint operations, and strategic leadership. Required for promotion to Lieutenant Colonel. Competitive graduates are selected for School of Advanced Military Studies (SAMS), a 10-month follow-on program at Fort Leavenworth that produces the Army's most selective operational planners. SAMS selection (~250 per year) is a strong indicator for battalion command and above." },
+  { year:"2045", age:35, phase:"senior", color:"#f97316", icon:"⭐⭐⭐⭐⭐",
+    title:"Promoted to Lieutenant Colonel (O-5)",
+    subtitle:"MI Battalion Command Competition",
+    detail:"O-5 is a major milestone; fewer than half of Majors are promoted. At this grade I compete for MI Battalion command, one of the most sought-after positions in the branch. Battalion command as an LTC is the prerequisite for Colonel and for serious O-7 consideration. My accumulated record: strong S2 OERs, joint duty credit, language qualifications, and ILE completion, which puts me in the competitive pool." },
+  { year:"2050", age:40, phase:"senior", color:"#ef4444", icon:"🎓",
+    title:"Army War College",
+    subtitle:"Senior Service College · ~1 year · Selective",
+    detail:"War College is the Army's highest professional education program, attended by selected O-6s and senior O-5s. Students study national security strategy, geopolitics, and interagency operations alongside peers from all U.S. military branches and partner nations. Attendance indicates selection for senior leadership and is essentially a prerequisite for O-7 consideration." },
+  { year:"2051", age:41, phase:"senior", color:"#ef4444", icon:"🦅",
+    title:"Promoted to Colonel (O-6)",
+    subtitle:"MI Brigade Command or Senior Intelligence Advisor",
+    detail:"Colonel is the terminal rank for the majority of Army officers. As a Colonel in MI branch, I may command an MI Brigade or serve as the senior intelligence officer for a corps or Army headquarters. My financial plan reaches the 20-year milestone at this rank, making Scenario A retirement available." },
+  { year:"2051", age:41, phase:"retirement", color:"#30d158", icon:"🏁",
+    title:"Scenario A: Retire at 20 Years",
+    subtitle:"Age 41 · O-6 · Army Pension Begins Immediately",
+    detail:"At 20 years of active service, I am eligible to retire with an Army pension equal to 40% of final O-6 base pay, paid monthly for life, with annual COLA adjustments. Combined with a $1M+ accessible investment portfolio, this creates complete financial independence at 41. My TS/SCI clearance also opens a lucrative second career in defense contracting if desired." },
+  { year:"2056", age:46, phase:"retirement", color:"#30d158", icon:"🏆",
+    title:"Scenario B: Retire at 25 Years",
+    subtitle:"Age 46 · O-7 Brigadier General · Enhanced Pension",
+    detail:"Staying to 25 years enables promotion to Brigadier General (O-7) and an Army pension of 50% of final base pay. The investment portfolio grows to $4M+, and total accessible income exceeds $170,000/year from day one. At 59.5, all accounts unlock and income steps up dramatically." },
+  { year:"~2075", age:65, phase:"legacy", color:"#e2c77b", icon:"💎",
+    title:"Age 65: Legacy Wealth",
+    subtitle:"If Consistent SWR Applied Throughout Retirement",
+    detail:"With a 4% SWR applied from the age of retirement, compounding throughout, and all accounts unlocking at 59.5, the total portfolio at 65 reaches $8–10M depending on scenario. Combined with pension and Social Security, this represents multigenerational financial security." }
+];
+
+const phaseLabels = {
+  foundation:"Foundation", commission:"Commission", early:"Early Career",
+  captain:"Captain", mid:"Mid-Career", senior:"Senior Officer",
+  retirement:"Retirement", legacy:"Legacy"
+};
+
+const officerRanks = [
+  { grade:"O-1", title:"Second Lieutenant", abbr:"2LT", color:"#94a3b8",
+    desc:"Entry-level Army officer. Leads a platoon of 30–40 soldiers. First leadership test.",
+    basePay:"$49,802", allowances:"~$17,150", total:"~$66,952" },
+  { grade:"O-2", title:"First Lieutenant", abbr:"1LT", color:"#94a3b8",
+    desc:"Continues as platoon leader or takes on staff roles. Army promotion nearly automatic at 18 months.",
+    basePay:"$65,354–$75,268", allowances:"~$19,324", total:"$84,678–$94,592" },
+  { grade:"O-3", title:"Captain", abbr:"CPT", color:"#a78bfa",
+    desc:"Commands a company of 100–200 soldiers or serves as battalion S2. Most formative leadership position.",
+    basePay:"$88,592–$97,506", allowances:"~$26,985", total:"$115,577–$124,491" },
+  { grade:"O-4", title:"Major", abbr:"MAJ", color:"#f59e0b",
+    desc:"Staff work at brigade/division level. First test of strategic thinking and joint operations.",
+    basePay:"$105,796–$118,660", allowances:"~$31,791", total:"$137,587–$150,451" },
+  { grade:"O-5", title:"Lieutenant Colonel", abbr:"LTC", color:"#f97316",
+    desc:"Commands a battalion of 300–1,000 soldiers. Fewer than half of Majors reach this grade.",
+    basePay:"$123,260–$136,696", allowances:"~$35,543", total:"$158,803–$172,239" },
+  { grade:"O-6", title:"Colonel", abbr:"COL", color:"#ef4444",
+    desc:"Commands a brigade of 3,000–5,000. Terminal rank for most Army officers.",
+    basePay:"$157,385–$169,355", allowances:"~$36,723", total:"$194,108–$206,078" },
+  { grade:"O-7", title:"Brigadier General", abbr:"BG", color:"#30d158",
+    desc:"First general officer grade. Achieved by a small fraction of Colonels. Significant career achievement.",
+    basePay:"$201,812", allowances:"~$40,363", total:"~$242,175" }
+];
+
+const glossary = [
+  { term:"Commission", def:"The formal appointment as an Army officer. A commissioned officer swears an oath to support and defend the Constitution and receives legal authority to lead soldiers." },
+  { term:"ROTC", def:"Reserve Officers' Training Corps. A college program that trains officer candidates alongside a civilian degree. The Army pays tuition in exchange for a service commitment, typically 4–8 years active duty." },
+  { term:"35A", def:"The Army MOS (Military Occupational Specialty) designator for Military Intelligence Officer, specifically All-Source Intelligence Officer. Responsible for producing finished intelligence products and advising commanders." },
+  { term:"BOLC", def:"Basic Officer Leaders Course. Branch-specific school every new Army officer attends after commissioning. For 35A, conducted at Fort Huachuca, AZ. Teaches the intelligence cycle, collection management, and all-source analysis fundamentals." },
+  { term:"MICCC", def:"Military Intelligence Captain's Career Course. Required for promotion to Captain and for assuming the battalion or brigade S2 role. More advanced than BOLC, focuses on brigade-level intelligence operations." },
+  { term:"S2 / G2", def:"The intelligence officer on a unit staff. 'S' prefix indicates brigade level and below; 'G' prefix indicates division level and above. The S2/G2 is the commander's primary advisor on enemy forces, terrain, and weather." },
+  { term:"ILE", def:"Intermediate Level Education. Required for promotion to Lieutenant Colonel. A year-long program at Fort Leavenworth focused on joint military doctrine, operations, and strategic leadership." },
+  { term:"SAMS", def:"School of Advanced Military Studies. A highly selective 10-month program following ILE at Fort Leavenworth. Produces the Army's elite operational planners and strategists. ~250 seats per year." },
+  { term:"TS/SCI", def:"Top Secret / Sensitive Compartmented Information. The security clearance required for Army intelligence officers. Involves a thorough background investigation and periodic re-investigation. Highly valuable in civilian defense sectors." },
+  { term:"OER", def:"Officer Evaluation Report. The primary annual performance evaluation for Army officers. The Senior Rater block check (Most Qualified, Highly Qualified, Qualified) is the single most influential factor in promotion board decisions." },
+  { term:"KD Position", def:"Key Developmental position. Specific assignments the Army designates as critical for career progression at each grade. For 35A, the S2 role at Captain and battalion command at LTC are the primary KD positions." },
+  { term:"OML", def:"Order of Merit List. The ranked list used by ROTC programs to assign branches to cadets. Higher OML standing gives cadets more competitive access to desired branches like 35A." },
+  { term:"FLPP", def:"Foreign Language Proficiency Pay. Monthly pay (up to $1,000/language) for Army soldiers who test at ILR 2 or above in a designated language. Critical pay supplement for 35A officers with strategic language skills." },
+  { term:"DLAB", def:"Defense Language Aptitude Battery. A test that measures linguistic learning aptitude, not prior language knowledge. A high score qualifies soldiers for Category III/IV language training at the Defense Language Institute (DLI)." },
+  { term:"ILR", def:"Interagency Language Roundtable scale. The standard proficiency scale used by U.S. government agencies to rate language ability from 0 (no proficiency) to 5 (native/bilingual). FLPP begins at ILR 2." },
+  { term:"BAH", def:"Basic Allowance for Housing. A monthly stipend covering housing costs based on duty station and dependency status. Not subject to federal income tax. Can exceed $3,000/month in high-cost areas." },
+  { term:"BAS", def:"Basic Allowance for Subsistence. A monthly food stipend ($357.55 for officers in 2024). Also not taxable." },
+  { term:"TSP", def:"Thrift Savings Plan. The military's version of a 401(k). Under the Blended Retirement System, the Army matches up to 5% of base pay in TSP contributions starting Year 2. Army match always goes to Traditional TSP." },
+  { term:"BRS", def:"Blended Retirement System. The current Army retirement plan combining a reduced pension (40% base pay at 20 years) with TSP matching. Officers who serve 20+ years receive both the pension and their TSP balance." },
+  { term:"SWR", def:"Safe Withdrawal Rate. The 4% rule, a widely used benchmark suggesting you can withdraw 4% of a portfolio annually without depleting it over a 30-year retirement. Pre-59.5, this applies to accessible accounts only." },
+  { term:"Bridge Period", def:"The years between military retirement and age 59.5 when TSP accounts and Roth IRA earnings are not yet penalty-free accessible. During the bridge, income comes from pension + taxable brokerage SWR. Locked accounts compound untouched, producing a large income step-up at 59.5." },
+  { term:"Roth IRA Basis", def:"The cumulative dollar amount you have contributed to a Roth IRA (not counting growth). Under IRS rules, contributions can always be withdrawn tax-free and penalty-free at any age, making the basis a key accessible asset pre-59.5." },
+  { term:"ACFT", def:"Army Combat Fitness Test. The Army's physical fitness standard, replacing the APFT in 2022. Consists of six events including deadlift, power throw, hand-release push-up, sprint-drag-carry, leg tuck, and 2-mile run. OER readers see ACFT scores." },
+  { term:"INDOPACOM / CENTCOM / EUCOM", def:"U.S. military combatant commands organized by geographic region. Indo-Pacific, Central, and European Commands respectively. Assignment to these commands as a staff officer provides joint duty credit essential for senior promotions." }
+];
+
+// ─── RENDER FUNCTIONS ─────────────────────────────────────────────────────
+
+function renderTimeline() {
+  const container = document.getElementById('timeline-events');
+  timelineEvents.forEach((ev, i) => {
+    const item = document.createElement('div');
+    item.className = 'tl-item fade-in';
+    item.innerHTML = `
+      <div class="tl-dot-col">
+        <div class="tl-dot" style="background:${ev.color};box-shadow:0 0 12px ${ev.color}88;"></div>
+      </div>
+      <div class="tl-card" id="tl-card-${i}" onclick="toggleTL(${i})" style="border-left:3px solid ${ev.color}">
+        <div class="tl-card-head">
+          <span class="tl-icon">${ev.icon}</span>
+          <div class="tl-meta">
+            <div class="tl-tags">
+              <span class="tl-date">${ev.year} · AGE ${ev.age}</span>
+              <span class="tl-phase" style="color:${ev.color}">${phaseLabels[ev.phase].toUpperCase()}</span>
+            </div>
+            <div class="tl-title">${ev.title}</div>
+            <div class="tl-subtitle">${ev.subtitle}</div>
+          </div>
+          <span class="tl-chevron" id="tl-chev-${i}">▼</span>
+        </div>
+        <div class="tl-detail" id="tl-detail-${i}">${ev.detail}</div>
+      </div>`;
+    container.appendChild(item);
+  });
+}
+
+function toggleTL(i) {
+  const card = document.getElementById(`tl-card-${i}`);
+  const chev = document.getElementById(`tl-chev-${i}`);
+  card.classList.toggle('open');
+  chev.textContent = card.classList.contains('open') ? '▲' : '▼';
+}
+
+function renderRanks() {
+  const list = document.getElementById('rank-list');
+  officerRanks.forEach(r => {
+    const row = document.createElement('div');
+    row.className = 'rank-row fade-in';
+    row.style.borderLeft = `3px solid ${r.color}`;
+    row.innerHTML = `
+      <div class="rank-grade-col">
+        <div class="rank-grade" style="color:${r.color}">${r.grade}</div>
+        <div class="rank-abbr">${r.abbr}</div>
+      </div>
+      <div class="rank-info">
+        <div class="rank-title-el">${r.title}</div>
+        <div class="rank-desc">${r.desc}</div>
+      </div>
+      <div class="rank-pay-cols">
+        <div class="rank-pay-col"><div class="pay-label">BASE PAY</div><div class="pay-value">${r.basePay}</div></div>
+        <div class="rank-pay-col"><div class="pay-label">ALLOWANCES</div><div class="pay-value">${r.allowances}</div></div>
+        <div class="rank-pay-col"><div class="pay-label">TOTAL COMP</div><div class="pay-value total" style="color:${r.color}">${r.total}</div></div>
+      </div>`;
+    list.appendChild(row);
+  });
+}
+
+function renderMetrics() {
+  document.getElementById('hero-port20').textContent = fmtM(port20);
+  document.getElementById('m-port20').textContent    = fmtM(port20);
+  document.getElementById('m-acc20').textContent     = fmtM(exit20.acc);
+  document.getElementById('m-port25').textContent    = fmtM(port25);
+  document.getElementById('m-acc25').textContent     = fmtM(exit25.acc);
+}
+
+function renderTable() {
+  const tbody = document.getElementById('table-body');
+  projection.forEach(r => {
+    const tr = document.createElement('tr');
+    if (r.year === 20 || r.year === 25) tr.className = 'milestone';
+    tr.innerHTML = `
+      <td>${r.year}</td>
+      <td>${r.calYear}</td>
+      <td>${r.age}</td>
+      <td style="color:#60a5fa">${r.rank}</td>
+      <td style="color:#94a3b8">${fmt(r.total)}</td>
+      <td style="color:#30d158">${fmt(r.savings)}</td>
+      <td style="color:#a78bfa">${fmt(r.eeTSP)}</td>
+      <td style="color:#f59e0b">${fmt(r.matchC)}</td>
+      <td style="color:#60a5fa">${r.iraC > 0 ? fmt(r.iraC) : '—'}</td>
+      <td style="color:#475569">${r.taxC > 0 ? fmt(r.taxC) : '—'}</td>
+      <td style="color:#30d158;font-weight:700">${fmtM(r.acc)}</td>
+      <td style="color:#ef4444">${fmtM(r.lkd)}</td>
+      <td style="color:#60a5fa;font-weight:700">${fmtM(r.portfolio)}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+function renderRetirement() {
+  const grid = document.getElementById('ret-grid');
+
+  const scenarios = [
+    {
+      label:"SCENARIO A", title:"20-Year Retirement", color:"#30d158",
+      exit: exit20, pension: pension20, bridge: bridge20,
+      pensionPct:"40%", rank:"O-6", rankName:"Colonel",
+      desc:"Retire at 41 with an immediate Army pension and a diversified investment portfolio. The accessible portion (taxable + Roth IRA contributions) sustains income through the bridge period. Locked accounts compound untouched for 18.5 years, producing a dramatic income step-up at 59.5."
+    },
+    {
+      label:"SCENARIO B", title:"25-Year Retirement", color:"#60a5fa",
+      exit: exit25, pension: pension25, bridge: bridge25,
+      pensionPct:"50%", rank:"O-7", rankName:"Brigadier General",
+      desc:"Five more years yields O-7 retirement, a 50% pension, and a substantially larger portfolio. The accessible pool nearly doubles versus Scenario A, reducing bridge period risk. The income step-up at 59.5 is even more pronounced."
+    }
+  ];
+
+  scenarios.forEach(s => {
+    const { exit: ex, bridge: b, color } = s;
+    const div = document.createElement('div');
+    div.className = 'ret-card fade-in';
+    div.style.border = `1px solid ${color}22`;
+    div.style.borderTop = `3px solid ${color}`;
+
+    const iraEarnings = ex.rIRA - ex.rIRABasis;
+
+    div.innerHTML = `
+      <div class="ret-label" style="color:${color}">${s.label} · ${s.rank} · ${s.pensionPct} PENSION</div>
+      <div class="ret-title">${s.title}</div>
+      <p class="ret-desc">${s.desc}</p>
+
+      <div class="ret-stats">
+        <div class="ret-stat"><div class="ret-stat-label">RETIREMENT AGE</div><div class="ret-stat-val">${ex.age}</div></div>
+        <div class="ret-stat"><div class="ret-stat-label">CALENDAR YEAR</div><div class="ret-stat-val">${ex.calYear}</div></div>
+        <div class="ret-stat"><div class="ret-stat-label">TOTAL PORTFOLIO</div><div class="ret-stat-val" style="color:${color}">${fmtM(ex.portfolio)}</div></div>
+        <div class="ret-stat"><div class="ret-stat-label">ARMY PENSION</div><div class="ret-stat-val">${fmt(s.pension)}/yr</div></div>
+      </div>
+
+      <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(30,58,95,0.5);">
+        <div class="ret-income-label" style="margin-bottom:10px;">ACCOUNT BREAKDOWN AT EXIT</div>
+        <div class="ret-income-row"><span>Taxable Brokerage</span><span>${fmt(ex.taxable)} <span style="font-family:'DM Mono',monospace;font-size:9px;color:#30d158;border:1px solid rgba(48,209,88,0.3);padding:1px 5px;border-radius:3px;">ACCESSIBLE</span></span></div>
+        <div class="ret-income-row"><span>Roth IRA contributions (basis)</span><span>${fmt(ex.rIRABasis)} <span style="font-family:'DM Mono',monospace;font-size:9px;color:#30d158;border:1px solid rgba(48,209,88,0.3);padding:1px 5px;border-radius:3px;">ACCESSIBLE</span></span></div>
+        <div class="ret-income-row" style="margin-top:4px;"><span>Roth IRA earnings</span><span>${fmt(iraEarnings)} <span style="font-family:'DM Mono',monospace;font-size:9px;color:#ef4444;border:1px solid rgba(239,68,68,0.3);padding:1px 5px;border-radius:3px;">LOCKED</span></span></div>
+        <div class="ret-income-row"><span>Roth TSP (employee)</span><span>${fmtM(ex.rTSP)} <span style="font-family:'DM Mono',monospace;font-size:9px;color:#ef4444;border:1px solid rgba(239,68,68,0.3);padding:1px 5px;border-radius:3px;">LOCKED</span></span></div>
+        <div class="ret-income-row"><span>Traditional TSP (army match)</span><span>${fmtM(ex.tTSP)} <span style="font-family:'DM Mono',monospace;font-size:9px;color:#ef4444;border:1px solid rgba(239,68,68,0.3);padding:1px 5px;border-radius:3px;">LOCKED · TAXABLE</span></span></div>
+        <div style="display:flex;justify-content:space-between;border-top:1px solid rgba(30,58,95,0.4);margin-top:8px;padding-top:8px;">
+          <span style="font-family:'DM Mono',monospace;font-size:11px;color:#30d158;">ACCESSIBLE TOTAL</span>
+          <span style="font-family:'DM Mono',monospace;font-size:11px;color:#30d158;font-weight:700;">${fmtM(ex.acc)}</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:4px;">
+          <span style="font-family:'DM Mono',monospace;font-size:11px;color:#ef4444;">LOCKED TOTAL</span>
+          <span style="font-family:'DM Mono',monospace;font-size:11px;color:#ef4444;font-weight:700;">${fmtM(ex.lkd)}</span>
+        </div>
+      </div>
+
+      <div class="ret-income" style="margin-top:16px;">
+        <div class="ret-income-label">BRIDGE PERIOD · AGE ${ex.age} TO 59.5 · ${Math.round(b.bridgeYrs * 10) / 10} YEARS</div>
+        <div class="ret-income-row"><span>Army pension (lifetime, COLA-adjusted)</span><span>${fmt(s.pension)}/yr</span></div>
+        <div class="ret-income-row"><span>Accessible SWR (4% of ${fmtM(ex.acc)})</span><span>${fmt(b.annDraw)}/yr</span></div>
+        <div class="ret-total">
+          <span class="ret-total-label" style="color:${color}">TOTAL INCOME (AGE ${ex.age}–59)</span>
+          <span class="ret-total-val" style="color:${color}">${fmt(b.preIncome)}/yr</span>
+        </div>
+      </div>
+
+      <div style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(30,58,95,0.5);">
+        <div class="ret-income-label" style="margin-bottom:10px;">AT AGE 59.5 · ALL ACCOUNTS UNLOCK</div>
+        <div class="ret-income-row"><span>Accessible (drawn down during bridge)</span><span>${fmtM(b.accAt59)}</span></div>
+        <div class="ret-income-row"><span>Locked accounts (compounded ${Math.round(b.bridgeYrs * 10) / 10} yrs untouched)</span><span style="color:#60a5fa;font-weight:600;">${fmtM(b.lkdAt59)}</span></div>
+        <div style="display:flex;justify-content:space-between;border-top:1px solid rgba(30,58,95,0.4);margin-top:8px;padding-top:8px;">
+          <span style="font-family:'DM Mono',monospace;font-size:11px;color:#f0f6fc;">TOTAL PORTFOLIO AT 59.5</span>
+          <span style="font-family:'DM Mono',monospace;font-size:14px;color:#f0f6fc;font-weight:700;">${fmtM(b.totAt59)}</span>
+        </div>
+        <div class="ret-income-row" style="margin-top:10px;"><span>New SWR (4% of ${fmtM(b.totAt59)})</span><span>${fmt(b.swr59)}/yr</span></div>
+        <div class="ret-income-row"><span>Army pension (continues)</span><span>${fmt(s.pension)}/yr</span></div>
+        <div class="ret-total" style="margin-top:4px;">
+          <span class="ret-total-label" style="color:${color}">TOTAL INCOME AT 59.5+</span>
+          <span class="ret-total-val" style="color:${color}">${fmt(b.inc59)}/yr</span>
+        </div>
+      </div>
+
+      <div class="ret-65" style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(30,58,95,0.2);">
+        <div>
+          <div class="ret-65-label" style="color:#e2c77b;">PORTFOLIO AT AGE 65</div>
+          <div class="ret-65-sub">continued 4% SWR for 5.5 yrs from 59.5</div>
+        </div>
+        <div style="text-align:right;">
+          <div class="ret-65-val" style="color:#e2c77b;">${fmtM(b.p65)}</div>
+          <div style="font-size:11px;color:#64748b;margin-top:2px;">${fmt(b.inc65)}/yr income</div>
+        </div>
+      </div>`;
+
+    grid.appendChild(div);
+  });
+}
+
+function renderGlossary() {
+  const list = document.getElementById('gloss-list');
+  glossary.forEach((item, i) => {
+    const div = document.createElement('div');
+    div.className = 'gloss-item fade-in';
+    div.innerHTML = `
+      <div class="gloss-head" onclick="toggleGloss(${i})">
+        <span class="gloss-term">${item.term}</span>
+        <span class="gloss-chevron" id="g-chev-${i}">▼</span>
+      </div>
+      <div class="gloss-def" id="g-def-${i}">${item.def}</div>`;
+    list.appendChild(div);
+  });
+}
+
+function toggleGloss(i) {
+  const el = document.getElementById(`g-def-${i}`).parentElement;
+  const chev = document.getElementById(`g-chev-${i}`);
+  el.classList.toggle('open');
+  chev.textContent = el.classList.contains('open') ? '▲' : '▼';
+}
+
+// ─── CHARTS ───────────────────────────────────────────────────────────────
+
+const chartDefaults = {
+  color: '#c9d1d9',
+  plugins: { legend: { labels: { color: '#64748b', font: { family: 'DM Mono', size: 11 } } } },
+  scales: {
+    x: { ticks: { color: '#475569', font: { family: 'DM Mono', size: 10 } }, grid: { color: 'rgba(30,58,95,0.3)' } },
+    y: { ticks: { color: '#475569', font: { family: 'DM Mono', size: 10 } }, grid: { color: 'rgba(30,58,95,0.3)' } }
+  }
+};
+
+// ─── GROWTH CHART ─────────────────────────────────────────────────────────
+
+function buildExtension() {
+  const ext = [];
+  let val = projection[24].portfolio;
+  for (let i = 1; i <= 19; i++) {
+    val = Math.round(val * 1.07);
+    ext.push({ year: 25 + i, age: 46 + i, portfolioM: parseFloat((val / 1e6).toFixed(3)) });
+  }
+  return ext;
+}
+
+const extension = buildExtension();
+let growthExpanded = false;
+let growthChart = null;
+
+function buildGrowthData(expanded) {
+  const serviceLabels  = projection.map(r => `Yr ${r.year}`);
+  const extLabels      = extension.map(r => `Age ${r.age}`);
+  const labels         = expanded ? [...serviceLabels, ...extLabels] : serviceLabels;
+  const serviceData    = projection.map(r => r.portfolioM);
+  const accessibleData = projection.map(r => parseFloat((r.acc / 1e6).toFixed(3)));
+  const postData = expanded
+    ? [...Array(25).fill(null), projection[24].portfolioM, ...extension.map(r => r.portfolioM)]
+    : [];
+  return { labels, serviceData, accessibleData, postData };
+}
+
+function getAnnotations(expanded) {
+  return {
+    line20: {
+      type: 'line', xMin: 19, xMax: 19,
+      borderColor: '#30d158', borderWidth: 1.5, borderDash: [4, 3],
+      label: { content: 'SCENARIO A · 20 YR', display: true, position: 'start',
+        color: '#30d158', font: { family: 'DM Mono', size: 9 },
+        backgroundColor: 'rgba(5,10,18,0.85)', padding: 4, yAdjust: 10 }
+    },
+    line25: {
+      type: 'line', xMin: 24, xMax: 24,
+      borderColor: '#f59e0b', borderWidth: 1.5, borderDash: [4, 3],
+      label: { content: 'SCENARIO B · 25 YR', display: true, position: 'start',
+        color: '#f59e0b', font: { family: 'DM Mono', size: 9 },
+        backgroundColor: 'rgba(5,10,18,0.85)', padding: 4, yAdjust: 30 }
+    }
+  };
+}
+
+function renderGrowthChart() {
+  const ctx = document.getElementById('chart-growth').getContext('2d');
+  const { labels, serviceData, accessibleData, postData } = buildGrowthData(false);
+
+  growthChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: 'Total Portfolio',
+          data: serviceData,
+          borderColor: '#60a5fa',
+          backgroundColor: (ctx) => {
+            const g = ctx.chart.ctx.createLinearGradient(0, 0, 0, 360);
+            g.addColorStop(0, 'rgba(96,165,250,0.2)');
+            g.addColorStop(1, 'rgba(96,165,250,0)');
+            return g;
+          },
+          fill: true, tension: 0.4, pointRadius: 0, borderWidth: 2, spanGaps: false
+        },
+        {
+          label: 'Accessible Pre-59.5',
+          data: accessibleData,
+          borderColor: '#30d158',
+          borderDash: [6, 3],
+          backgroundColor: 'transparent',
+          fill: false, tension: 0.4, pointRadius: 0, borderWidth: 1.5, spanGaps: false
+        },
+        {
+          label: 'Portfolio · Post-Retirement (compounding only)',
+          data: [],
+          borderColor: '#ef4444',
+          backgroundColor: (ctx) => {
+            const g = ctx.chart.ctx.createLinearGradient(0, 0, 0, 360);
+            g.addColorStop(0, 'rgba(239,68,68,0.15)');
+            g.addColorStop(1, 'rgba(239,68,68,0)');
+            return g;
+          },
+          fill: true, tension: 0.4, pointRadius: 0, borderWidth: 2, spanGaps: true
+        }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: true,
+      animation: { duration: 600, easing: 'easeInOutQuart' },
+      plugins: {
+        legend: {
+          labels: {
+            color: '#64748b', font: { family: 'DM Mono', size: 10 },
+            filter: (item) => item.datasetIndex < 2 || growthExpanded
+          }
+        },
+        tooltip: {
+          callbacks: {
+            label: (c) => {
+              if (c.datasetIndex === 0) return ` Total: $${parseFloat(c.raw).toFixed(2)}M`;
+              if (c.datasetIndex === 1) return ` Accessible: $${parseFloat(c.raw).toFixed(2)}M`;
+              return ` Post-retire: $${parseFloat(c.raw).toFixed(2)}M`;
+            },
+            title: (c) => {
+              const idx = c[0].dataIndex;
+              if (idx < 25) {
+                const r = projection[idx];
+                return `Year ${r.year} · Age ${r.age} · ${r.rank}`;
+              } else {
+                const e = extension[idx - 26];
+                return e ? `Age ${e.age} · Post-Retirement` : '';
+              }
+            }
+          },
+          backgroundColor: '#0a0f1a', borderColor: '#1e3a5f', borderWidth: 1,
+          titleColor: '#60a5fa', bodyColor: '#c9d1d9',
+          titleFont: { family: 'DM Mono', size: 11 }, bodyFont: { family: 'DM Mono', size: 11 }
+        },
+        annotation: { annotations: getAnnotations(false) }
+      },
+      scales: {
+        x: { ticks: { color: '#475569', font: { family: 'DM Mono', size: 10 }, maxTicksLimit: 14 }, grid: { color: 'rgba(30,58,95,0.3)' } },
+        y: { ticks: { color: '#475569', font: { family: 'DM Mono', size: 10 }, callback: v => `$${v.toFixed(1)}M` }, grid: { color: 'rgba(30,58,95,0.3)' } }
+      }
+    }
+  });
+}
+
+function toggleGrowthExpand() {
+  growthExpanded = !growthExpanded;
+  const { labels, serviceData, accessibleData, postData } = buildGrowthData(growthExpanded);
+  growthChart.data.labels = labels;
+  growthChart.data.datasets[0].data = serviceData;
+  growthChart.data.datasets[1].data = growthExpanded ? [] : accessibleData;
+  growthChart.data.datasets[2].data = growthExpanded ? postData : [];
+  growthChart.options.plugins.annotation.annotations = getAnnotations(growthExpanded);
+  growthChart.update();
+  document.getElementById('expand-label').textContent = growthExpanded ? 'COLLAPSE TO 25 YRS' : 'EXPAND TO AGE 65';
+  document.getElementById('expand-arrow').style.transform = growthExpanded ? 'rotate(180deg)' : 'rotate(0deg)';
+  document.getElementById('growth-chart-label').textContent = growthExpanded
+    ? 'PORTFOLIO VALUE \u00b7 25 YEARS SERVICE + POST-RETIREMENT COMPOUNDING TO AGE 65'
+    : 'PORTFOLIO VALUE \u00b7 25 YEARS OF SERVICE (7% ANNUAL RETURN)';
+}
+
+function renderIncomeChart() {
+  const ctx = document.getElementById('chart-income').getContext('2d');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: projection.map(r => r.year),
+      datasets: [
+        { label: 'Non-Taxable (BAH/BAS)', data: projection.map(r => r.nti), backgroundColor: '#1e3a5f', stack: 'a' },
+        { label: 'Taxable (Base Pay)', data: projection.map(r => r.ti), backgroundColor: '#3b82f6', stack: 'a' },
+        { label: 'FLPP', data: projection.map(r => r.flpp), backgroundColor: '#30d158', stack: 'a' },
+        { label: '40% Saved', data: projection.map(r => r.savings), backgroundColor: '#a78bfa', stack: 'b' },
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: true,
+      plugins: {
+        ...chartDefaults.plugins,
+        tooltip: {
+          callbacks: { label: (c) => ` ${c.dataset.label}: $${Math.round(c.raw).toLocaleString()}` },
+          backgroundColor: '#0a0f1a', borderColor: '#1e3a5f', borderWidth: 1,
+          titleColor: '#60a5fa', bodyColor: '#c9d1d9',
+          titleFont: { family: 'DM Mono', size: 11 }, bodyFont: { family: 'DM Mono', size: 11 }
+        }
+      },
+      scales: {
+        x: chartDefaults.scales.x,
+        y: { ...chartDefaults.scales.y, ticks: { ...chartDefaults.scales.y.ticks, callback: v => `$${(v/1000).toFixed(0)}k` } }
+      }
+    }
+  });
+}
+
+function renderAccountsChart() {
+  if (window._accountsChartDone) return;
+  window._accountsChartDone = true;
+
+  // Populate info card text
+  document.getElementById('acc-20-text').textContent  = fmtM(exit20.acc);
+  document.getElementById('acc-25-text').textContent  = fmtM(exit25.acc);
+  document.getElementById('lkd-20-text').textContent  = fmtM(exit20.lkd);
+  document.getElementById('lkd-25-text').textContent  = fmtM(exit25.lkd);
+  const totalMatch = projection.reduce((s, r) => s + r.matchC, 0);
+  document.getElementById('match-total-text').textContent = fmt(totalMatch);
+
+  const ctx = document.getElementById('chart-accounts').getContext('2d');
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: projection.map(r => `Yr ${r.year}`),
+      datasets: [
+        {
+          label: 'Taxable Brokerage',
+          data: projection.map(r => parseFloat((r.taxable / 1e6).toFixed(3))),
+          backgroundColor: 'rgba(48,209,88,0.55)',
+          borderColor: '#30d158',
+          fill: true, tension: 0.4, pointRadius: 0, borderWidth: 1.5, stack: 'accts'
+        },
+        {
+          label: 'Roth IRA',
+          data: projection.map(r => parseFloat((r.rIRA / 1e6).toFixed(3))),
+          backgroundColor: 'rgba(96,165,250,0.45)',
+          borderColor: '#60a5fa',
+          fill: true, tension: 0.4, pointRadius: 0, borderWidth: 1.5, stack: 'accts'
+        },
+        {
+          label: 'Roth TSP (Employee)',
+          data: projection.map(r => parseFloat((r.rTSP / 1e6).toFixed(3))),
+          backgroundColor: 'rgba(167,139,250,0.45)',
+          borderColor: '#a78bfa',
+          fill: true, tension: 0.4, pointRadius: 0, borderWidth: 1.5, stack: 'accts'
+        },
+        {
+          label: 'Traditional TSP (Army Match)',
+          data: projection.map(r => parseFloat((r.tTSP / 1e6).toFixed(3))),
+          backgroundColor: 'rgba(245,158,11,0.45)',
+          borderColor: '#f59e0b',
+          fill: true, tension: 0.4, pointRadius: 0, borderWidth: 1.5, stack: 'accts'
+        }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: true,
+      plugins: {
+        legend: { labels: { color: '#64748b', font: { family: 'DM Mono', size: 10 } } },
+        tooltip: {
+          callbacks: {
+            label: c => ` ${c.dataset.label}: $${parseFloat(c.raw).toFixed(2)}M`,
+            footer: items => {
+              const r = projection[items[0].dataIndex];
+              return [`Total: ${fmtM(r.portfolio)}`, `Accessible: ${fmtM(r.acc)}`, `Locked: ${fmtM(r.lkd)}`];
+            }
+          },
+          backgroundColor: '#0a0f1a', borderColor: '#1e3a5f', borderWidth: 1,
+          titleColor: '#60a5fa', bodyColor: '#c9d1d9', footerColor: '#475569',
+          titleFont: { family: 'DM Mono', size: 11 }, bodyFont: { family: 'DM Mono', size: 11 }
+        },
+        annotation: {
+          annotations: {
+            line20: {
+              type: 'line', xMin: 19, xMax: 19,
+              borderColor: '#30d158', borderWidth: 1.5, borderDash: [4, 3],
+              label: { content: '20-YR EXIT', display: true, position: 'start',
+                color: '#30d158', font: { family: 'DM Mono', size: 9 },
+                backgroundColor: 'rgba(5,10,18,0.85)', padding: 4 }
+            },
+            line25: {
+              type: 'line', xMin: 24, xMax: 24,
+              borderColor: '#f59e0b', borderWidth: 1.5, borderDash: [4, 3],
+              label: { content: '25-YR EXIT', display: true, position: 'start',
+                color: '#f59e0b', font: { family: 'DM Mono', size: 9 },
+                backgroundColor: 'rgba(5,10,18,0.85)', padding: 4, yAdjust: 20 }
+            }
+          }
+        }
+      },
+      scales: {
+        x: { stacked: true, ticks: { color: '#475569', font: { family: 'DM Mono', size: 10 } }, grid: { color: 'rgba(30,58,95,0.3)' } },
+        y: { stacked: true, ticks: { color: '#475569', font: { family: 'DM Mono', size: 10 }, callback: v => `$${v.toFixed(1)}M` }, grid: { color: 'rgba(30,58,95,0.3)' } }
+      }
+    }
+  });
+}
+
+// ─── TABS ─────────────────────────────────────────────────────────────────
+
+function switchTab(id) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(`tab-${id}`).classList.add('active');
+  event.target.classList.add('active');
+  if (id === 'income'    && !window._incomeChartDone)   { renderIncomeChart();   window._incomeChartDone = true; }
+  if (id === 'accounts'  && !window._accountsChartDone) { renderAccountsChart(); }
+}
+
+// ─── NAV ──────────────────────────────────────────────────────────────────
+
+function navTo(e, id) {
+  e.preventDefault();
+  const el = document.getElementById(id);
+  if (!el) return;
+  window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 64, behavior: 'smooth' });
+  document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+  e.currentTarget.classList.add('active');
+}
+
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+  const sections = ['timeline','ranks','mos35a','oer','languages','finance','retirement','glossary'];
+  let current = '';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top < 120) current = id;
+  });
+  document.querySelectorAll('nav a').forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === `#${current}`);
+  });
+});
+
+// ─── INIT ──────────────────────────────────────────────────────────────────
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderTimeline();
+  renderRanks();
+  renderMetrics();
+  renderTable();
+  renderRetirement();
+  renderGlossary();
+  renderGrowthChart();
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+});
+</script>
+
+</body>
 </html>
