@@ -283,6 +283,7 @@
 <section id="hero">
   <div class="hero-grid"></div>
   <div class="hero-inner fade-in visible">
+    <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:4px;color:#f0f6fc;margin-bottom:16px;padding:6px 20px;border:1px solid rgba(96,165,250,0.3);border-radius:4px;display:inline-block;">DYLAN</div>
     <div class="hero-label">UNITED STATES ARMY · OFFICER CAREER &amp; FINANCIAL PLAN</div>
     <h1 class="hero-title">My<br><span>30-Year Plan</span></h1>
     <p class="hero-sub">From ROTC cadet to Army officer. A full-career roadmap covering my military education, rank progression, intelligence branch specialization, and a financial strategy built for early retirement.</p>
@@ -300,7 +301,6 @@
 <!-- NAV -->
 <nav id="navbar">
   <span class="brand">MY PLAN</span>
- <span style="font-family:'DM Mono',monospace;font-size:11px;color:#f0f6fc;letter-spacing:2px;margin-left:auto;padding:5px 14px;border:1px solid rgba(96,165,250,0.25);border-radius:4px;">DYLAN</span>
   <div class="nav-links">
     <a href="#timeline" onclick="navTo(event,'timeline')">TIMELINE</a>
     <a href="#ranks" onclick="navTo(event,'ranks')">RANKS</a>
@@ -482,10 +482,17 @@
       <div class="notes-label">ASSUMPTIONS &amp; NOTES</div>
       <div class="notes-grid">
         <div class="notes-item"><span class="notes-dot">·</span>7% nominal annual return assumed throughout</div>
+        <div class="notes-item"><span class="notes-dot">·</span>40% savings rate applied to total compensation</div>
+        <div class="notes-item"><span class="notes-dot">·</span>BRS pension: 40% base pay at 20yr, 50% at 25yr (immediate, COLA-adjusted for life)</div>
+        <div class="notes-item"><span class="notes-dot">·</span>Army BRS match modeled on top of 40% savings rate (it is real additional compensation)</div>
         <div class="notes-item"><span class="notes-dot">·</span>TSP employee limit: $23,500 (2025). Roth IRA limit: $7,000 (2025). Both increase with inflation.</div>
         <div class="notes-item"><span class="notes-dot">·</span>Roth IRA phase-out applied: O-6 base ($157k) is partially phased out; O-7 ($201k) is fully phased out</div>
+        <div class="notes-item"><span class="notes-dot">·</span>Military MAGI approx. = base pay only (BAH, BAS, FLPP excluded from AGI)</div>
         <div class="notes-item"><span class="notes-dot">·</span>4% SWR pre-59.5 applies to accessible accounts only (taxable + Roth IRA contributions)</div>
+        <div class="notes-item"><span class="notes-dot">·</span>Locked accounts (TSP + Roth IRA earnings) compound untouched until 59.5</div>
+        <div class="notes-item"><span class="notes-dot">·</span>Traditional TSP (army match) withdrawals are subject to ordinary income tax</div>
         <div class="notes-item"><span class="notes-dot">·</span>FLPP: $1,000/month ($12,000/yr) from Year 5, taxable income</div>
+        <div class="notes-item"><span class="notes-dot">·</span>Not financial advice. Consult a CFP.</div>
       </div>
     </div>
   </div>
@@ -1108,9 +1115,9 @@ function fmtM(n) { return "$" + (n / 1e6).toFixed(2) + "M"; }
 
 const timelineEvents = [
   { year:"May 2027", age:17, phase:"foundation", color:"#94a3b8", icon:"🎓",
-    title:"High School Graduation",
+    title:"High School Graduation · Crosby High School",
     subtitle:"Associates Degree · 4.5 GPA · 1450 SAT · Medical Certificate",
-    detail:"I graduate high school at age 17 with both a Medical Certificate and an Associate's Degree, college-level credentials earned through full-time dual enrollment. Academic record: 4.5 GPA (weighted), 1450 SAT, 90 ASVAB. I begin college that fall on an Army ROTC scholarship, entering with sophomore-level credits that accelerate my bachelor's and master's completion timeline." },
+    detail:"I graduate from Crosby High School at age 17 with both a Medical Certificate and an Associate's Degree, college-level credentials earned through full-time dual enrollment. Academic record: 4.5 GPA (weighted), 1450 SAT, 90 ASVAB. I begin college that fall on an Army ROTC scholarship, entering with sophomore-level credits that accelerate my bachelor's and master's completion timeline." },
   { year:"2027–2031", age:17, phase:"foundation", color:"#94a3b8", icon:"⚔️",
     title:"ROTC Cadet",
     subtitle:"4 Years of Army Leadership Training · Targeting 35A Branch",
