@@ -285,8 +285,8 @@
   <div class="hero-inner fade-in visible">
     <div style="font-family:'DM Mono',monospace;font-size:25px;letter-spacing:2px;color:#f0f6fc;margin-bottom:16px;padding:6px 10px;border:0px solid rgba(96,165,250,0.3);border-radius:4px;display:inline-block;text-align:center;">Dylan McDaniel</div>
     <div class="hero-label">UNITED STATES ARMY · OFFICER CAREER &amp; FINANCIAL PLAN</div>
-    <h1 class="hero-title">My<br><span>30-Year Plan</span></h1>
-    <p class="hero-sub">From ROTC cadet to Army officer. A full-career roadmap covering my military education, rank progression, intelligence branch specialization, and a financial strategy built for early retirement.</p>
+    <h1 class="hero-title">My<br><span>Army Plan</span></h1>
+    <p class="hero-sub">From ROTC cadet to Army officer. A full-career roadmap covering my military education, rank progression, intelligence branch specialization, and a financial strategy built for retirement at 20 years.</p>
     <div class="hero-stats">
       <div class="hero-stat"><div class="stat-label">HS GRADUATION</div><div class="stat-value">May 2027</div></div>
       <div class="hero-stat"><div class="stat-label">COMMISSION YEAR</div><div class="stat-value">2031</div></div>
@@ -335,7 +335,7 @@
     <div class="section-header fade-in">
       <div class="section-label">RANK &amp; STRUCTURE</div>
       <h2 class="section-title">The Army Officer Pay Scale</h2>
-      <p class="section-sub">Military compensation is structured around rank (O-1 through O-7) and years of service. Every promotion comes with a pay increase and expanded responsibility.</p>
+      <p class="section-sub">Military compensation is structured around rank (O-1 through O-6) and years of service. Every promotion comes with a pay increase and expanded responsibility.</p>
     </div>
     <div class="rank-list" id="rank-list"></div>
     <div class="pay-cards fade-in">
@@ -354,13 +354,12 @@
     <div class="section-header fade-in">
       <div class="section-label">FINANCIAL PROJECTION</div>
       <h2 class="section-title">Building Wealth in Uniform</h2>
-      <p class="section-sub">Projecting 25 years of my Army income with a 40% savings rate and 7% annual return.</p>
+      <p class="section-sub">Projecting 20 years of my Army income with a 40% savings rate and 7% annual return.</p>
     </div>
     <div class="metric-bar fade-in">
       <div class="metric-card"><div class="metric-label">20-YR TOTAL PORTFOLIO</div><div class="metric-value" id="m-port20">—</div><div class="metric-sub">Age 41 · All Accounts</div></div>
       <div class="metric-card"><div class="metric-label">20-YR ACCESSIBLE</div><div class="metric-value" id="m-acc20">—</div><div class="metric-sub">Age 41 · Pre-59.5 Only</div></div>
-      <div class="metric-card"><div class="metric-label">25-YR TOTAL PORTFOLIO</div><div class="metric-value" id="m-port25">—</div><div class="metric-sub">Age 46 · All Accounts</div></div>
-      <div class="metric-card"><div class="metric-label">25-YR ACCESSIBLE</div><div class="metric-value" id="m-acc25">—</div><div class="metric-sub">Age 46 · Pre-59.5 Only</div></div>
+
     </div>
 
     <div class="tab-bar fade-in">
@@ -373,13 +372,12 @@
     <div id="tab-growth" class="tab-panel active">
       <div class="chart-box fade-in" style="position:relative;">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px;">
-          <div class="chart-label" style="margin-bottom:0;" id="growth-chart-label">PORTFOLIO VALUE &middot; 25 YEARS OF SERVICE (7% ANNUAL RETURN)</div>
+          <div class="chart-label" style="margin-bottom:0;" id="growth-chart-label">PORTFOLIO VALUE &middot; 20 YEARS OF SERVICE (7% ANNUAL RETURN)</div>
           <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
             <div style="display:flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1px;">
               <span style="display:inline-block;width:24px;height:2px;background:#60a5fa;"></span><span style="color:#475569;">SERVICE</span>
               <span style="display:inline-block;width:24px;height:2px;background:#ef4444;margin-left:10px;"></span><span style="color:#475569;">POST-RETIREMENT</span>
               <span style="display:inline-block;width:2px;height:14px;background:#30d158;margin-left:10px;vertical-align:middle;"></span><span style="color:#475569;">20-YR EXIT</span>
-              <span style="display:inline-block;width:2px;height:14px;background:#f59e0b;margin-left:6px;vertical-align:middle;"></span><span style="color:#475569;">25-YR EXIT</span>
             </div>
             <button id="expand-btn" onclick="toggleGrowthExpand()" style="display:flex;align-items:center;gap:8px;background:rgba(96,165,250,0.1);border:1px solid rgba(96,165,250,0.3);color:#60a5fa;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;padding:7px 14px;cursor:pointer;border-radius:4px;transition:all 0.2s;white-space:nowrap;">
               <span id="expand-label">EXPAND TO AGE 65</span>
@@ -407,7 +405,7 @@
         <div class="info-card"><div class="info-card-label">TAX STRATEGY BY PHASE</div>
           <div class="info-card-item">O-1 to O-3: 100% Roth (low bracket)</div>
           <div class="info-card-item">O-4 to O-5: blend Roth + Traditional</div>
-          <div class="info-card-item">O-6 to O-7: lean Traditional (24–32%)</div>
+          <div class="info-card-item">O-6: lean Traditional (24–32%)</div>
           <div class="info-card-item">Post-retire: Roth conversions as needed</div>
         </div>
         <div class="info-card"><div class="info-card-label">BRS MATCH DETAILS</div>
@@ -431,14 +429,12 @@
           <div class="info-card-item">Roth IRA contributions (basis): withdraw anytime, no penalty or tax</div>
           <div class="info-card-item">Roth IRA earnings: locked until 59.5 + 5-year rule</div>
           <div class="info-card-item highlight">20-YR EXIT ACCESSIBLE: <span id="acc-20-text">—</span></div>
-          <div class="info-card-item highlight">25-YR EXIT ACCESSIBLE: <span id="acc-25-text">—</span></div>
         </div>
         <div class="info-card"><div class="info-card-label">LOCKED UNTIL 59.5</div>
           <div class="info-card-item">Roth TSP: locked at 59.5 (Rule of 55 requires separation at 55+)</div>
           <div class="info-card-item">Traditional TSP (army match): locked at 59.5, taxable on withdrawal</div>
           <div class="info-card-item">Roth IRA earnings: locked until 59.5, then tax-free</div>
           <div class="info-card-item highlight">20-YR EXIT LOCKED: <span id="lkd-20-text">—</span></div>
-          <div class="info-card-item highlight">25-YR EXIT LOCKED: <span id="lkd-25-text">—</span></div>
         </div>
         <div class="info-card"><div class="info-card-label">ARMY BRS MATCH</div>
           <div class="info-card-item">1% automatic contribution (regardless of your contribution)</div>
@@ -446,7 +442,7 @@
           <div class="info-card-item">50% match from 3% to 5%; contribute 5%, receive 5% from Army</div>
           <div class="info-card-item">Match always goes to Traditional TSP (IRS rule)</div>
           <div class="info-card-item">Starts Year 2, fully vested at 2 years of service</div>
-          <div class="info-card-item highlight">TOTAL MATCH CONTRIBUTED (25 YRS): <span id="match-total-text">—</span></div>
+          <div class="info-card-item highlight">TOTAL MATCH CONTRIBUTED (20 YRS): <span id="match-total-text">—</span></div>
         </div>
       </div>
     </div>
@@ -474,9 +470,9 @@
 <section id="retirement">
   <div class="section-inner">
     <div class="section-header fade-in">
-      <div class="section-label">RETIREMENT OUTCOMES</div>
-      <h2 class="section-title">Two Paths to Financial Independence</h2>
-      <p class="section-sub">Scenario A uses defense contracting to fund lifestyle while the entire portfolio compounds untouched. Scenario B uses a standard SWR bridge. Both reach full financial independence well before 60.</p>
+      <div class="section-label">RETIREMENT OUTCOME</div>
+      <h2 class="section-title">The Path to Financial Independence</h2>
+      <p class="section-sub">Retire at 20 years with a 40% O-6 pension, then contract in defense while the portfolio compounds completely untouched. Financial independence well before 60.</p>
     </div>
     <div class="ret-grid" id="ret-grid"></div>
     <div class="notes-box fade-in">
@@ -484,7 +480,7 @@
       <div class="notes-grid">
         <div class="notes-item"><span class="notes-dot">·</span>Army BRS match modeled on top of 40% savings rate (it is real additional compensation)</div>
         <div class="notes-item"><span class="notes-dot">·</span>TSP employee limit: $23,500 (2025). Roth IRA limit: $7,000 (2025). Both increase with inflation.</div>
-        <div class="notes-item"><span class="notes-dot">·</span>Roth IRA phase-out applied: O-6 base ($157k) is partially phased out; O-7 ($201k) is fully phased out</div>
+        <div class="notes-item"><span class="notes-dot">·</span>Roth IRA phase-out applied: O-6 base ($157k) is partially phased out at years 19-20</div>
         <div class="notes-item"><span class="notes-dot">·</span>4% SWR pre-59.5 applies to accessible accounts only (taxable + Roth IRA contributions)</div>
       </div>
     </div>
@@ -798,7 +794,7 @@
         <br><br>
         The early career runs through the S2 role as a Captain, which is the most critical key developmental position for 35A. A top-block OER there sets the trajectory for everything after. Mid-career brings promotion to Major, a joint assignment at NSA or DIA, two strategic language certifications, ILE, and selection for Lieutenant Colonel. The goal is MI Battalion command as an LTC, then Colonel and potential MI Brigade command as a senior officer.
         <br><br>
-        The financial plan has two exits. Scenario A(likely): retire at 20 years (age 41) at O-6 with a 40% pension, contract in defense for five years while the investment portfolio compounds completely untouched, then draw a 4% SWR from age 53 onward. Scenario B: stay to 25 years (age 46), retire as Brigadier General with a 50% pension and a portfolio exceeding $4M. In both cases, all accounts unlock at 59.5 and total income exceeds $200,000 per year.
+        The financial plan targets retirement at 20 years (age 41) at O-6 Colonel, with a 40% pension paid for life. From there, five years of defense contracting at $200-250k/year funds lifestyle while the entire investment portfolio compounds untouched. Starting at age 53, a 4% SWR on the grown portfolio plus pension produces full financial independence. At 59.5, all accounts unlock and total income steps up substantially.
 
   </div>
 </section>
@@ -822,12 +818,11 @@ const rankMap = {
   5:"O-3",6:"O-3",7:"O-3",8:"O-3",9:"O-3",
   10:"O-4",11:"O-4",12:"O-4",13:"O-4",
   14:"O-5",15:"O-5",16:"O-5",17:"O-5",18:"O-5",
-  19:"O-6",20:"O-6",21:"O-6",22:"O-6",23:"O-6",
-  24:"O-7",25:"O-7"
+  19:"O-6",20:"O-6"
 };
 const rankNames = {
   "O-1":"Second Lieutenant","O-2":"First Lieutenant","O-3":"Captain",
-  "O-4":"Major","O-5":"Lieutenant Colonel","O-6":"Colonel","O-7":"Brigadier General"
+  "O-4":"Major","O-5":"Lieutenant Colonel","O-6":"Colonel"
 };
 
 const incomeData = [
@@ -850,12 +845,7 @@ const incomeData = [
   {year:17,ti:136695.6,   nti:35542.56,  flpp:12000},
   {year:18,ti:136695.6,   nti:35542.56,  flpp:12000},
   {year:19,ti:157384.80,  nti:36723.36,  flpp:12000},
-  {year:20,ti:157384.80,  nti:36723.36,  flpp:12000},
-  {year:21,ti:165013.2,   nti:36723.36,  flpp:12000},
-  {year:22,ti:165013.2,   nti:36723.36,  flpp:12000},
-  {year:23,ti:169354.8,   nti:36723.36,  flpp:12000},
-  {year:24,ti:201812.4,   nti:40362.96,  flpp:12000},
-  {year:25,ti:201812.4,   nti:40362.96,  flpp:12000}
+  {year:20,ti:157384.80,  nti:36723.36,  flpp:12000}
 ];
 
 // ─── PROJECTION CONSTANTS ─────────────────────────────────────────────────
@@ -1074,58 +1064,11 @@ function contractingBridgeSim(exitRow, pension) {
   };
 }
 
-// ─── SCENARIO B: STANDARD SWR BRIDGE ─────────────────────────────────────
-// Scenario B uses a standard 4% SWR on the accessible pool during the bridge.
 
-function bridgeSim(exitRow, pension) {
-  const bridgeYrs = 59.5 - exitRow.age;
-  const acc0      = exitRow.acc;
-  const lkd0      = exitRow.lkd;
-  const annDraw   = Math.round(acc0 * 0.04);
-
-  let acc = acc0;
-  let lkd = lkd0;
-  const fullYrs = Math.floor(bridgeYrs);
-  const fracYr  = bridgeYrs - fullYrs;
-
-  for (let i = 0; i < fullYrs; i++) {
-    acc = acc * GROWTH - annDraw;
-    lkd = lkd * GROWTH;
-  }
-  acc = acc * Math.pow(GROWTH, fracYr) - annDraw * fracYr;
-  lkd = lkd * Math.pow(GROWTH, fracYr);
-
-  const accAt59 = Math.round(Math.max(0, acc));
-  const lkdAt59 = Math.round(lkd);
-  const totAt59 = accAt59 + lkdAt59;
-  const swr59   = Math.round(totAt59 * 0.04);
-  const inc59   = pension + swr59;
-
-  let p65 = totAt59;
-  for (let i = 0; i < 5; i++) p65 = p65 * GROWTH - swr59;
-  p65 = Math.round(p65 * Math.pow(GROWTH, 0.5) - swr59 * 0.5);
-  p65 = Math.max(0, p65);
-
-  return {
-    acc0, lkd0, bridgeYrs,
-    annDraw,
-    preIncome: pension + annDraw,
-    accAt59, lkdAt59, totAt59,
-    swr59, inc59,
-    p65, inc65: pension + Math.round(p65 * 0.04)
-  };
-}
-
-const pension20    = Math.round(157384.80 * 0.40);  // 40% of O-6 base at 20 yrs (BRS)
-const pension25    = Math.round(201812.4  * 0.50);  // 50% of O-7 base at 25 yrs (BRS)
-const exit20       = projection[19];
-const exit25       = projection[24];
+const pension20     = Math.round(157384.80 * 0.40);  // 40% of O-6 base at 20 yrs (BRS)
+const exit20        = projection[19];
 const contracting20 = contractingBridgeSim(exit20, pension20);
-const bridge25      = bridgeSim(exit25, pension25);
-
-// Keep legacy variable names for chart/hero compatibility
-const port20 = exit20.portfolio;
-const port25 = exit25.portfolio;
+const port20        = exit20.portfolio;
 
 function fmt(n)  { return "$" + Math.round(n).toLocaleString(); }
 function fmtM(n) { return "$" + (n / 1e6).toFixed(2) + "M"; }
@@ -1194,17 +1137,10 @@ const timelineEvents = [
     subtitle:"MI Brigade Command or Senior Intelligence Advisor",
     detail:"Colonel is the terminal rank for the majority of Army officers. As a Colonel in MI branch, I may command an MI Brigade or serve as the senior intelligence officer for a corps or Army headquarters. My financial plan reaches the 20-year milestone at this rank, making Scenario A retirement available." },
   { year:"2051", age:41, phase:"retirement", color:"#30d158", icon:"🏁",
-    title:"Scenario A: Retire at 20 Years",
-    subtitle:"Age 41 · O-6 · Army Pension Begins Immediately",
-    detail:"At 20 years of active service, I am eligible to retire with an Army pension equal to 40% of final O-6 base pay, paid monthly for life, with annual COLA adjustments. Combined with a $1M+ accessible investment portfolio, this creates complete financial independence at 41. My TS/SCI clearance also opens a lucrative second career in defense contracting if desired." },
-  { year:"2056", age:46, phase:"retirement", color:"#30d158", icon:"🏆",
-    title:"Scenario B: Retire at 25 Years",
-    subtitle:"Age 46 · O-7 Brigadier General · Enhanced Pension",
-    detail:"Staying to 25 years enables promotion to Brigadier General (O-7) and an Army pension of 50% of final base pay. The investment portfolio grows to $4M+, and total accessible income exceeds $170,000/year from day one. At 59.5, all accounts unlock and income steps up dramatically." },
-  { year:"~2075", age:65, phase:"legacy", color:"#e2c77b", icon:"💎",
-    title:"Age 65: Legacy Wealth",
-    subtitle:"If Consistent SWR Applied Throughout Retirement",
-    detail:"With a 4% SWR applied from the age of retirement, compounding throughout, and all accounts unlocking at 59.5, the total portfolio at 65 reaches $8–10M depending on scenario. Combined with pension and Social Security, this represents multigenerational financial security." }
+    title:"Retire at 20 Years · O-6 Colonel",
+    subtitle:"Age 41 · Army Pension Begins · Defense Contracting Begins",
+    detail:"At 20 years of active service I retire with an Army pension equal to 40% of final O-6 base pay, paid monthly for life with annual COLA adjustments. My TS/SCI clearance opens an immediate second career in defense contracting at $200-250k/year for five years. The entire investment portfolio is left completely untouched to compound at 7% during this period." },
+
 ];
 
 const phaseLabels = {
@@ -1230,11 +1166,8 @@ const officerRanks = [
     desc:"Commands a battalion of 300–1,000 soldiers. Fewer than half of Majors reach this grade.",
     basePay:"$123,260–$136,696", allowances:"~$35,543", total:"$158,803–$172,239" },
   { grade:"O-6", title:"Colonel", abbr:"COL", color:"#ef4444",
-    desc:"Commands a brigade of 3,000–5,000. Terminal rank for most Army officers.",
-    basePay:"$157,385–$169,355", allowances:"~$36,723", total:"$194,108–$206,078" },
-  { grade:"O-7", title:"Brigadier General", abbr:"BG", color:"#30d158",
-    desc:"First general officer grade. Achieved by a small fraction of Colonels. Significant career achievement.",
-    basePay:"$201,812", allowances:"~$40,363", total:"~$242,175" }
+    desc:"Commands a brigade of 3,000–5,000. Terminal rank for most Army officers and my planned exit rank.",
+    basePay:"$157,385–$169,355", allowances:"~$36,723", total:"$194,108–$206,078" }
 ];
 
 const glossary = [
@@ -1329,8 +1262,6 @@ function renderMetrics() {
   document.getElementById('hero-port20').textContent = fmtM(port20);
   document.getElementById('m-port20').textContent    = fmtM(port20);
   document.getElementById('m-acc20').textContent     = fmtM(exit20.acc);
-  document.getElementById('m-port25').textContent    = fmtM(port25);
-  document.getElementById('m-acc25').textContent     = fmtM(exit25.acc);
 }
 
 function renderTable() {
@@ -1463,83 +1394,6 @@ function renderRetirement() {
 
   grid.appendChild(divA);
 
-  // ── SCENARIO B: STANDARD BRIDGE CARD ─────────────────────────────────────
-  const b = bridge25;
-  const ex25 = exit25;
-  const iraEarnings25 = ex25.rIRA - ex25.rIRABasis;
-  const colorB = '#60a5fa';
-
-  const divB = document.createElement('div');
-  divB.className = 'ret-card fade-in';
-  divB.style.border = `1px solid ${colorB}22`;
-  divB.style.borderTop = `3px solid ${colorB}`;
-  divB.innerHTML = `
-    <div class="ret-label" style="color:${colorB}">SCENARIO B · O-7 · 50% PENSION</div>
-    <div class="ret-title">25-Year Retirement</div>
-    <p class="ret-desc">Five more years yields O-7 retirement, a 50% pension, and a substantially larger portfolio. The accessible pool nearly doubles versus Scenario A at exit. Standard SWR bridge to 59.5.</p>
-
-    <div class="ret-stats">
-      <div class="ret-stat"><div class="ret-stat-label">RETIREMENT AGE</div><div class="ret-stat-val">${ex25.age}</div></div>
-      <div class="ret-stat"><div class="ret-stat-label">CALENDAR YEAR</div><div class="ret-stat-val">${ex25.calYear}</div></div>
-      <div class="ret-stat"><div class="ret-stat-label">TOTAL PORTFOLIO</div><div class="ret-stat-val" style="color:${colorB}">${fmtM(ex25.portfolio)}</div></div>
-      <div class="ret-stat"><div class="ret-stat-label">ARMY PENSION</div><div class="ret-stat-val">${fmt(pension25)}/yr</div></div>
-    </div>
-
-    <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(30,58,95,0.5);">
-      <div class="ret-income-label" style="margin-bottom:10px;">ACCOUNT BREAKDOWN AT EXIT</div>
-      <div class="ret-income-row"><span>Taxable Brokerage</span><span>${fmt(ex25.taxable)} <span style="font-family:'DM Mono',monospace;font-size:9px;color:#30d158;border:1px solid rgba(48,209,88,0.3);padding:1px 5px;border-radius:3px;">ACCESSIBLE</span></span></div>
-      <div class="ret-income-row"><span>Roth IRA contributions (basis)</span><span>${fmt(ex25.rIRABasis)} <span style="font-family:'DM Mono',monospace;font-size:9px;color:#30d158;border:1px solid rgba(48,209,88,0.3);padding:1px 5px;border-radius:3px;">ACCESSIBLE</span></span></div>
-      <div class="ret-income-row"><span>Roth IRA earnings</span><span>${fmt(iraEarnings25)} <span style="font-family:'DM Mono',monospace;font-size:9px;color:#ef4444;border:1px solid rgba(239,68,68,0.3);padding:1px 5px;border-radius:3px;">LOCKED</span></span></div>
-      <div class="ret-income-row"><span>Roth TSP (employee)</span><span>${fmtM(ex25.rTSP)} <span style="font-family:'DM Mono',monospace;font-size:9px;color:#ef4444;border:1px solid rgba(239,68,68,0.3);padding:1px 5px;border-radius:3px;">LOCKED</span></span></div>
-      <div class="ret-income-row"><span>Traditional TSP (army match)</span><span>${fmtM(ex25.tTSP)} <span style="font-family:'DM Mono',monospace;font-size:9px;color:#ef4444;border:1px solid rgba(239,68,68,0.3);padding:1px 5px;border-radius:3px;">LOCKED · TAXABLE</span></span></div>
-      <div style="display:flex;justify-content:space-between;border-top:1px solid rgba(30,58,95,0.4);margin-top:8px;padding-top:8px;">
-        <span style="font-family:'DM Mono',monospace;font-size:11px;color:#30d158;">ACCESSIBLE TOTAL</span>
-        <span style="font-family:'DM Mono',monospace;font-size:11px;color:#30d158;font-weight:700;">${fmtM(ex25.acc)}</span>
-      </div>
-      <div style="display:flex;justify-content:space-between;margin-top:4px;">
-        <span style="font-family:'DM Mono',monospace;font-size:11px;color:#ef4444;">LOCKED TOTAL</span>
-        <span style="font-family:'DM Mono',monospace;font-size:11px;color:#ef4444;font-weight:700;">${fmtM(ex25.lkd)}</span>
-      </div>
-    </div>
-
-    <div class="ret-income" style="margin-top:16px;">
-      <div class="ret-income-label">BRIDGE PERIOD · AGE ${ex25.age} TO 59.5 · ${Math.round(b.bridgeYrs * 10) / 10} YEARS</div>
-      <div class="ret-income-row"><span>Army pension (lifetime, COLA-adjusted)</span><span>${fmt(pension25)}/yr</span></div>
-      <div class="ret-income-row"><span>Accessible SWR (4% of ${fmtM(ex25.acc)})</span><span>${fmt(b.annDraw)}/yr</span></div>
-      <div class="ret-total">
-        <span class="ret-total-label" style="color:${colorB}">TOTAL INCOME AGE 46-59</span>
-        <span class="ret-total-val" style="color:${colorB}">${fmt(b.preIncome)}/yr</span>
-      </div>
-    </div>
-
-    <div style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(30,58,95,0.5);">
-      <div class="ret-income-label" style="margin-bottom:10px;">AT AGE 59.5 · ALL ACCOUNTS UNLOCK</div>
-      <div class="ret-income-row"><span>Accessible (drawn down during bridge)</span><span>${fmtM(b.accAt59)}</span></div>
-      <div class="ret-income-row"><span>Locked accounts (compounded ${Math.round(b.bridgeYrs * 10) / 10} yrs untouched)</span><span style="color:#60a5fa;font-weight:600;">${fmtM(b.lkdAt59)}</span></div>
-      <div style="display:flex;justify-content:space-between;border-top:1px solid rgba(30,58,95,0.4);margin-top:8px;padding-top:8px;">
-        <span style="font-family:'DM Mono',monospace;font-size:11px;color:#f0f6fc;">TOTAL PORTFOLIO AT 59.5</span>
-        <span style="font-family:'DM Mono',monospace;font-size:14px;color:#f0f6fc;font-weight:700;">${fmtM(b.totAt59)}</span>
-      </div>
-      <div class="ret-income-row" style="margin-top:10px;"><span>New SWR (4% of ${fmtM(b.totAt59)})</span><span>${fmt(b.swr59)}/yr</span></div>
-      <div class="ret-income-row"><span>Army pension (continues)</span><span>${fmt(pension25)}/yr</span></div>
-      <div class="ret-total" style="margin-top:4px;">
-        <span class="ret-total-label" style="color:${colorB}">TOTAL INCOME AT 59.5+</span>
-        <span class="ret-total-val" style="color:${colorB}">${fmt(b.inc59)}/yr</span>
-      </div>
-    </div>
-
-    <div class="ret-65" style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(30,58,95,0.2);">
-      <div>
-        <div class="ret-65-label" style="color:#e2c77b;">PORTFOLIO AT AGE 65</div>
-        <div class="ret-65-sub">continued 4% SWR for 5.5 yrs from 59.5</div>
-      </div>
-      <div style="text-align:right;">
-        <div class="ret-65-val" style="color:#e2c77b;">${fmtM(b.p65)}</div>
-        <div style="font-size:11px;color:#64748b;margin-top:2px;">${fmt(b.inc65)}/yr income</div>
-      </div>
-    </div>`;
-
-  grid.appendChild(divB);
 }
 
 function renderGlossary() {
@@ -1579,10 +1433,10 @@ const chartDefaults = {
 
 function buildExtension() {
   const ext = [];
-  let val = projection[24].portfolio;
-  for (let i = 1; i <= 19; i++) {
+  let val = projection[19].portfolio;
+  for (let i = 1; i <= 24; i++) {
     val = Math.round(val * 1.07);
-    ext.push({ year: 25 + i, age: 46 + i, portfolioM: parseFloat((val / 1e6).toFixed(3)) });
+    ext.push({ year: 20 + i, age: 41 + i, portfolioM: parseFloat((val / 1e6).toFixed(3)) });
   }
   return ext;
 }
@@ -1598,7 +1452,7 @@ function buildGrowthData(expanded) {
   const serviceData    = projection.map(r => r.portfolioM);
   const accessibleData = projection.map(r => parseFloat((r.acc / 1e6).toFixed(3)));
   const postData = expanded
-    ? [...Array(25).fill(null), projection[24].portfolioM, ...extension.map(r => r.portfolioM)]
+    ? [...Array(20).fill(null), projection[19].portfolioM, ...extension.map(r => r.portfolioM)]
     : [];
   return { labels, serviceData, accessibleData, postData };
 }
@@ -1608,16 +1462,9 @@ function getAnnotations(expanded) {
     line20: {
       type: 'line', xMin: 19, xMax: 19,
       borderColor: '#30d158', borderWidth: 1.5, borderDash: [4, 3],
-      label: { content: 'SCENARIO A · 20 YR', display: true, position: 'start',
+      label: { content: '20-YR RETIREMENT', display: true, position: 'start',
         color: '#30d158', font: { family: 'DM Mono', size: 9 },
         backgroundColor: 'rgba(5,10,18,0.85)', padding: 4, yAdjust: 10 }
-    },
-    line25: {
-      type: 'line', xMin: 24, xMax: 24,
-      borderColor: '#f59e0b', borderWidth: 1.5, borderDash: [4, 3],
-      label: { content: 'SCENARIO B · 25 YR', display: true, position: 'start',
-        color: '#f59e0b', font: { family: 'DM Mono', size: 9 },
-        backgroundColor: 'rgba(5,10,18,0.85)', padding: 4, yAdjust: 30 }
     }
   };
 }
@@ -1716,7 +1563,7 @@ function toggleGrowthExpand() {
   growthChart.data.datasets[2].data = growthExpanded ? postData : [];
   growthChart.options.plugins.annotation.annotations = getAnnotations(growthExpanded);
   growthChart.update();
-  document.getElementById('expand-label').textContent = growthExpanded ? 'COLLAPSE TO 25 YRS' : 'EXPAND TO AGE 65';
+  document.getElementById('expand-label').textContent = growthExpanded ? 'COLLAPSE TO 20 YRS' : 'EXPAND TO AGE 65';
   document.getElementById('expand-arrow').style.transform = growthExpanded ? 'rotate(180deg)' : 'rotate(0deg)';
   document.getElementById('growth-chart-label').textContent = growthExpanded
     ? 'PORTFOLIO VALUE \u00b7 25 YEARS SERVICE + POST-RETIREMENT COMPOUNDING TO AGE 65'
@@ -1761,9 +1608,7 @@ function renderAccountsChart() {
 
   // Populate info card text
   document.getElementById('acc-20-text').textContent  = fmtM(exit20.acc);
-  document.getElementById('acc-25-text').textContent  = fmtM(exit25.acc);
   document.getElementById('lkd-20-text').textContent  = fmtM(exit20.lkd);
-  document.getElementById('lkd-25-text').textContent  = fmtM(exit25.lkd);
   const totalMatch = projection.reduce((s, r) => s + r.matchC, 0);
   document.getElementById('match-total-text').textContent = fmt(totalMatch);
 
@@ -1827,13 +1672,6 @@ function renderAccountsChart() {
               label: { content: '20-YR EXIT', display: true, position: 'start',
                 color: '#30d158', font: { family: 'DM Mono', size: 9 },
                 backgroundColor: 'rgba(5,10,18,0.85)', padding: 4 }
-            },
-            line25: {
-              type: 'line', xMin: 24, xMax: 24,
-              borderColor: '#f59e0b', borderWidth: 1.5, borderDash: [4, 3],
-              label: { content: '25-YR EXIT', display: true, position: 'start',
-                color: '#f59e0b', font: { family: 'DM Mono', size: 9 },
-                backgroundColor: 'rgba(5,10,18,0.85)', padding: 4, yAdjust: 20 }
             }
           }
         }
