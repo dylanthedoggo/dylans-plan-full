@@ -288,10 +288,10 @@
     <h1 class="hero-title">My<br><span>Army Plan</span></h1>
     <p class="hero-sub">From ROTC cadet to Army officer. A full-career roadmap covering my military education, rank progression, intelligence branch specialization, and a financial strategy built for retirement at 20 years.</p>
     <div class="hero-stats">
-      <div class="hero-stat"><div class="stat-label">HS GRADUATION</div><div class="stat-value">May 2027</div></div>
-      <div class="hero-stat"><div class="stat-label">COMMISSION YEAR</div><div class="stat-value">2031</div></div>
-      <div class="hero-stat"><div class="stat-label">COMMISSION AGE</div><div class="stat-value">21</div></div>
-      <div class="hero-stat"><div class="stat-label">TARGET MOS</div><div class="stat-value">35A MI</div></div>
+      <div class="hero-stat"><div class="stat-label">HS GRADUATION</div><div class="stat-value" id="hero-hsgrad">—</div></div>
+      <div class="hero-stat"><div class="stat-label">COMMISSION YEAR</div><div class="stat-value" id="hero-commyear">—</div></div>
+      <div class="hero-stat"><div class="stat-label">COMMISSION AGE</div><div class="stat-value" id="hero-commage">—</div></div>
+      <div class="hero-stat"><div class="stat-label">TARGET MOS</div><div class="stat-value" id="hero-mos">—</div></div>
       <div class="hero-stat"><div class="stat-label">TOTAL PORTFOLIO @ 20 YRS</div><div class="stat-value" id="hero-port20">—</div></div>
     </div>
     <div class="scroll-hint"><span>SCROLL TO EXPLORE</span><div class="scroll-line"></div></div>
@@ -806,10 +806,58 @@
 </div>
 <footer>
   <div class="footer-brand">MY U.S. ARMY OFFICER PLAN</div>
-  <div class="footer-sub">Commission 2031 · 35A Intelligence Branch · All projections are estimates </div>
+  <div class="footer-sub">Commission <span id="footer-commyear">—</span> · 35A Intelligence Branch · All projections are estimates </div>
 </footer>
 
 <script>
+
+// ═══════════════════════════════════════════════════════════════════════════
+// ─── CONFIG ───────────────────────────────────────────────────────────────
+// All user-editable values live here. Change a number once; the entire site
+// updates automatically — charts, tables, metrics, retirement cards, hero stats.
+// ═══════════════════════════════════════════════════════════════════════════
+
+const CONFIG = {
+
+  // ── Identity & Timeline ──────────────────────────────────────────────────
+  name:              "Dylan McDaniel",
+  hsGradYear:        2027,
+  hsGradAge:         17,
+  commissionYear:    2031,
+  commissionAge:     21,       // age at commission (used for all age calculations)
+  targetMOS:         "35A MI",
+
+  // ── Academic Record (hero stats) ─────────────────────────────────────────
+  gpa:               "4.5+",
+  sat:               1450,
+  asvab:             90,
+
+  // ── Financial Assumptions ────────────────────────────────────────────────
+  savingsRate:       0.40,     // 40% of total compensation saved each year
+  annualReturn:      0.07,     // 7% nominal annual return across all accounts
+
+  // ── IRS Contribution Limits (2025 values; held flat — conservative floor) ─
+  tspEELimit:        23500,    // TSP / 401k employee annual contribution limit
+  rothIRAMax:        7000,     // Roth IRA annual contribution limit
+  iraPOLow:          146000,   // Single filer Roth IRA phase-out start (2024)
+  iraPOHigh:         161000,   // Single filer Roth IRA phase-out end (2024)
+
+  // ── Retirement Scenarios ──────────────────────────────────────────────────
+  pensionMultiplier: 0.40,     // BRS pension: 2% × 20 years = 40% of final base pay
+  lifestyleTarget:   150000,   // Annual spending goal in retirement ($)
+
+  // ── Contracting Bridge (Scenario A, ages 41–45) ──────────────────────────
+  // Add or remove years by editing this array directly
+  contractingIncome: [200000, 200000, 250000, 250000, 250000],  // income per year
+
+  // ── SWR ───────────────────────────────────────────────────────────────────
+  swr:               0.04,     // Safe Withdrawal Rate applied to accessible portfolio
+
+};
+
+// ─── DERIVED CONSTANTS (do not edit — calculated from CONFIG) ──────────────
+const GROWTH    = 1 + CONFIG.annualReturn;   // e.g. 1.07
+const SAVE_RATE = CONFIG.savingsRate;
 
 // ─── DATA ─────────────────────────────────────────────────────────────────
 
@@ -852,12 +900,10 @@ const incomeData = [
 // TSP and IRA limits are 2025 values. Both increase with inflation over time,
 // so real-world balances will be higher. Projections are conservative floor estimates.
 
-const TSP_EE_LIMIT = 23500;    // 2025 IRS employee contribution limit (TSP / 401k)
-const ROTH_IRA_MAX = 7000;     // 2025 Roth IRA annual contribution limit
-const IRA_PO_LOW   = 146000;   // Single filer Roth IRA phase-out start (2024)
-const IRA_PO_HIGH  = 161000;   // Single filer Roth IRA phase-out end
-const GROWTH       = 1.07;     // 7% nominal annual return assumed across all accounts
-const SAVE_RATE    = 0.40;     // 40% savings rate applied to total compensation
+const TSP_EE_LIMIT = CONFIG.tspEELimit;
+const ROTH_IRA_MAX = CONFIG.rothIRAMax;
+const IRA_PO_LOW   = CONFIG.iraPOLow;
+const IRA_PO_HIGH  = CONFIG.iraPOHigh;
 
 // ─── DETAILED PROJECTION ──────────────────────────────────────────────────
 // Tracks four separate account buckets each year:
@@ -950,7 +996,7 @@ function buildDetailedProjection() {
     const lkd = rTSP + tTSP + (rIRA - rIRABasis);
 
     return {
-      year, age: 21 + year, calYear: 2031 + year,
+      year, age: CONFIG.commissionAge + year, calYear: CONFIG.commissionYear + year,
       rank: rankMap[year], rankName: rankNames[rankMap[year]],
       ti, nti, flpp,
       total: Math.round(total), savings,
@@ -989,9 +1035,9 @@ const projection = buildDetailedProjection();
 //   At 59.5: Everything unlocks. New SWR on full combined portfolio.
 
 function contractingBridgeSim(exitRow, pension) {
-  const lifestyle   = 150000;
-  const gapNeeded   = lifestyle - pension;           // $87,046/yr needed beyond pension
-  const contracting = [200000, 200000, 250000, 250000, 250000]; // ages 41-45
+  const lifestyle   = CONFIG.lifestyleTarget;
+  const gapNeeded   = lifestyle - pension;
+  const contracting = CONFIG.contractingIncome;
 
   // Phase 1: contracting years, build pool
   const phase1 = [];
@@ -1022,7 +1068,7 @@ function contractingBridgeSim(exitRow, pension) {
 
   // Accessible pool at 53 = compounded portfolio accessible + remaining contracting pool
   const totalAcc53  = accAt53 + poolAt53;
-  const swr53       = Math.round(totalAcc53 * 0.04);
+  const swr53       = Math.round(totalAcc53 * CONFIG.swr);
   const inc53       = pension + swr53;
 
   // Phase 3 bridge: age 53 to 59.5 (6.5 years)
@@ -1043,7 +1089,7 @@ function contractingBridgeSim(exitRow, pension) {
   const accAt59   = Math.round(Math.max(0, acc));
   const lkdAt59   = Math.round(lkd);
   const totAt59   = accAt59 + lkdAt59;
-  const swr59     = Math.round(totAt59 * 0.04);
+  const swr59     = Math.round(totAt59 * CONFIG.swr);
   const inc59     = pension + swr59;
 
   // Age 65: 5.5 years of continued SWR from 59.5
@@ -1060,12 +1106,12 @@ function contractingBridgeSim(exitRow, pension) {
     swr53, inc53,
     accAt59, lkdAt59, totAt59,
     swr59, inc59,
-    p65, inc65: pension + Math.round(p65 * 0.04)
+    p65, inc65: pension + Math.round(p65 * CONFIG.swr)
   };
 }
 
 
-const pension20     = Math.round(157384.80 * 0.40);  // 40% of O-6 base at 20 yrs (BRS)
+const pension20     = Math.round(157384.80 * CONFIG.pensionMultiplier);  // BRS pension at 20 yrs
 const exit20        = projection[19];
 const contracting20 = contractingBridgeSim(exit20, pension20);
 const port20        = exit20.portfolio;
@@ -1726,6 +1772,13 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.08 });
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Populate CONFIG-driven display values
+  document.getElementById('hero-hsgrad').textContent   = `May ${CONFIG.hsGradYear}`;
+  document.getElementById('hero-commyear').textContent = CONFIG.commissionYear;
+  document.getElementById('hero-commage').textContent  = CONFIG.commissionAge;
+  document.getElementById('hero-mos').textContent      = CONFIG.targetMOS;
+  document.getElementById('footer-commyear').textContent = CONFIG.commissionYear;
+
   renderTimeline();
   renderRanks();
   renderMetrics();
