@@ -374,10 +374,15 @@
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px;">
           <div class="chart-label" style="margin-bottom:0;" id="growth-chart-label">PORTFOLIO VALUE &middot; 20 YEARS OF SERVICE (7% ANNUAL RETURN)</div>
           <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
-            <div style="display:flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1px;">
-              <span style="display:inline-block;width:24px;height:2px;background:#60a5fa;"></span><span style="color:#475569;">SERVICE</span>
+            <div id="legend-base" style="display:flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1px;">
+              <span style="display:inline-block;width:24px;height:2px;background:#60a5fa;"></span><span style="color:#475569;">TOTAL PORTFOLIO</span>
+              <span style="display:inline-block;width:24px;height:2px;border-top:2px dashed #30d158;margin-left:10px;"></span><span style="color:#475569;">ACCESSIBLE PRE-59.5</span>
               <span style="display:inline-block;width:24px;height:2px;background:#ef4444;margin-left:10px;"></span><span style="color:#475569;">POST-RETIREMENT</span>
               <span style="display:inline-block;width:2px;height:14px;background:#30d158;margin-left:10px;vertical-align:middle;"></span><span style="color:#475569;">20-YR EXIT</span>
+            </div>
+            <div id="legend-expanded" style="display:none;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1px;">
+              <span style="display:inline-block;width:2px;height:14px;border-left:2px dashed #a78bfa;vertical-align:middle;"></span><span style="color:#475569;">DRAWS BEGIN (53)</span>
+              <span style="display:inline-block;width:2px;height:14px;border-left:2px dashed #ef4444;margin-left:10px;vertical-align:middle;"></span><span style="color:#475569;">ALL ACCOUNTS UNLOCK (59.5)</span>
             </div>
             <button id="expand-btn" onclick="toggleGrowthExpand()" style="display:flex;align-items:center;gap:8px;background:rgba(96,165,250,0.1);border:1px solid rgba(96,165,250,0.3);color:#60a5fa;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;padding:7px 14px;cursor:pointer;border-radius:4px;transition:all 0.2s;white-space:nowrap;">
               <span id="expand-label">EXPAND TO AGE 65</span>
@@ -1068,8 +1073,9 @@ function contractingBridgeSim(exitRow, pension) {
 
   // Accessible pool at 53 = compounded portfolio accessible + remaining contracting pool
   const totalAcc53  = accAt53 + poolAt53;
-  const swr53       = Math.round(totalAcc53 * CONFIG.swr);
-  const inc53       = pension + swr53;
+  // Phase 3 draws gapNeeded/yr (lifestyle - pension) to hit exactly $150k.
+  // No SWR is used — the plan is to preserve portfolio as long as possible.
+  const inc53       = lifestyle;   // pension + gapNeeded draw = lifestyle target exactly
 
   // Phase 3 bridge: age 53 to 59.5 (6.5 years)
   // Draw gapNeeded/yr from accessible combined pool; locked still compounds untouched
@@ -1103,7 +1109,7 @@ function contractingBridgeSim(exitRow, pension) {
     phase1, poolAt46,
     phase2, poolAt53,
     accAt53, lkdAt53, portAt53, totalAcc53,
-    swr53, inc53,
+    inc53,
     accAt59, lkdAt59, totAt59,
     swr59, inc59,
     p65, inc65: pension + Math.round(p65 * CONFIG.swr)
@@ -1382,7 +1388,7 @@ function renderRetirement() {
       <div class="ret-income-row"><span>Contracting Yr 3-5</span><span>$250,000/yr</span></div>
       <div class="ret-income-row"><span>Annual surplus saved into pool (7%)</span><span>${fmt(c.phase1[0].saved)} / ${fmt(c.phase1[2].saved)}</span></div>
       <div class="ret-total" style="margin-top:8px;">
-        <span class="ret-total-label" style="color:${colorA}">CONTRACTING POOL AT AGE 46</span>
+        <span class="ret-total-label" style="color:${colorA}">CONTRACTING POOL (END OF AGE 45)</span>
         <span class="ret-total-val" style="color:${colorA}">${fmt(c.poolAt46)}</span>
       </div>
     </div>
@@ -1404,7 +1410,8 @@ function renderRetirement() {
       <div class="ret-income-row"><span>Accessible portion</span><span>${fmtM(c.accAt53)}</span></div>
       <div class="ret-income-row"><span>Remaining contracting pool</span><span>${fmt(c.poolAt53)}</span></div>
       <div class="ret-income-row"><span>Combined accessible at 53</span><span>${fmtM(c.totalAcc53)}</span></div>
-      <div class="ret-income-row"><span>4% SWR on combined accessible</span><span>${fmt(c.swr53)}/yr</span></div>
+      <div class="ret-income-row"><span>Annual draw to meet lifestyle target</span><span>${fmt(c.gapNeeded)}/yr</span></div>
+      <div class="ret-income-row"><span style="font-size:11px;color:#475569;">(no SWR until 59.5 — drawing minimum gap only)</span><span></span></div>
       <div class="ret-total" style="margin-top:8px;">
         <span class="ret-total-label" style="color:${colorA}">TOTAL INCOME FROM AGE 53</span>
         <span class="ret-total-val" style="color:${colorA}">${fmt(c.inc53)}/yr</span>
@@ -1478,12 +1485,54 @@ const chartDefaults = {
 // ─── GROWTH CHART ─────────────────────────────────────────────────────────
 
 function buildExtension() {
+  // Uses contractingBridgeSim data to accurately reflect the post-retirement trajectory.
+  //
+  // Phase 1 (ages 41-45): main portfolio compounds untouched at 7%.
+  //   The contracting pool grows separately but is NOT added to the main portfolio line —
+  //   it is accounted for in Phase 3 via totalAcc53. We show main portfolio only here
+  //   so the chart reflects what's actually happening to the investment portfolio.
+  //
+  // Phase 2 (ages 46-52): main portfolio still compounding untouched.
+  //
+  // Phase 3 (ages 53-59.5): SWR draws begin from accessible + pool combined.
+  //   We interpolate year-by-year from portAt53 → totAt59 using the sim's endpoints.
+  //
+  // Age 59.5-65: continued SWR from totAt59 → p65.
+
+  const c   = contracting20;
   const ext = [];
-  let val = projection[19].portfolio;
-  for (let i = 1; i <= 24; i++) {
-    val = Math.round(val * 1.07);
-    ext.push({ year: 20 + i, age: 41 + i, portfolioM: parseFloat((val / 1e6).toFixed(3)) });
+
+  // Phase 1+2: ages 42-52 — main portfolio compounding untouched (12 yrs from age 41)
+  // exitRow.portfolio = port20 at age 41 (end of year 20)
+  for (let i = 1; i <= 12; i++) {
+    const age  = 41 + i;
+    const val  = Math.round(port20 * Math.pow(GROWTH, i));
+    ext.push({ age, portfolioM: parseFloat((val / 1e6).toFixed(3)) });
   }
+
+  // Phase 3: ages 53-59 — drawdown phase, interpolate year-by-year
+  // We know: portAt53 (main portfolio only, age 53) and totAt59 (combined, age 59.5)
+  // The combined portfolio includes the contracting pool at 53, so we use totalAcc53 + lkdAt53
+  // as the starting point and track it down to totAt59 over 6.5 years.
+  // Simple linear interpolation between the two sim-computed endpoints per year.
+  const portStart53 = c.totalAcc53 + c.lkdAt53; // total combined at 53
+  const portEnd59   = c.totAt59;
+  const phase3Years = 6.5;
+  for (let i = 0; i <= 6; i++) {
+    const age = 53 + i;
+    const frac = i / phase3Years;
+    const val = Math.round(portStart53 + (portEnd59 - portStart53) * frac);
+    ext.push({ age, portfolioM: parseFloat((val / 1e6).toFixed(3)) });
+  }
+
+  // Age 59.5 → 65: SWR continues, interpolate totAt59 → p65 over 5.5 years
+  for (let i = 1; i <= 6; i++) {
+    const age = 59 + i;
+    const frac = i / 5.5;
+    const val  = Math.round(portEnd59 + (c.p65 - portEnd59) * Math.min(frac, 1));
+    ext.push({ age, portfolioM: parseFloat((val / 1e6).toFixed(3)) });
+  }
+
   return ext;
 }
 
@@ -1497,20 +1546,72 @@ function buildGrowthData(expanded) {
   const labels         = expanded ? [...serviceLabels, ...extLabels] : serviceLabels;
   const serviceData    = projection.map(r => r.portfolioM);
   const accessibleData = projection.map(r => parseFloat((r.acc / 1e6).toFixed(3)));
+
+  // postData: null×20 to skip service years, then the exit point, then all extension points
   const postData = expanded
     ? [...Array(20).fill(null), projection[19].portfolioM, ...extension.map(r => r.portfolioM)]
     : [];
-  return { labels, serviceData, accessibleData, postData };
+
+  // Accessible line in expanded view: continues from service data through the extension,
+  // compounding the accessible portion untouched until the 59.5 unlock point (extension index 18).
+  // After that, all accounts merge so the accessible distinction no longer applies.
+  let accExpanded = null;
+  if (expanded) {
+    // Service years
+    const accService = accessibleData;
+    // Extension: accessible compounds untouched alongside the main portfolio until unlock
+    // Phase 1+2 (indices 0-11, ages 42-53): acc compounds at 7%, no draws
+    // Phase 3 (indices 12-18, ages 53-59): draws come from accessible+pool; show declining portion
+    // After index 18 (age 59 ≈ 59.5): null — all accounts merged
+    const accExt = extension.map((pt, i) => {
+      if (i <= 18) {
+        // Use the contracting sim's accAt53 and accAt59 endpoints, interpolate in between
+        const c = contracting20;
+        if (i <= 11) {
+          // Phase 1+2: pure compounding from exit20.acc
+          const val = Math.round(exit20.acc * Math.pow(GROWTH, i + 1));
+          return parseFloat((val / 1e6).toFixed(3));
+        } else {
+          // Phase 3: interpolate accAt53 → accAt59 over 6.5 years (indices 12-18)
+          const frac = (i - 11) / 6.5;
+          const val = Math.round(c.accAt53 + (c.accAt59 - c.accAt53) * Math.min(frac, 1));
+          return parseFloat((val / 1e6).toFixed(3));
+        }
+      }
+      return null;
+    });
+    accExpanded = [...accService, ...accExt];
+  }
+
+  return { labels, serviceData, accessibleData: expanded ? accExpanded : accessibleData, postData };
 }
 
 function getAnnotations(expanded) {
-  return {
+  const base = {
     line20: {
       type: 'line', xMin: 19, xMax: 19,
       borderColor: '#30d158', borderWidth: 1.5, borderDash: [4, 3],
       label: { content: '20-YR RETIREMENT', display: true, position: 'start',
         color: '#30d158', font: { family: 'DM Mono', size: 9 },
         backgroundColor: 'rgba(5,10,18,0.85)', padding: 4, yAdjust: 10 }
+    }
+  };
+  if (!expanded) return base;
+  return {
+    ...base,
+    lineSWR: {
+      type: 'line', xMin: 32, xMax: 32,
+      borderColor: '#a78bfa', borderWidth: 1, borderDash: [4, 3],
+      label: { content: 'DRAWS BEGIN (53)', display: true, position: 'start',
+        color: '#a78bfa', font: { family: 'DM Mono', size: 9 },
+        backgroundColor: 'rgba(5,10,18,0.85)', padding: 4, yAdjust: 30 }
+    },
+    lineUnlock: {
+      type: 'line', xMin: 38, xMax: 38,
+      borderColor: '#ef4444', borderWidth: 1, borderDash: [4, 3],
+      label: { content: 'ALL ACCOUNTS UNLOCK (59.5)', display: true, position: 'start',
+        color: '#ef4444', font: { family: 'DM Mono', size: 9 },
+        backgroundColor: 'rgba(5,10,18,0.85)', padding: 4, yAdjust: 50 }
     }
   };
 }
@@ -1577,11 +1678,13 @@ function renderGrowthChart() {
             },
             title: (c) => {
               const idx = c[0].dataIndex;
-              if (idx < 25) {
+              if (idx < 20) {
                 const r = projection[idx];
                 return `Year ${r.year} · Age ${r.age} · ${r.rank}`;
+              } else if (idx === 20) {
+                return `Age 41 · Retirement · 20-YR EXIT`;
               } else {
-                const e = extension[idx - 26];
+                const e = extension[idx - 21];
                 return e ? `Age ${e.age} · Post-Retirement` : '';
               }
             }
@@ -1605,15 +1708,16 @@ function toggleGrowthExpand() {
   const { labels, serviceData, accessibleData, postData } = buildGrowthData(growthExpanded);
   growthChart.data.labels = labels;
   growthChart.data.datasets[0].data = serviceData;
-  growthChart.data.datasets[1].data = growthExpanded ? [] : accessibleData;
+  growthChart.data.datasets[1].data = accessibleData;
   growthChart.data.datasets[2].data = growthExpanded ? postData : [];
   growthChart.options.plugins.annotation.annotations = getAnnotations(growthExpanded);
   growthChart.update();
   document.getElementById('expand-label').textContent = growthExpanded ? 'COLLAPSE TO 20 YRS' : 'EXPAND TO AGE 65';
   document.getElementById('expand-arrow').style.transform = growthExpanded ? 'rotate(180deg)' : 'rotate(0deg)';
+  document.getElementById('legend-expanded').style.display = growthExpanded ? 'flex' : 'none';
   document.getElementById('growth-chart-label').textContent = growthExpanded
-    ? 'PORTFOLIO VALUE \u00b7 25 YEARS SERVICE + POST-RETIREMENT COMPOUNDING TO AGE 65'
-    : 'PORTFOLIO VALUE \u00b7 25 YEARS OF SERVICE (7% ANNUAL RETURN)';
+    ? 'PORTFOLIO VALUE \u00b7 POST-RETIREMENT COMPOUNDING TO AGE 65'
+    : 'PORTFOLIO VALUE \u00b7 20 YEARS OF SERVICE (7% ANNUAL RETURN)';
 }
 
 function renderIncomeChart() {
