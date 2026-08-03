@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,6 +55,7 @@
     mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
   }
   .hero-inner { position: relative; max-width: 800px; }
+  .hero-name { font-family: 'DM Mono', monospace; font-size: 25px; letter-spacing: 2px; color: #f0f6fc; margin-bottom: 16px; padding: 6px 10px; display: inline-block; text-align: center; }
   .hero-label { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 5px; color: #60a5fa; margin-bottom: 24px; opacity: 0.8; }
   .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(42px,8vw,80px); font-weight: 700; color: #f0f6fc; margin-bottom: 16px; line-height: 1.1; letter-spacing: -1px; }
   .hero-title span { color: #60a5fa; }
@@ -302,7 +302,7 @@
 <section id="hero">
   <div class="hero-grid"></div>
   <div class="hero-inner fade-in visible">
-    <div style="font-family:'DM Mono',monospace;font-size:25px;letter-spacing:2px;color:#f0f6fc;margin-bottom:16px;padding:6px 10px;border:0px solid rgba(96,165,250,0.3);border-radius:4px;display:inline-block;text-align:center;">Dylan McDaniel</div>
+    <div class="hero-name">Dylan McDaniel</div>
     <div class="hero-label">UNITED STATES ARMY · OFFICER CAREER &amp; FINANCIAL PLAN</div>
     <h1 class="hero-title">My<br><span>Army Plan</span></h1>
     <p class="hero-sub">From ROTC cadet to Army officer. A full-career roadmap covering my military education, rank progression, intelligence branch specialization, and a financial strategy built for retirement at 20 years.</p>
@@ -367,7 +367,7 @@
   </div>
 </section>
 
-<!-- 35A DEEP DIVE -->
+<!-- FINANCE -->
 <section id="finance">
   <div class="section-inner wide">
     <div class="section-header fade-in">
@@ -382,10 +382,10 @@
     </div>
 
     <div class="tab-bar fade-in">
-      <button class="tab-btn active" onclick="switchTab('growth')">PORTFOLIO GROWTH</button>
-      <button class="tab-btn" onclick="switchTab('accounts')">ACCOUNT BREAKDOWN</button>
-      <button class="tab-btn" onclick="switchTab('income')">INCOME &amp; SAVINGS</button>
-      <button class="tab-btn" onclick="switchTab('table')">YEAR-BY-YEAR</button>
+      <button class="tab-btn active" onclick="switchTab(event,'growth')">PORTFOLIO GROWTH</button>
+      <button class="tab-btn" onclick="switchTab(event,'accounts')">ACCOUNT BREAKDOWN</button>
+      <button class="tab-btn" onclick="switchTab(event,'income')">INCOME &amp; SAVINGS</button>
+      <button class="tab-btn" onclick="switchTab(event,'table')">YEAR-BY-YEAR</button>
     </div>
 
     <div id="tab-growth" class="tab-panel active">
@@ -511,6 +511,7 @@
   </div>
 </section>
 
+<!-- 35A DEEP DIVE -->
 <section id="mos35a">
   <div class="section-inner">
     <div class="section-header fade-in">
@@ -812,7 +813,7 @@
 
     <div style="background:rgba(10,18,32,0.8);border:1px solid rgba(30,58,95,0.5);border-top:3px solid #60a5fa;border-radius:8px;padding:36px 40px;max-width:760px;margin:0 auto;" class="fade-in">
       <p style="font-size:15px;color:#94a3b8;line-height:1.85;margin:0;">
-        I graduate from Crosby High School in May 2027 at age 17 with a Medical Certificate, an Associate's Degree, a 4.5+ GPA, a 1450 SAT, and a 90 ASVAB. College is fully funded: tuition covered by a 4-year National ROTC Scholarship, room by miscellaneous scholarships, food by my parents. I enter with sophomore-level credits and finish both a bachelor's and master's degree before commissioning.
+        I graduate from High School in May 2027 at age 17 with a Medical Certificate, an Associate's Degree, a 4.5+ GPA, a 1280 SAT, and a 90 ASVAB. College is fully funded: tuition covered by a 4-year National ROTC Scholarship, room by miscellaneous scholarships, food by my parents. I enter with sophomore-level credits and finish both a bachelor's and master's degree before commissioning.
         <br><br>
         In 2031, I commission as a Second Lieutenant in the U.S. Army, branched 35A Military Intelligence, at age 21. I report to BOLC at Fort Huachuca, earn my TS/SCI clearance, and begin investing immediately at a 40% savings rate across Roth TSP, Roth IRA, and a taxable brokerage. No student debt. Clean slate.
         <br><br>
@@ -823,7 +824,7 @@
   </div>
 </section>
 <div style="padding:32px 24px;background:#050a12;border-top:1px solid rgba(30,58,95,0.4);text-align:center;">
-  <a href="https://35alpha-adj.vercel.app" target="_blank" style="display:inline-block;background:rgba(10,18,32,0.9);border:1px solid rgba(96,165,250,0.25);border-radius:8px;padding:16px 32px;text-decoration:none;">
+  <a href="https://35alpha-adj.vercel.app" target="_blank" rel="noopener noreferrer" style="display:inline-block;background:rgba(10,18,32,0.9);border:1px solid rgba(96,165,250,0.25);border-radius:8px;padding:16px 32px;text-decoration:none;">
     <div style="font-family:'DM Mono',monospace;font-size:9px;color:#475569;letter-spacing:3px;margin-bottom:6px;">ALTERNATE VERSION</div>
     <div style="font-family:'DM Mono',monospace;font-size:12px;color:#60a5fa;letter-spacing:1px;">For an inflation-adjusted version: <span style="text-decoration:underline;text-underline-offset:3px;">35alpha-adj.vercel.app</span></div>
   </a>
@@ -853,7 +854,7 @@ const CONFIG = {
 
   // ── Academic Record (hero stats) ─────────────────────────────────────────
   gpa:               "4.5+",
-  sat:               1450,
+  sat:               1280,
   asvab:             90,
 
   // ── Financial Assumptions ────────────────────────────────────────────────
@@ -1148,9 +1149,9 @@ function fmtM(n) { return "$" + (n / 1e6).toFixed(2) + "M"; }
 
 const timelineEvents = [
   { year:"May 2027", age:17, phase:"foundation", color:"#94a3b8", icon:"🎓",
-    title:"High School Graduation · Crosby High School",
-    subtitle:"Associates Degree · 4.5 GPA · 1450 SAT · Medical Certificate",
-    detail:"I graduate from Crosby High School at age 17 with both a Medical Certificate and an Associate's Degree, college-level credentials earned through full-time dual enrollment. Academic record: 4.5 GPA (weighted), 1450 SAT, 90 ASVAB. I begin college that fall on an Army ROTC scholarship, entering with sophomore-level credits that accelerate my bachelor's and master's completion timeline." },
+    title:"High School Graduation",
+    subtitle:"Associates Degree · 4.5 GPA · 1280 SAT · Medical Certificate",
+    detail:"I graduate from High School at age 17 with both a Medical Certificate and an Associate's Degree, college-level credentials earned through full-time dual enrollment. Academic record: 4.5 GPA (weighted), 1280 SAT, 90 ASVAB. I begin college that fall on an Army ROTC scholarship, entering with sophomore-level credits that accelerate my bachelor's and master's completion timeline." },
   { year:"2027–2031", age:17, phase:"foundation", color:"#94a3b8", icon:"⚔️",
     title:"ROTC Cadet",
     subtitle:"4 Years of Army Leadership Training · Targeting 35A Branch",
@@ -1222,24 +1223,31 @@ const phaseLabels = {
 
 const officerRanks = [
   { grade:"O-1", title:"Second Lieutenant", abbr:"2LT", color:"#94a3b8",
-    desc:"Entry-level Army officer. Leads a platoon of 30–40 soldiers. First leadership test.",
-    basePay:"$49,802", allowances:"~$17,150", total:"~$66,952" },
+    desc:"Entry-level Army officer. Leads a platoon of 30–40 soldiers. First leadership test." },
   { grade:"O-2", title:"First Lieutenant", abbr:"1LT", color:"#94a3b8",
-    desc:"Continues as platoon leader or takes on staff roles. Army promotion nearly automatic at 18 months.",
-    basePay:"$65,354–$75,268", allowances:"~$19,324", total:"$84,678–$94,592" },
+    desc:"Continues as platoon leader or takes on staff roles. Army promotion nearly automatic at 18 months." },
   { grade:"O-3", title:"Captain", abbr:"CPT", color:"#a78bfa",
-    desc:"Commands a company of 100–200 soldiers or serves as battalion S2. Most formative leadership position.",
-    basePay:"$88,592–$97,506", allowances:"~$26,985", total:"$115,577–$124,491" },
+    desc:"Commands a company of 100–200 soldiers or serves as battalion S2. Most formative leadership position." },
   { grade:"O-4", title:"Major", abbr:"MAJ", color:"#f59e0b",
-    desc:"Staff work at brigade/division level. First test of strategic thinking and joint operations.",
-    basePay:"$105,796–$118,660", allowances:"~$31,791", total:"$137,587–$150,451" },
+    desc:"Staff work at brigade/division level. First test of strategic thinking and joint operations." },
   { grade:"O-5", title:"Lieutenant Colonel", abbr:"LTC", color:"#f97316",
-    desc:"Commands a battalion of 300–1,000 soldiers. Fewer than half of Majors reach this grade.",
-    basePay:"$123,260–$136,696", allowances:"~$35,543", total:"$158,803–$172,239" },
+    desc:"Commands a battalion of 300–1,000 soldiers. Fewer than half of Majors reach this grade." },
   { grade:"O-6", title:"Colonel", abbr:"COL", color:"#ef4444",
-    desc:"Commands a brigade of 3,000–5,000. Terminal rank for most Army officers and my planned exit rank.",
-    basePay:"$157,385–$169,355", allowances:"~$36,723", total:"$194,108–$206,078" }
+    desc:"Commands a brigade of 3,000–5,000. Terminal rank for most Army officers and my planned exit rank." }
 ];
+
+// Base pay / allowances / total comp are derived from incomeData + rankMap (not hand-typed)
+// so this table can never drift out of sync with the FINANCE section's projections.
+officerRanks.forEach(r => {
+  const years = Object.keys(rankMap).map(Number).filter(y => rankMap[y] === r.grade);
+  const rows  = incomeData.filter(d => years.includes(d.year));
+  const tiVals    = rows.map(d => d.ti);
+  const totalVals = rows.map(d => d.ti + d.nti);
+  const range = (lo, hi) => lo === hi ? fmt(lo) : `${fmt(lo)}–${fmt(hi)}`;
+  r.basePay    = range(Math.min(...tiVals), Math.max(...tiVals));
+  r.allowances = "~" + fmt(rows[0].nti);
+  r.total      = range(Math.min(...totalVals), Math.max(...totalVals));
+});
 
 const glossary = [
   { term:"Commission", def:"The formal appointment as an Army officer. A commissioned officer swears an oath to support and defend the Constitution and receives legal authority to lead soldiers." },
@@ -1566,9 +1574,10 @@ function buildGrowthData(expanded) {
   const serviceData    = projection.map(r => r.portfolioM);
   const accessibleData = projection.map(r => parseFloat((r.acc / 1e6).toFixed(3)));
 
-  // postData: null×20 to skip service years, then the exit point, then all extension points
+  // postData: null×19 to skip service years, then the exit point (aligned with the
+  // last service-year label), then all extension points — length must match `labels`.
   const postData = expanded
-    ? [...Array(20).fill(null), projection[19].portfolioM, ...extension.map(r => r.portfolioM)]
+    ? [...Array(19).fill(null), projection[19].portfolioM, ...extension.map(r => r.portfolioM)]
     : [];
 
   // Accessible line in expanded view: continues from service data through the extension,
@@ -1855,11 +1864,11 @@ function renderAccountsChart() {
 
 // ─── TABS ─────────────────────────────────────────────────────────────────
 
-function switchTab(id) {
+function switchTab(e, id) {
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById(`tab-${id}`).classList.add('active');
-  event.target.classList.add('active');
+  e.currentTarget.classList.add('active');
   if (id === 'income'    && !window._incomeChartDone)   { renderIncomeChart();   window._incomeChartDone = true; }
   if (id === 'accounts'  && !window._accountsChartDone) { renderAccountsChart(); }
 }
