@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My 30-Year Plan · U.S. Army Officer</title>
+<title>My 30-Year Plan · U.S. Air Force Officer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@400;500&family=DM+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
@@ -73,8 +73,8 @@
   #ranks { background: linear-gradient(180deg, #050a12 0%, #060d1a 100%); }
   #finance { background: #060d1a; }
   #retirement { background: linear-gradient(180deg, #060d1a 0%, #050a12 100%); }
-  #mos35a { background: linear-gradient(180deg, #050a12 0%, #060d1a 100%); }
-  #oer { background: linear-gradient(180deg, #060d1a 0%, #070e1c 100%); }
+  #afsc14n { background: linear-gradient(180deg, #050a12 0%, #060d1a 100%); }
+  #opr { background: linear-gradient(180deg, #060d1a 0%, #070e1c 100%); }
   #languages { background: #070e1c; }
   #glossary { background: #050a12; }
 
@@ -128,7 +128,7 @@
   .pay-card-desc { font-size: 13px; color: #64748b; line-height: 1.65; }
 
 
-  /* 35A SECTION */
+  /* 14N SECTION */
   .mos-header { display: flex; align-items: flex-start; gap: 32px; margin-bottom: 48px; flex-wrap: wrap; }
   .mos-badge { background: rgba(15,25,45,0.9); border: 1px solid rgba(201,162,77,0.3); border-top: 3px solid #c9a24d; border-radius: 8px; padding: 24px 32px; text-align: center; flex-shrink: 0; min-width: 160px; }
   .mos-code { font-family: 'DM Mono', monospace; font-size: 48px; font-weight: 700; color: #c9a24d; line-height: 1; }
@@ -152,7 +152,7 @@
   .prog-role { font-family: 'Playfair Display', serif; font-size: 15px; color: #f0f6fc; margin-bottom: 4px; }
   .prog-desc { font-size: 13px; color: #64748b; line-height: 1.55; }
 
-  /* OER SECTION */
+  /* OPR SECTION */
   .oer-intro { background: rgba(5,10,18,0.8); border: 1px solid rgba(30,58,95,0.4); border-radius: 8px; padding: 28px; margin-bottom: 32px; }
   .oer-intro p { font-size: 14px; color: #94a3b8; line-height: 1.8; }
   .oer-ratings { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap: 12px; margin-bottom: 32px; }
@@ -303,14 +303,14 @@
   <div class="hero-grid"></div>
   <div class="hero-inner fade-in visible">
     <div class="hero-name">Dylan McDaniel</div>
-    <div class="hero-label">UNITED STATES ARMY · OFFICER CAREER &amp; FINANCIAL PLAN</div>
-    <h1 class="hero-title">My<br><span>Army Plan</span></h1>
-    <p class="hero-sub">From ROTC cadet to Army officer. A full-career roadmap covering my military education, rank progression, intelligence branch specialization, and a financial strategy built for retirement at 20 years.</p>
+    <div class="hero-label">UNITED STATES AIR FORCE · OFFICER CAREER &amp; FINANCIAL PLAN</div>
+    <h1 class="hero-title">My<br><span>Air Force Plan</span></h1>
+    <p class="hero-sub">From ROTC cadet to Air Force officer. A full-career roadmap covering my military education, rank progression, intelligence career field specialization, and a financial strategy built for retirement at 20 years.</p>
     <div class="hero-stats">
       <div class="hero-stat"><div class="stat-label">HS GRADUATION</div><div class="stat-value" id="hero-hsgrad">—</div></div>
       <div class="hero-stat"><div class="stat-label">COMMISSION YEAR</div><div class="stat-value" id="hero-commyear">—</div></div>
       <div class="hero-stat"><div class="stat-label">COMMISSION AGE</div><div class="stat-value" id="hero-commage">—</div></div>
-      <div class="hero-stat"><div class="stat-label">TARGET MOS</div><div class="stat-value" id="hero-mos">—</div></div>
+      <div class="hero-stat"><div class="stat-label">TARGET AFSC</div><div class="stat-value" id="hero-afsc">—</div></div>
       <div class="hero-stat"><div class="stat-label">TOTAL PORTFOLIO @ 20 YRS</div><div class="stat-value" id="hero-port20">—</div></div>
     </div>
     <div class="scroll-hint"><span>SCROLL TO EXPLORE</span><div class="scroll-line"></div></div>
@@ -325,8 +325,8 @@
     <a href="#ranks" onclick="navTo(event,'ranks')">RANKS</a>
     <a href="#finance" onclick="navTo(event,'finance')">FINANCE</a>
     <a href="#retirement" onclick="navTo(event,'retirement')">RETIREMENT</a>
-    <a href="#mos35a" onclick="navTo(event,'mos35a')">35A</a>
-    <a href="#oer" onclick="navTo(event,'oer')">OER</a>
+    <a href="#afsc14n" onclick="navTo(event,'afsc14n')">14N</a>
+    <a href="#opr" onclick="navTo(event,'opr')">OPR</a>
     <a href="#languages" onclick="navTo(event,'languages')">LANGUAGES</a>
     <a href="#glossary" onclick="navTo(event,'glossary')">GLOSSARY</a>
     <a href="#summary" onclick="navTo(event,'summary')">SUMMARY</a>
@@ -353,7 +353,7 @@
   <div class="section-inner">
     <div class="section-header fade-in">
       <div class="section-label">RANK &amp; STRUCTURE</div>
-      <h2 class="section-title">The Army Officer Pay Scale</h2>
+      <h2 class="section-title">The Air Force Officer Pay Scale</h2>
       <p class="section-sub">Military compensation is structured around rank (O-1 through O-6) and years of service. Every promotion comes with a pay increase and expanded responsibility.</p>
     </div>
     <div class="rank-list" id="rank-list"></div>
@@ -361,8 +361,8 @@
       <div class="pay-card"><div class="pay-card-label">BASE PAY</div><p class="pay-card-desc">Taxable salary tied to rank and years of service. Increases with each promotion and time-in-service milestone.</p></div>
       <div class="pay-card"><div class="pay-card-label">BAH</div><p class="pay-card-desc">Basic Allowance for Housing. Tax-free monthly stipend covering rent in your duty station's local market. Varies widely by location.</p></div>
       <div class="pay-card"><div class="pay-card-label">BAS</div><p class="pay-card-desc">Basic Allowance for Subsistence. A tax-free monthly food stipend paid to all officers regardless of rank.</p></div>
-      <div class="pay-card"><div class="pay-card-label">TSP MATCH</div><p class="pay-card-desc">Under BRS, the Army matches TSP contributions up to 5% of base pay, free money starting Year 2 of service.</p></div>
-      <div class="pay-card"><div class="pay-card-label">FLPP</div><p class="pay-card-desc">Foreign Language Proficiency Pay. Up to $1,000/month extra for tested and certified language skills. Highly relevant for 35A.</p></div>
+      <div class="pay-card"><div class="pay-card-label">TSP MATCH</div><p class="pay-card-desc">Under BRS, the Air Force matches TSP contributions up to 5% of base pay, free money starting Year 2 of service.</p></div>
+      <div class="pay-card"><div class="pay-card-label">FLPB</div><p class="pay-card-desc">Foreign Language Proficiency Pay. Up to $1,000/month extra for tested and certified language skills. Highly relevant for 14N.</p></div>
     </div>
   </div>
 </section>
@@ -373,7 +373,7 @@
     <div class="section-header fade-in">
       <div class="section-label">FINANCIAL PROJECTION</div>
       <h2 class="section-title">Building Wealth in Uniform</h2>
-      <p class="section-sub">Projecting 20 years of my Army income with a 40% savings rate and 7% annual return.</p>
+      <p class="section-sub">Projecting 20 years of my Air Force income with a 40% savings rate and 7% annual return.</p>
     </div>
     <div class="metric-bar fade-in">
       <div class="metric-card"><div class="metric-label">20-YR TOTAL PORTFOLIO</div><div class="metric-value" id="m-port20">—</div><div class="metric-sub">Age 40 · All Accounts</div></div>
@@ -444,7 +444,7 @@
 
     <div id="tab-accounts" class="tab-panel">
       <div class="chart-box fade-in">
-        <div class="chart-label">PORTFOLIO BY ACCOUNT TYPE · TAXABLE / ROTH IRA / ROTH TSP / TRADITIONAL TSP (ARMY MATCH)</div>
+        <div class="chart-label">PORTFOLIO BY ACCOUNT TYPE · TAXABLE / ROTH IRA / ROTH TSP / TRADITIONAL TSP (USAF MATCH)</div>
         <canvas id="chart-accounts"></canvas>
       </div>
       <div class="info-cards fade-in">
@@ -456,14 +456,14 @@
         </div>
         <div class="info-card"><div class="info-card-label">LOCKED UNTIL 59.5</div>
           <div class="info-card-item">Roth TSP: locked at 59.5 (Rule of 55 requires separation at 55+)</div>
-          <div class="info-card-item">Traditional TSP (army match): locked at 59.5, taxable on withdrawal</div>
+          <div class="info-card-item">Traditional TSP (Air Force match): locked at 59.5, taxable on withdrawal</div>
           <div class="info-card-item">Roth IRA earnings: locked until 59.5, then tax-free</div>
           <div class="info-card-item highlight">20-YR EXIT LOCKED: <span id="lkd-20-text">—</span></div>
         </div>
-        <div class="info-card"><div class="info-card-label">ARMY BRS MATCH</div>
+        <div class="info-card"><div class="info-card-label">AIR FORCE BRS MATCH</div>
           <div class="info-card-item">1% automatic contribution (regardless of your contribution)</div>
           <div class="info-card-item">100% match on your first 3% of base pay</div>
-          <div class="info-card-item">50% match from 3% to 5%; contribute 5%, receive 5% from Army</div>
+          <div class="info-card-item">50% match from 3% to 5%; contribute 5%, receive 5% from Air Force</div>
           <div class="info-card-item">Match always goes to Traditional TSP (IRS rule)</div>
           <div class="info-card-item">Starts Year 2, fully vested at 2 years of service</div>
           <div class="info-card-item highlight">TOTAL MATCH CONTRIBUTED (20 YRS): <span id="match-total-text">—</span></div>
@@ -479,7 +479,7 @@
               <th style="text-align:left">YR</th>
               <th>YEAR</th><th>AGE</th><th>RANK</th>
               <th>TOTAL COMP</th><th>SAVED</th>
-              <th>EE TSP</th><th>ARMY MATCH</th>
+              <th>EE TSP</th><th>USAF MATCH</th>
               <th>ROTH IRA</th><th>TAXABLE</th>
               <th>ACCESSIBLE</th><th>LOCKED</th><th>TOTAL PORTFOLIO</th>
             </tr>
@@ -502,7 +502,7 @@
     <div class="notes-box fade-in">
       <div class="notes-label">ASSUMPTIONS &amp; NOTES</div>
       <div class="notes-grid">
-        <div class="notes-item"><span class="notes-dot">·</span>Army BRS match modeled on top of 40% savings rate (it is real additional compensation)</div>
+        <div class="notes-item"><span class="notes-dot">·</span>Air Force BRS match modeled on top of 40% savings rate (it is real additional compensation)</div>
         <div class="notes-item"><span class="notes-dot">·</span>TSP employee limit: $23,500 (2025). Roth IRA limit: $7,000 (2025). Both increase with inflation.</div>
         <div class="notes-item"><span class="notes-dot">·</span>Roth IRA phase-out applied: O-6 base ($157k) is partially phased out at years 19-20</div>
         <div class="notes-item"><span class="notes-dot">·</span>4% SWR pre-59.5 applies to accessible accounts only (taxable + Roth IRA contributions)</div>
@@ -511,24 +511,24 @@
   </div>
 </section>
 
-<!-- 35A DEEP DIVE -->
-<section id="mos35a">
+<!-- 14N DEEP DIVE -->
+<section id="afsc14n">
   <div class="section-inner">
     <div class="section-header fade-in">
-      <div class="section-label">MOS DEEP DIVE</div>
-      <h2 class="section-title">Military Intelligence Officer</h2>
-      <p class="section-sub">35A is one of the Army's most strategically important branches. This is what the role looks like from my commission to senior officer.</p>
+      <div class="section-label">AFSC DEEP DIVE</div>
+      <h2 class="section-title">Air Force Intelligence Officer</h2>
+      <p class="section-sub">14N is one of the Air Force's most strategically important career fields. This is what the role looks like from my commission to senior officer.</p>
     </div>
 
     <div class="mos-header fade-in">
       <div class="mos-badge">
-        <div class="mos-code">35A</div>
-        <div class="mos-branch">INTELLIGENCE BRANCH</div>
-        <div style="font-family:'DM Mono',monospace;font-size:10px;color:#c9a24d;letter-spacing:1px;margin-top:8px;">U.S. ARMY</div>
+        <div class="mos-code">14N</div>
+        <div class="mos-branch">INTELLIGENCE CAREER FIELD</div>
+        <div style="font-family:'DM Mono',monospace;font-size:10px;color:#c9a24d;letter-spacing:1px;margin-top:8px;">U.S. AIR FORCE</div>
       </div>
       <div class="mos-intro">
         <h3>All-Source Intelligence Officer</h3>
-        <p>As a 35A, I am responsible for producing finished intelligence that enables commanders to understand the battlefield and make decisions. This means fusing raw data from signals, human sources, imagery, cyber, and open-source channels into actionable analysis. Unlike a technician, the MI officer advises senior commanders, which means the job is as much about communication and credibility as it is technical skill.</p>
+        <p>As a 14N, I am responsible for producing finished intelligence that enables commanders and aircrew to understand the operating environment and make decisions. This means fusing raw data from signals, imagery, cyber, space, and open-source channels into actionable analysis, and translating it into targeting, mission planning, and threat briefings. Unlike a technician, the intelligence officer advises senior commanders, which means the job is as much about communication and credibility as it is technical skill.</p>
       </div>
     </div>
 
@@ -542,8 +542,8 @@
     <div class="mos-cards fade-in">
       <div class="mos-card">
         <div class="mos-card-label">DAY-TO-DAY RESPONSIBILITIES</div>
-        <div class="mos-card-item">Brief commanders on enemy courses of action and threat assessments</div>
-        <div class="mos-card-item">Lead an intelligence section (analysts, HUMINT collectors, SIGINT operators)</div>
+        <div class="mos-card-item">Brief commanders and aircrew on threat courses of action and assessments</div>
+        <div class="mos-card-item">Lead an intelligence flight (all-source analysts, targeteers, ISR operators)</div>
         <div class="mos-card-item">Fuse all-source intelligence into coherent products</div>
         <div class="mos-card-item">Coordinate collection requirements across multiple disciplines</div>
         <div class="mos-card-item">Identify gaps in intelligence coverage and task assets to fill them</div>
@@ -551,17 +551,17 @@
       </div>
       <div class="mos-card">
         <div class="mos-card-label">KEY SCHOOLS &amp; TRAINING</div>
-        <div class="mos-card-item">BOLC: Ft. Huachuca, AZ (~6 months, all-source focus)</div>
-        <div class="mos-card-item">MICCC: MI Captain's Career Course at Ft. Huachuca</div>
+        <div class="mos-card-item">IOC: Intelligence Officer Course, Goodfellow AFB, TX (~6 months)</div>
+        <div class="mos-card-item">SOS: Squadron Officer School, Maxwell AFB, AL (company grade PME)</div>
         <div class="mos-card-item">JIPOE: Joint Intelligence Preparation of the Operational Environment</div>
         <div class="mos-card-item">JCAC: Joint Cyber Analysis Course (optional but competitive)</div>
-        <div class="mos-card-item">ILE: Required at ~10 yrs for O-5 promotion</div>
-        <div class="mos-card-item">War College: Selective, ~20 yrs service</div>
+        <div class="mos-card-item">ACSC: Required at ~10 yrs for O-5 promotion</div>
+        <div class="mos-card-item">Air War College: Selective, ~20 yrs service</div>
       </div>
       <div class="mos-card">
         <div class="mos-card-label">DEPLOYMENT PROFILE</div>
-        <div class="mos-card-item">High operational tempo; MI is always in demand in theater</div>
-        <div class="mos-card-item">Typical 9–12 month deployment cycles, sometimes shorter for special programs</div>
+        <div class="mos-card-item">High operational tempo; ISR is always in demand in theater</div>
+        <div class="mos-card-item">Typical 6–9 month deployment cycles, sometimes shorter for special programs</div>
         <div class="mos-card-item">OCONUS options: Korea, Germany, Middle East, INDOPACOM</div>
         <div class="mos-card-item highlight">Combat zone tax exclusion applies during deployed months</div>
         <div class="mos-card-item">Can include joint assignments: NSA, DIA, JSOC, NGA</div>
@@ -571,108 +571,108 @@
         <div class="mos-card-item">Active TS/SCI = significant salary premium in defense sector</div>
         <div class="mos-card-item">Defense contractors: Booz Allen, SAIC, Leidos, Palantir</div>
         <div class="mos-card-item">Federal agencies: NSA, CIA, DIA direct hire paths</div>
-        <div class="mos-card-item">O-5/O-6 MI officers routinely receive $180–250k+ first-year contractor offers</div>
+        <div class="mos-card-item">O-5/O-6 intelligence officers routinely receive $180–250k+ first-year contractor offers</div>
         <div class="mos-card-item highlight">Clearance + leadership experience is rare and highly compensated</div>
       </div>
     </div>
 
     <div class="section-header fade-in" style="margin-top:48px;margin-bottom:24px;">
       <div class="section-label">CAREER PROGRESSION</div>
-      <h3 class="section-title" style="font-size:clamp(22px,3vw,34px);">What 35A Looks Like by Rank</h3>
+      <h3 class="section-title" style="font-size:clamp(22px,3vw,34px);">What 14N Looks Like by Rank</h3>
     </div>
     <div class="progression-track fade-in">
       <div class="prog-row">
-        <div class="prog-rank">O-1 / O-2<br><span style="color:#475569;font-size:9px;">2LT / 1LT</span></div>
-        <div><div class="prog-role">Assistant S2 / Platoon Leader</div><div class="prog-desc">Serves as assistant intelligence officer at battalion or brigade level. Learns the collection management cycle, processes intelligence requests, and supports the S2 section chief. Some 35As receive platoon leader assignments in other branches first, broadening their leadership base before returning to intelligence roles.</div></div>
+        <div class="prog-rank">O-1 / O-2<br><span style="color:#475569;font-size:9px;">2d Lt / 1st Lt</span></div>
+        <div><div class="prog-role">Squadron Intelligence Officer / Flight Commander</div><div class="prog-desc">Serves as the intelligence officer in a flying, ISR, or operations squadron. Learns the collection management cycle, builds threat and mission-planning products, and briefs aircrew before and after every sortie. Many new 14Ns also take a flight commander role, leading a small team of enlisted analysts and running the squadron's intel shop day to day.</div></div>
       </div>
       <div class="prog-row">
-        <div class="prog-rank">O-3<br><span style="color:#475569;font-size:9px;">CPT</span></div>
-        <div><div class="prog-role">Battalion/Brigade S2 (Primary Intelligence Officer)</div><div class="prog-desc">The S2 is the commander's primary intelligence advisor. Responsible for the full intelligence picture: threat analysis, enemy disposition, collection priorities. This is the highest-stakes position in the 35A early career. A strong S2 tour is a prerequisite for competitive follow-on assignments and O-4 promotion.</div></div>
+        <div class="prog-rank">O-3<br><span style="color:#475569;font-size:9px;">Capt</span></div>
+        <div><div class="prog-role">Senior Squadron Intel Officer / Wing A2 Staff</div><div class="prog-desc">As a Captain I own the squadron's intelligence picture and advise the commander directly: threat analysis, adversary disposition, collection priorities, and targeting support. This is the highest-stakes position in the 14N early career. A strong tour here, followed by wing A2 staff time, is the prerequisite for competitive follow-on assignments and O-4 promotion.</div></div>
       </div>
       <div class="prog-row">
-        <div class="prog-rank">O-4<br><span style="color:#475569;font-size:9px;">MAJ</span></div>
-        <div><div class="prog-role">Division G2 Staff / Joint Assignment</div><div class="prog-desc">As a Major, the 35A moves to higher headquarters, typically a division G2 section or a joint assignment (NSA, DIA, J2 staff at a combatant command). This is where strategic intelligence replaces tactical. Officers who earn joint duty assignments here build the résumé for senior positions. Language proficiency pays dividends at this level.</div></div>
+        <div class="prog-rank">O-4<br><span style="color:#475569;font-size:9px;">Maj</span></div>
+        <div><div class="prog-role">Wing / MAJCOM A2 or Joint Assignment</div><div class="prog-desc">As a Major, the 14N moves to higher headquarters, typically a wing or MAJCOM A2 directorate, or a joint assignment (NSA, DIA, NGA, J2 staff at a combatant command). This is where strategic intelligence replaces tactical. Officers who earn joint duty assignments here build the résumé for senior positions. Language proficiency pays dividends at this level.</div></div>
       </div>
       <div class="prog-row">
-        <div class="prog-rank">O-5<br><span style="color:#475569;font-size:9px;">LTC</span></div>
-        <div><div class="prog-role">MI Battalion Command / Senior Staff</div><div class="prog-desc">Select Lieutenant Colonels command an MI Battalion, responsible for a dedicated intelligence unit. Others serve as senior G2 advisors at corps or Army level. ILE and a competitive assignment history are required to reach this grade. Fewer than half of all Majors make O-5.</div></div>
+        <div class="prog-rank">O-5<br><span style="color:#475569;font-size:9px;">Lt Col</span></div>
+        <div><div class="prog-role">ISR Squadron Command / Senior Staff</div><div class="prog-desc">Select Lieutenant Colonels command an intelligence or ISR squadron, responsible for a dedicated intelligence unit. Others serve as the senior A2 advisor at wing or numbered air force level. ACSC and a competitive assignment history are required to reach this grade. Fewer than half of all Majors make O-5.</div></div>
       </div>
       <div class="prog-row">
-        <div class="prog-rank">O-6<br><span style="color:#475569;font-size:9px;">COL</span></div>
-        <div><div class="prog-role">MI Brigade Commander / Senior Intelligence Advisor</div><div class="prog-desc">Colonels in MI branch can command an MI Brigade or serve as the senior intelligence officer for a corps or theater Army. At this level, they work directly with general officers and interagency partners. War College is typically completed at O-6.</div></div>
+        <div class="prog-rank">O-6<br><span style="color:#475569;font-size:9px;">Col</span></div>
+        <div><div class="prog-role">ISR Group Commander / Senior Intelligence Advisor</div><div class="prog-desc">Colonels in the intelligence career field can command an ISR group or serve as the senior intelligence officer for a numbered air force or MAJCOM. At this level, they work directly with general officers and interagency partners. Air War College is typically completed at O-6.</div></div>
       </div>
       <div class="prog-row" style="border-bottom:none;">
-        <div class="prog-rank">O-7<br><span style="color:#475569;font-size:9px;">BG</span></div>
-        <div><div class="prog-role">Brigadier General: Senior Intelligence Leadership</div><div class="prog-desc">A small number of MI colonels are selected for Brigadier General. At this level, the role is national-level strategic intelligence leadership, advising the Army Chief of Staff, SECDEF, or combatant commanders on intelligence matters. Selection is highly competitive and based on career-long performance across key developmental positions.</div></div>
+        <div class="prog-rank">O-7<br><span style="color:#475569;font-size:9px;">Brig Gen</span></div>
+        <div><div class="prog-role">Brigadier General: Senior Intelligence Leadership</div><div class="prog-desc">A small number of intelligence colonels are selected for Brigadier General. At this level, the role is national-level strategic intelligence leadership, advising the Air Force Chief of Staff, SECDEF, or combatant commanders on intelligence matters. Selection is highly competitive and based on career-long performance across key leadership positions.</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<section id="oer">
+<section id="opr">
   <div class="section-inner">
     <div class="section-header fade-in">
-      <div class="section-label">OFFICER EVALUATION REPORT</div>
-      <h2 class="section-title">How the Army Decides Who Advances</h2>
-      <p class="section-sub">The OER is the primary document used by promotion boards to determine who gets promoted, who gets choice assignments, and who gets passed over. This is how I intend to compete.</p>
+      <div class="section-label">OFFICER PERFORMANCE REPORT</div>
+      <h2 class="section-title">How the Air Force Decides Who Advances</h2>
+      <p class="section-sub">The OPR, and the Promotion Recommendation Form built from it, is what promotion boards read to determine who gets promoted, who gets choice assignments, and who gets passed over. This is how I intend to compete.</p>
     </div>
 
     <div class="oer-intro fade-in">
-      <p>Every officer receives an OER at least annually, and after key developmental events (end of command, PCS, etc.). The report has two parts: the <strong style="color:#f0f6fc;">Rater</strong> (my direct supervisor) and the <strong style="color:#f0f6fc;">Senior Rater</strong> (their boss). The Senior Rater's block check is the most critical part of the entire document; it directly drives promotion board outcomes. An officer with consistently top-block Senior Rater ratings across key developmental positions will be competitive for battalion command and above. One mediocre OER at a key position can end a career at O-5.</p>
+      <p>Every officer receives an OPR at least annually, and after key events (change of command, PCS, etc.). The report has two parts: the <strong style="color:#f0f6fc;">Rater</strong> (my direct supervisor) and the <strong style="color:#f0f6fc;">Senior Rater</strong> (their boss). When I meet a promotion board, the senior rater consolidates my record into a <strong style="color:#f0f6fc;">PRF</strong> carrying a single recommendation and, critically, a <strong style="color:#f0f6fc;">stratification</strong> line: "#1 of 14 Captains." That stratification is the most important sentence in the entire record. An officer who is consistently stratified at the top across key assignments will be competitive for squadron command and above. One flat OPR at a key position can end a career at O-5.</p>
     </div>
 
-    <div class="section-label fade-in" style="text-align:center;margin-bottom:16px;">SENIOR RATER BLOCK CHECK RATINGS</div>
+    <div class="section-label fade-in" style="text-align:center;margin-bottom:16px;">SENIOR RATER PROMOTION RECOMMENDATION</div>
     <div class="oer-ratings fade-in">
       <div class="oer-rating-box" style="border-color:rgba(48,209,88,0.4);background:rgba(48,209,88,0.05);">
-        <div class="oer-rating-label" style="color:#30d158;">MOST QUALIFIED</div>
-        <div class="oer-rating-pct" style="color:#30d158;">MQ</div>
-        <div class="oer-rating-desc">Top block. Senior Raters are limited to 24% MQ across all their ratees. This is the only box that drives selection for command and senior positions.</div>
+        <div class="oer-rating-label" style="color:#30d158;">DEFINITELY PROMOTE</div>
+        <div class="oer-rating-pct" style="color:#30d158;">DP</div>
+        <div class="oer-rating-desc">Top recommendation. DP allocations are capped against the senior rater's eligible population, so only a fraction of officers can receive one. This is the recommendation that drives selection for command and senior positions.</div>
       </div>
       <div class="oer-rating-box" style="border-color:rgba(201,162,77,0.3);background:rgba(201,162,77,0.04);">
-        <div class="oer-rating-label" style="color:#c9a24d;">HIGHLY QUALIFIED</div>
-        <div class="oer-rating-pct" style="color:#c9a24d;">HQ</div>
-        <div class="oer-rating-desc">Strong officer, competitive for promotion. Will promote to O-4 and O-5 but is unlikely to be selected for battalion command without multiple MQ reports.</div>
+        <div class="oer-rating-label" style="color:#c9a24d;">PROMOTE</div>
+        <div class="oer-rating-pct" style="color:#c9a24d;">P</div>
+        <div class="oer-rating-desc">Strong officer, competitive but not stratified at the top. Will generally promote to O-4 and O-5 in the primary zone, but is unlikely to be selected for squadron command without DPs on the record.</div>
       </div>
       <div class="oer-rating-box" style="border-color:rgba(245,158,11,0.3);background:rgba(245,158,11,0.04);">
-        <div class="oer-rating-label" style="color:#f59e0b;">QUALIFIED</div>
-        <div class="oer-rating-pct" style="color:#f59e0b;">Q</div>
-        <div class="oer-rating-desc">Meets standards. Unlikely to promote above O-4. Multiple Q blocks will result in separation at a below-zone board.</div>
+        <div class="oer-rating-label" style="color:#f59e0b;">DO NOT PROMOTE</div>
+        <div class="oer-rating-pct" style="color:#f59e0b;">DNP</div>
+        <div class="oer-rating-desc">The senior rater declines to recommend this cycle. A DNP effectively removes the officer from contention at that board and is very difficult to recover from at the next one.</div>
       </div>
       <div class="oer-rating-box" style="border-color:rgba(239,68,68,0.3);background:rgba(239,68,68,0.04);">
-        <div class="oer-rating-label" style="color:#ef4444;">NOT QUALIFIED</div>
-        <div class="oer-rating-pct" style="color:#ef4444;">NQ</div>
-        <div class="oer-rating-desc">Career-ending for that period. Triggers a relief-for-cause and is preserved in the permanent record. Boards see every NQ.</div>
+        <div class="oer-rating-label" style="color:#ef4444;">REFERRAL REPORT</div>
+        <div class="oer-rating-pct" style="color:#ef4444;">RR</div>
+        <div class="oer-rating-desc">Career-ending for that period. Triggered by substandard performance or conduct. The officer must be given a chance to respond, and the report stays in the permanent record. Boards see every referral.</div>
       </div>
     </div>
 
     <div class="oer-two-col fade-in">
       <div class="oer-block">
-        <div class="oer-block-label">WHAT DRIVES MQ RATINGS</div>
-        <div class="oer-item"><span class="oer-item-dot">→</span><span>Completing Key Developmental (KD) positions with distinction, especially S2, company-equivalent command, and battalion command</span></div>
-        <div class="oer-item"><span class="oer-item-dot">→</span><span>Physical fitness: ACFT scores. Officers who max or near-max the ACFT signal discipline and standard-setting</span></div>
-        <div class="oer-item"><span class="oer-item-dot">→</span><span>Advanced civil schooling and graduate degrees (already checked (Baylor/TAMU plan))</span></div>
+        <div class="oer-block-label">WHAT DRIVES DP RECOMMENDATIONS</div>
+        <div class="oer-item"><span class="oer-item-dot">→</span><span>Completing key leadership positions with distinction, especially squadron intel officer, flight commander, and squadron command</span></div>
+        <div class="oer-item"><span class="oer-item-dot">→</span><span>Physical fitness: PFA scores. Officers who max or near-max the PFA signal discipline and standard-setting</span></div>
+        <div class="oer-item"><span class="oer-item-dot">→</span><span>Advanced academic degrees and developmental education (already checked (Baylor/TAMU plan))</span></div>
         <div class="oer-item"><span class="oer-item-dot">→</span><span>Joint duty assignments: J2 or DIA-level work demonstrates interagency credibility</span></div>
-        <div class="oer-item"><span class="oer-item-dot">→</span><span>Language proficiency and FLPP: especially high-demand languages (Arabic, Mandarin, Russian)</span></div>
-        <div class="oer-item"><span class="oer-item-dot">→</span><span>Awards above the MSM level at KD positions: impact awards tell the board you performed under pressure</span></div>
+        <div class="oer-item"><span class="oer-item-dot">→</span><span>Language proficiency and FLPB: especially high-demand languages (Arabic, Mandarin, Russian)</span></div>
+        <div class="oer-item"><span class="oer-item-dot">→</span><span>Awards above the MSM level at key positions: impact awards tell the board you performed under pressure</span></div>
       </div>
       <div class="oer-block">
-        <div class="oer-block-label">KEY DEVELOPMENTAL POSITIONS (35A)</div>
-        <div class="oer-item"><span class="oer-item-dot">★</span><span><strong style="color:#f0f6fc;">Battalion/Brigade S2</strong>: The foundational KD position for 35A. Must be at the top block as CPT or it limits O-4 selection.</span></div>
-        <div class="oer-item"><span class="oer-item-dot">★</span><span><strong style="color:#f0f6fc;">Division G2 or Joint J2 Staff</strong>: As a Major. Joint credit here is essential for O-6 command consideration.</span></div>
-        <div class="oer-item"><span class="oer-item-dot">★</span><span><strong style="color:#f0f6fc;">MI Battalion Command</strong>: As LTC. The single most competitive selection in the MI branch below general officer.</span></div>
-        <div class="oer-item"><span class="oer-item-dot">★</span><span><strong style="color:#f0f6fc;">ILE / SAMS Completion</strong>: ILE required for O-5. SAMS selection (~250 officers/year) is a strong indicator for senior leadership.</span></div>
-        <div class="oer-item"><span class="oer-item-dot">★</span><span><strong style="color:#f0f6fc;">War College</strong>: Required for O-7 consideration. Selective. Attended as O-6 or late O-5.</span></div>
+        <div class="oer-block-label">KEY LEADERSHIP POSITIONS (14N)</div>
+        <div class="oer-item"><span class="oer-item-dot">★</span><span><strong style="color:#f0f6fc;">Squadron Intelligence Officer</strong>: The foundational position for 14N. Must be stratified at the top as a Captain or it limits O-4 selection.</span></div>
+        <div class="oer-item"><span class="oer-item-dot">★</span><span><strong style="color:#f0f6fc;">Wing / MAJCOM A2 or Joint J2 Staff</strong>: As a Major. Joint credit here is essential for O-6 command consideration.</span></div>
+        <div class="oer-item"><span class="oer-item-dot">★</span><span><strong style="color:#f0f6fc;">ISR Squadron Command</strong>: As a Lt Col. The single most competitive selection in the intelligence career field below general officer.</span></div>
+        <div class="oer-item"><span class="oer-item-dot">★</span><span><strong style="color:#f0f6fc;">ACSC / SAASS Completion</strong>: ACSC required for O-5. SAASS selection (~40 officers/year) is a strong indicator for senior leadership.</span></div>
+        <div class="oer-item"><span class="oer-item-dot">★</span><span><strong style="color:#f0f6fc;">Air War College</strong>: Required for O-7 consideration. Selective. Attended as O-6 or late O-5.</span></div>
       </div>
     </div>
 
     <div class="oer-board-box fade-in">
       <div class="oer-board-label">WHAT A PROMOTION BOARD ACTUALLY LOOKS AT</div>
-      <div class="oer-board-item"><span class="oer-board-num">01</span><span><strong style="color:#f0f6fc;">Senior Rater profile across all OERs.</strong> Boards see the cumulative percentage of MQ ratings a Senior Rater has given; a 24% MQ rate on a senior rater profile carries more weight than one from a rater who gives everyone MQ.</span></div>
-      <div class="oer-board-item"><span class="oer-board-num">02</span><span><strong style="color:#f0f6fc;">KD position completion and quality.</strong> Was the officer in a high-visibility role? Did they earn an impact award? Did their unit perform?</span></div>
-      <div class="oer-board-item"><span class="oer-board-num">03</span><span><strong style="color:#f0f6fc;">Narrative language in the rater block.</strong> Boards look for specific language: "best officer I've rated in 20 years," "promote ahead of peers," "above-zone potential." Generic praise is invisible.</span></div>
-      <div class="oer-board-item"><span class="oer-board-num">04</span><span><strong style="color:#f0f6fc;">Broadening assignments and joint service.</strong> Officers with only one installation or one branch's assignments are considered narrow. Joint credit demonstrates strategic adaptability.</span></div>
-      <div class="oer-board-item"><span class="oer-board-num">05</span><span><strong style="color:#f0f6fc;">Education record.</strong> Graduate degree, advanced civil schooling, War College selection. My plan to finish a master's before commissioning is already a strong differentiator; most peers earn theirs at ILE age.</span></div>
-      <div class="oer-board-item" style="border-bottom:none;"><span class="oer-board-num">06</span><span><strong style="color:#f0f6fc;">Physical fitness and ACFT scores.</strong> Boards read ACFT scores in OERs. Officers who sustain high scores throughout their career signal that they hold the standard they enforce.</span></div>
+      <div class="oer-board-item"><span class="oer-board-num">01</span><span><strong style="color:#f0f6fc;">Senior rater stratification across the record.</strong> Boards read where each senior rater ranked me against my peers. "#1 of 14 Captains" from a wing commander carries far more weight than unranked praise from a rater who stratifies everyone.</span></div>
+      <div class="oer-board-item"><span class="oer-board-num">02</span><span><strong style="color:#f0f6fc;">Key position completion and quality.</strong> Was the officer in a high-visibility role? Did they earn an impact award? Did their unit perform?</span></div>
+      <div class="oer-board-item"><span class="oer-board-num">03</span><span><strong style="color:#f0f6fc;">Narrative language in the rater block.</strong> Boards look for specific language: "best officer I've rated in 20 years," "promote ahead of peers," "ready now for squadron command." Generic praise is invisible.</span></div>
+      <div class="oer-board-item"><span class="oer-board-num">04</span><span><strong style="color:#f0f6fc;">Broadening assignments and joint service.</strong> Officers with only one installation or one command's assignments are considered narrow. Joint credit demonstrates strategic adaptability.</span></div>
+      <div class="oer-board-item"><span class="oer-board-num">05</span><span><strong style="color:#f0f6fc;">Education record.</strong> Graduate degree, developmental education, Air War College selection. My plan to finish a master's before commissioning is already a strong differentiator; most peers earn theirs around ACSC age.</span></div>
+      <div class="oer-board-item" style="border-bottom:none;"><span class="oer-board-num">06</span><span><strong style="color:#f0f6fc;">Physical fitness and PFA scores.</strong> Fitness is tracked throughout a career and a failed test is a documented event. Officers who sustain high scores signal that they hold the standard they enforce.</span></div>
     </div>
   </div>
 </section>
@@ -682,7 +682,7 @@
     <div class="section-header fade-in">
       <div class="section-label">LANGUAGE DEVELOPMENT</div>
       <h2 class="section-title">Linguistic Edge in Intelligence</h2>
-      <p class="section-sub">For a 35A, foreign language proficiency is both a tactical tool and a career multiplier. Two additional languages by O-4 places me in the top tier of MI officers nationally.</p>
+      <p class="section-sub">For a 14N, foreign language proficiency is both a tactical tool and a career multiplier. Two additional languages by O-4 places me in the top tier of 14N officers nationally.</p>
     </div>
 
     <div class="lang-timeline fade-in">
@@ -697,7 +697,7 @@
             <div><div class="lang-card-title">English</div><div class="lang-card-sub">Native · Full Professional Proficiency</div></div>
             <div class="ilr-badge" style="color:#94a3b8;border-color:rgba(148,163,184,0.3);">ILR 5</div>
           </div>
-          <div class="lang-card-body">My native language. Baseline for every intelligence product, briefing, and officer evaluation report. Strong written English is one of the most underrated skills in the Army; officers who write and brief clearly get noticed at every level.</div>
+          <div class="lang-card-body">My native language. Baseline for every intelligence product, briefing, and officer evaluation report. Strong written English is one of the most underrated skills in the Air Force; officers who write and brief clearly get noticed at every level.</div>
         </div>
       </div>
       <div class="lang-row">
@@ -711,7 +711,7 @@
             <div><div class="lang-card-title">Language 1 <span style="color:#64748b;font-size:14px;">by Commission</span></div><div class="lang-card-sub">Target: ILR 2+ by commissioning · Update this field with your chosen language</div></div>
             <div class="ilr-badge" style="color:#c9a24d;border-color:rgba(201,162,77,0.3);">ILR 2+ TARGET</div>
           </div>
-          <div class="lang-card-body">Achieving ILR 2 (Limited Working Proficiency) in a second language before commissioning is exceptional. Most officers begin language study after BOLC. Arriving at my first unit with a tested language on file immediately qualifies me for FLPP, makes me a more attractive S2 candidate, and signals initiative to my rater. Target languages for 35A: <strong style="color:#f0f6fc;">Arabic, Mandarin, Russian, or Korean</strong>, all Category III/IV languages with the highest FLPP rates and highest operational demand.</div>
+          <div class="lang-card-body">Achieving ILR 2 (Limited Working Proficiency) in a second language before commissioning is exceptional. Most officers begin language study after IOC. Arriving at my first unit with a tested language on file immediately qualifies me for FLPB, makes me a more attractive candidate for the best intel assignments, and signals initiative to my rater. Target languages for 14N: <strong style="color:#f0f6fc;">Arabic, Mandarin, Russian, or Korean</strong>, all Category III/IV languages with the highest FLPB rates and highest operational demand.</div>
         </div>
       </div>
       <div class="lang-row">
@@ -725,15 +725,15 @@
             <div><div class="lang-card-title">Language 2 <span style="color:#64748b;font-size:14px;">by O-4</span></div><div class="lang-card-sub">Target: ILR 2+ at Major · Update this field with your chosen language</div></div>
             <div class="ilr-badge" style="color:#a78bfa;border-color:rgba(167,139,250,0.3);">ILR 2+ TARGET</div>
           </div>
-          <div class="lang-card-body">A second language at the O-4 level is a genuine differentiator. At Major, I will be operating at division or joint staff level where OCONUS assignments, liaison roles, and theater-specific analysis drive demand for language skills. An officer fluent in two strategic languages at this rank will be actively competed over for joint duty assignments, attaché programs, and special programs. FLPP at ILR 2+ in two languages adds $1,000–$2,000/month in untaxed income.</div>
+          <div class="lang-card-body">A second language at the O-4 level is a genuine differentiator. At Major, I will be operating at MAJCOM or joint staff level where OCONUS assignments, liaison roles, and theater-specific analysis drive demand for language skills. An officer fluent in two strategic languages at this rank will be actively competed over for joint duty assignments, attaché programs, and special programs. FLPB at ILR 2+ in two languages adds $1,000–$2,000/month in untaxed income.</div>
         </div>
       </div>
     </div>
 
     <div class="lang-why-grid fade-in">
       <div class="lang-why-card">
-        <div class="lang-why-label">FLPP: LANGUAGE PAY</div>
-        <div class="lang-why-text">Foreign Language Proficiency Pay ranges from $100–$1,000/month per tested language depending on category and proficiency level. Category IV languages (Arabic, Chinese, Korean, Japanese) at ILR 2/2 pay the maximum. Two languages at max FLPP = $2,000/month tax-free on top of base compensation. That is $24,000/year additional, permanently.</div>
+        <div class="lang-why-label">FLPB: LANGUAGE PAY</div>
+        <div class="lang-why-text">Foreign Language Proficiency Pay ranges from $100–$1,000/month per tested language depending on category and proficiency level. Category IV languages (Arabic, Chinese, Korean, Japanese) at ILR 2/2 pay the maximum. Two languages at max FLPB = $2,000/month tax-free on top of base compensation. That is $24,000/year additional, permanently.</div>
       </div>
       <div class="lang-why-card">
         <div class="lang-why-label">DLAB: THE GATEWAY TEST</div>
@@ -741,11 +741,11 @@
       </div>
       <div class="lang-why-card">
         <div class="lang-why-label">STRATEGIC DEMAND (2030+)</div>
-        <div class="lang-why-text">The Army's priority language list is driven by threat environment. Current and projected high-demand languages: Mandarin (INDOPACOM), Arabic (CENTCOM/AFRICOM), Russian (EUCOM), Korean (USFK). For a 35A targeting joint and senior leadership positions, these languages directly align with the most relevant theaters and intelligence missions.</div>
+        <div class="lang-why-text">The Air Force's priority language list is driven by threat environment. Current and projected high-demand languages: Mandarin (INDOPACOM), Arabic (CENTCOM/AFRICOM), Russian (EUCOM), Korean (USFK). For a 14N targeting joint and senior leadership positions, these languages directly align with the most relevant theaters and intelligence missions.</div>
       </div>
       <div class="lang-why-card">
         <div class="lang-why-label">CAREER LEVERAGE</div>
-        <div class="lang-why-text">Language skills open assignment tracks that are otherwise inaccessible: Defense Attaché Program (diplomatic postings in foreign capitals), NSA language analyst roles, JSOC support elements, and theater-specific advisory positions. At the O-5/O-6 level, an officer who is both a proven MI leader and a language-qualified area expert is extraordinarily rare.</div>
+        <div class="lang-why-text">Language skills open assignment tracks that are otherwise inaccessible: Defense Attaché Program (diplomatic postings in foreign capitals), NSA language analyst roles, JSOC support elements, and theater-specific advisory positions. At the O-5/O-6 level, an officer who is both a proven intelligence leader and a language-qualified area expert is extraordinarily rare.</div>
       </div>
     </div>
 
@@ -766,7 +766,7 @@
       <div class="ilr-row" style="background:rgba(201,162,77,0.04);">
         <div class="ilr-level" style="color:#c9a24d;">2</div>
         <div class="ilr-name">Limited Working</div>
-        <div class="ilr-desc">Can handle basic work-related tasks and routine social situations. Minimum FLPP threshold.</div>
+        <div class="ilr-desc">Can handle basic work-related tasks and routine social situations. Minimum FLPB threshold.</div>
         <div class="ilr-target" style="color:#c9a24d;background:rgba(201,162,77,0.1);border:1px solid rgba(201,162,77,0.3);">TARGET BY COMMISSION</div>
       </div>
       <div class="ilr-row">
@@ -797,7 +797,7 @@
     <div class="section-header fade-in">
       <div class="section-label">GLOSSARY</div>
       <h2 class="section-title">Military Terms, Explained</h2>
-      <p class="section-sub">A plain-English reference for anyone unfamiliar with Army structure, intelligence operations, pay, and education.</p>
+      <p class="section-sub">A plain-English reference for anyone unfamiliar with Air Force structure, intelligence operations, pay, and education.</p>
     </div>
     <div class="gloss-list" id="gloss-list"></div>
   </div>
@@ -813,11 +813,11 @@
 
     <div style="background:rgba(10,18,32,0.8);border:1px solid rgba(30,58,95,0.5);border-top:3px solid #c9a24d;border-radius:8px;padding:36px 40px;max-width:760px;margin:0 auto;" class="fade-in">
       <p style="font-size:15px;color:#94a3b8;line-height:1.85;margin:0;">
-        I graduate from High School in May 2027 at age 17 with a Medical Certificate, an Associate's Degree, a 4.5+ GPA, a 1280 SAT, and a 90 ASVAB. College is fully funded: tuition covered by a National ROTC Scholarship, room by miscellaneous scholarships, food by my parents. I enter with sophomore-level credits and finish both a bachelor's and master's degree in three years, before commissioning.
+        I graduate from High School in May 2027 at age 17 with a Medical Certificate, an Associate's Degree, a 4.5+ GPA, a 1280 SAT, and a 90 ASVAB. College is fully funded: tuition covered by a TASSP scholarship, room by miscellaneous scholarships, food by my parents. I train through Air Force ROTC on campus. I enter with sophomore-level credits and finish both a bachelor's and master's degree in three years, before commissioning.
         <br><br>
-        In 2030, I commission as a Second Lieutenant in the U.S. Army, branched 35A Military Intelligence, at age 20. I report to BOLC at Fort Huachuca, finish initial training at 21, earn my TS/SCI clearance, and begin investing immediately at a 40% savings rate across Roth TSP, Roth IRA, and a taxable brokerage. No student debt. Clean slate.
+        In 2030, I commission as a Second Lieutenant in the U.S. Air Force, categorized 14N Intelligence Officer, at age 20. I report to the Intelligence Officer Course at Goodfellow AFB, finish initial training at 21, earn my TS/SCI clearance, and begin investing immediately at a 40% savings rate across Roth TSP, Roth IRA, and a taxable brokerage. No student debt. Clean slate.
         <br><br>
-        The early career runs through the S2 role as a Captain, which is the most critical key developmental position for 35A. A top-block OER there sets the trajectory for everything after. Mid-career brings promotion to Major, a joint assignment at NSA or DIA, two strategic language certifications, ILE, and selection for Lieutenant Colonel. The goal is MI Battalion command as an LTC, then Colonel and potential MI Brigade command as a senior officer.
+        The early career runs through the squadron intelligence officer role as a Captain, which is the most critical developmental position for 14N. A top stratification there sets the trajectory for everything after. Mid-career brings promotion to Major, a joint assignment at NSA or DIA, two strategic language certifications, ACSC, and selection for Lieutenant Colonel. The goal is ISR squadron command as a Lt Col, then Colonel and potential ISR group command as a senior officer.
         <br><br>
         The financial plan targets retirement at 20 years (age 40) at O-6 Colonel, with a 40% pension paid for life. From there, five years of defense contracting at $200-250k/year funds lifestyle while the entire investment portfolio compounds untouched. Starting at age 52, a 4% SWR on the grown portfolio plus pension produces full financial independence. At 59.5, all accounts unlock and total income steps up substantially.
 
@@ -830,8 +830,8 @@
   </a>
 </div>
 <footer>
-  <div class="footer-brand">MY U.S. ARMY OFFICER PLAN</div>
-  <div class="footer-sub">Commission <span id="footer-commyear">—</span> · 35A Intelligence Branch · All projections are estimates </div>
+  <div class="footer-brand">MY U.S. AIR FORCE OFFICER PLAN</div>
+  <div class="footer-sub">Commission <span id="footer-commyear">—</span> · 14N Intelligence Branch · All projections are estimates </div>
 </footer>
 
 <script>
@@ -850,7 +850,7 @@ const CONFIG = {
   hsGradAge:         17,
   commissionYear:    2030,
   commissionAge:     20,       // age at commission (used for all age calculations)
-  targetMOS:         "35A MI",
+  targetAFSC:        "14N INTEL",
 
   // ── Academic Record (hero stats) ─────────────────────────────────────────
   gpa:               "4.5+",
@@ -918,26 +918,26 @@ const rankNames = {
 };
 
 const incomeData = [
-  {year:1, ti:49802,      nti:17150,     flpp:0},
-  {year:2, ti:49802,      nti:17150,     flpp:0},
-  {year:3, ti:65354,      nti:19324,     flpp:0},
-  {year:4, ti:75268,      nti:19324,     flpp:0},
-  {year:5, ti:88592,      nti:26985,     flpp:12000},
-  {year:6, ti:88592,      nti:26985,     flpp:12000},
-  {year:7, ti:92844,      nti:26985,     flpp:12000},
-  {year:8, ti:92844,      nti:26985,     flpp:12000},
-  {year:9, ti:97506,      nti:26985,     flpp:12000},
-  {year:10,ti:105796,     nti:31791.36,  flpp:12000},
-  {year:11,ti:113040,     nti:31791.36,  flpp:12000},
-  {year:12,ti:113040,     nti:31791.36,  flpp:12000},
-  {year:13,ti:118659.6,   nti:31791.36,  flpp:12000},
-  {year:14,ti:123260.40,  nti:35542.56,  flpp:12000},
-  {year:15,ti:128581.2,   nti:35542.56,  flpp:12000},
-  {year:16,ti:128581.2,   nti:35542.56,  flpp:12000},
-  {year:17,ti:136695.6,   nti:35542.56,  flpp:12000},
-  {year:18,ti:136695.6,   nti:35542.56,  flpp:12000},
-  {year:19,ti:157384.80,  nti:36723.36,  flpp:12000},
-  {year:20,ti:157384.80,  nti:36723.36,  flpp:12000}
+  {year:1, ti:49802,      nti:17150,     flpb:0},
+  {year:2, ti:49802,      nti:17150,     flpb:0},
+  {year:3, ti:65354,      nti:19324,     flpb:0},
+  {year:4, ti:75268,      nti:19324,     flpb:0},
+  {year:5, ti:88592,      nti:26985,     flpb:12000},
+  {year:6, ti:88592,      nti:26985,     flpb:12000},
+  {year:7, ti:92844,      nti:26985,     flpb:12000},
+  {year:8, ti:92844,      nti:26985,     flpb:12000},
+  {year:9, ti:97506,      nti:26985,     flpb:12000},
+  {year:10,ti:105796,     nti:31791.36,  flpb:12000},
+  {year:11,ti:113040,     nti:31791.36,  flpb:12000},
+  {year:12,ti:113040,     nti:31791.36,  flpb:12000},
+  {year:13,ti:118659.6,   nti:31791.36,  flpb:12000},
+  {year:14,ti:123260.40,  nti:35542.56,  flpb:12000},
+  {year:15,ti:128581.2,   nti:35542.56,  flpb:12000},
+  {year:16,ti:128581.2,   nti:35542.56,  flpb:12000},
+  {year:17,ti:136695.6,   nti:35542.56,  flpb:12000},
+  {year:18,ti:136695.6,   nti:35542.56,  flpb:12000},
+  {year:19,ti:157384.80,  nti:36723.36,  flpb:12000},
+  {year:20,ti:157384.80,  nti:36723.36,  flpb:12000}
 ];
 
 // ─── PROJECTION CONSTANTS ─────────────────────────────────────────────────
@@ -953,7 +953,7 @@ const IRA_PO_HIGH  = CONFIG.iraPOHigh;
 // Tracks four separate account buckets each year:
 //
 //   rTSP    - Roth TSP (employee contributions, O-1 through O-5)
-//   tTSP    - Traditional TSP (employee O-6+, plus ALL army BRS match)
+//   tTSP    - Traditional TSP (employee O-6+, plus ALL Air Force BRS match)
 //   rIRA    - Roth IRA (full balance including earnings)
 //   taxable - Taxable brokerage (overflow after tax-advantaged limits are met)
 //
@@ -961,7 +961,7 @@ const IRA_PO_HIGH  = CONFIG.iraPOHigh;
 // Under IRS rules, Roth IRA contributions (basis) are always withdrawable
 // without penalty at any age. Only earnings are locked until 59.5.
 //
-// Army BRS match is modeled ON TOP of the 40% savings rate because it is
+// Air Force BRS match is modeled ON TOP of the 40% savings rate because it is
 // real additional compensation, free money that compounds separately.
 // This is the key difference from a naive single-portfolio model.
 //
@@ -973,14 +973,14 @@ const IRA_PO_HIGH  = CONFIG.iraPOHigh;
 //
 // O-6+ (years 19-25): employee TSP contributions shift to Traditional TSP
 // for tax efficiency (24-32% bracket). Roth IRA phase-out also applies.
-// Military MAGI approximation: base pay only (BAH/BAS/FLPP excluded from AGI).
+// Military MAGI approximation: base pay only (BAH/BAS/FLPB excluded from AGI).
 
 function buildDetailedProjection() {
   let rTSP = 0, tTSP = 0, rIRA = 0, taxable = 0;
   let rIRABasis = 0;
 
-  return incomeData.map(({ year, ti, nti, flpp }) => {
-    const total   = ti + nti + flpp;
+  return incomeData.map(({ year, ti, nti, flpb }) => {
+    const total   = ti + nti + flpb;
     const savings = Math.round(total * SAVE_RATE);
     const isO6p   = year >= 19;   // O-6+ shifts EE TSP to Traditional
     let rem = savings;
@@ -990,7 +990,7 @@ function buildDetailedProjection() {
     rem -= tsp1;
 
     // Step 2: Roth IRA with income-based phase-out
-    // MAGI for military ≈ base pay (allowances and FLPP excluded from AGI)
+    // MAGI for military ≈ base pay (allowances and FLPB excluded from AGI)
     let iraC = 0;
     if (ti < IRA_PO_HIGH) {
       const po = Math.max(0, (ti - IRA_PO_LOW) / (IRA_PO_HIGH - IRA_PO_LOW));
@@ -1008,12 +1008,12 @@ function buildDetailedProjection() {
     // Step 4: Overflow to taxable brokerage
     const taxC = rem;
 
-    // BRS Army Match (starts Year 2):
+    // BRS Air Force Match (starts Year 2):
     //   1% automatic contribution (regardless of employee contribution)
     //   + 100% match on employee contributions up to 3% of base pay
     //   + 50% match on employee contributions from 3% to 5% of base pay
-    //   = up to 5% total from Army when employee contributes 5%
-    // Army match ALWAYS goes to Traditional TSP (IRS requirement for matching).
+    //   = up to 5% total from Air Force when employee contributes 5%
+    // Air Force match ALWAYS goes to Traditional TSP (IRS requirement for matching).
     let matchC = 0;
     if (year >= 2) {
       const ep = eeTSP / ti;
@@ -1042,7 +1042,7 @@ function buildDetailedProjection() {
     return {
       year, age: CONFIG.commissionAge + year, calYear: CONFIG.commissionYear + year,
       rank: rankMap[year], rankName: rankNames[rankMap[year]],
-      ti, nti, flpp,
+      ti, nti, flpb,
       total: Math.round(total), savings,
       eeTSP, matchC, iraC: Math.round(iraC), taxC,
       rTSP: Math.round(rTSP), tTSP: Math.round(tTSP),
@@ -1171,67 +1171,67 @@ const timelineEvents = [
   { year:"May 2027", age:17, phase:"foundation", color:"#94a3b8", icon:"🎓",
     title:"High School Graduation",
     subtitle:"Associates Degree · 4.5 GPA · 1280 SAT · Medical Certificate",
-    detail:"I graduate from High School at age 17 with both a Medical Certificate and an Associate's Degree, college-level credentials earned through full-time dual enrollment. Academic record: 4.5 GPA (weighted), 1280 SAT, 90 ASVAB. I begin college that fall on an Army ROTC scholarship, entering with sophomore-level credits that compress my bachelor's and master's into three years." },
+    detail:"I graduate from High School at age 17 with both a Medical Certificate and an Associate's Degree, college-level credentials earned through full-time dual enrollment. Academic record: 4.5 GPA (weighted), 1280 SAT, 90 ASVAB. I begin college that fall on an Air Force ROTC scholarship, entering with sophomore-level credits that compress my bachelor's and master's into three years." },
   { year:"2027–2030", age:17, phase:"foundation", color:"#94a3b8", icon:"⚔️",
     title:"ROTC Cadet",
-    subtitle:"3 Years of Army Leadership Training · Targeting 35A Branch",
-    detail:"Throughout college I train as an Army ROTC cadet: military science courses, field exercises, leadership labs, and summer training at Cadet Summer Training (CST). Because I enter with sophomore standing, I complete the full ROTC program in three years rather than four. Cadets compete for branch assignments based on OML (Order of Merit List) standing. 35A (Intelligence) is a competitive branch. Strong academics, physical fitness, and extracurricular leadership improve OML standing. I also pursue language study during this period, targeting ILR 2 proficiency in a strategic language before graduation." },
+    subtitle:"3 Years of Air Force Leadership Training · Targeting 14N Branch",
+    detail:"Throughout college I train as an Air Force ROTC cadet: aerospace studies courses, leadership labs, physical training, and Field Training at Maxwell AFB between my sophomore and junior years. Because I enter with sophomore standing, I complete the full AFROTC program in three years rather than four. Cadets compete for their career field through the categorization board, ranked on an Order of Merit built from GPA, fitness, field training performance, and commander ratings. 14N (Intelligence) is a competitive category. I also pursue language study during this period, targeting ILR 2 proficiency in a strategic language before graduation." },
   { year:"2027–2030", age:17, phase:"foundation", color:"#e2c77b", icon:"💰",
     title:"College Funding: Zero Out-of-Pocket",
     subtitle:"ROTC Scholarship · Miscellaneous Scholarships · Parental Support",
-    detail:"College is fully funded without loans. Tuition and fees are covered by a National ROTC Scholarship, awarded competitively based on academics, fitness, and leadership, and used across my three years on campus. Room is covered by miscellaneous scholarships earned through academic performance and extracurriculars. Food is covered by my parents. The result: I commission at 20 with a bachelor's and master's degree, zero student debt, and a clean financial slate to begin aggressive investing from day one of service." },
+    detail:"College is fully funded without loans. Tuition and fees are covered by a TASSP scholarship, the Texas Armed Services Scholarship Program, awarded on a state legislator's nomination to students who commit to a commissioning program and to serving as an officer. It carries across my three years on campus. Room is covered by miscellaneous scholarships earned through academic performance and extracurriculars. Food is covered by my parents. The result: I commission at 20 with a bachelor's and master's degree, zero student debt, and a clean financial slate to begin aggressive investing from day one of service." },
   { year:"2030", age:20, phase:"commission", color:"#c9a24d", icon:"⭐",
-    title:"Commissioned as 2LT · U.S. Army",
-    subtitle:"Bachelor's + Master's Complete · Age 20 · Branch: 35A",
-    detail:"I am commissioned as a Second Lieutenant (O-1) in the United States Army, branched 35A, Military Intelligence, after three years of college. I complete both a bachelor's and master's degree before this point. I take the Oath of Office, receive my gold bars, and report to BOLC within 90 days. At this point, the TS/SCI clearance investigation is already underway, initiated through my ROTC program." },
+    title:"Commissioned as 2d Lt · U.S. Air Force",
+    subtitle:"Bachelor's + Master's Complete · Age 20 · Branch: 14N",
+    detail:"I am commissioned as a Second Lieutenant (O-1) in the United States Air Force, categorized 14N, Intelligence Officer, after three years of college. I complete both a bachelor's and master's degree before this point. I take the Oath of Office, receive my gold bars, and report to the Intelligence Officer Course at Goodfellow AFB. At this point, the TS/SCI clearance investigation is already underway, initiated through my AFROTC detachment." },
   { year:"2030–2031", age:20, phase:"commission", color:"#c9a24d", icon:"🪖",
-    title:"BOLC: Basic Officer Leaders Course",
-    subtitle:"Ft. Huachuca, AZ · ~6 months · Intelligence Branch",
-    detail:"All-Source Intelligence BOLC is conducted at Fort Huachuca, Arizona, the home of Army Intelligence. I learn the intelligence cycle, collection management, JIPOE (Joint Intelligence Preparation of the Operational Environment), and all-source fusion. BOLC introduces me to classified systems and teaches the technical foundation of the MI officer role. Performance at BOLC is the first OER-like evaluation in my record. I finish initial training at 21 and report to my first operational unit." },
+    title:"IOC: Intelligence Officer Course",
+    subtitle:"Goodfellow AFB, TX · ~6 months · 14N Initial Skills Training",
+    detail:"The Intelligence Officer Course is conducted at Goodfellow AFB, Texas, the home of Air Force intelligence training. I learn the intelligence cycle, collection management, JIPOE (Joint Intelligence Preparation of the Operational Environment), targeting, and all-source fusion. IOC introduces me to classified systems and teaches the technical foundation of the 14N role; graduating awards the 14N3 skill level. I finish initial training at 21 and report to my first operational unit." },
   { year:"2031", age:21, phase:"early", color:"#34d399", icon:"🪖",
-    title:"First Duty Assignment: Assistant S2",
-    subtitle:"2LT → 1LT · Brigade/Battalion Intelligence Section",
-    detail:"My first posting places me as an Assistant S2 in an intelligence section. I support the senior S2 officer, process intelligence requests, manage the collection plan, and produce daily intelligence products for the commander. This is the learning phase, absorbing how the intelligence picture is built and maintained under real operational conditions. Promotion from 2LT to 1LT is automatic after 18 months of satisfactory service." },
+    title:"First Duty Assignment: Squadron Intel Officer",
+    subtitle:"2d Lt → 1st Lt · Squadron Intelligence Flight",
+    detail:"My first posting places me in a squadron intelligence flight. I brief aircrew before and after sorties, process intelligence requests, manage the collection plan, and produce daily threat products for the commander. This is the learning phase, absorbing how the intelligence picture is built and maintained under real operational conditions. Promotion from 2d Lt to 1st Lt is effectively automatic at two years of satisfactory service." },
   { year:"2033", age:23, phase:"early", color:"#34d399", icon:"📋",
-    title:"MICCC: MI Captain's Career Course",
-    subtitle:"Ft. Huachuca, AZ · Required before O-3 promotion",
-    detail:"The Military Intelligence Captain's Career Course (MICCC) is required for promotion to Captain and for assuming the S2 role at battalion or brigade. It is more advanced than BOLC, focused on brigade-level intelligence operations, multi-domain analysis, and planning as part of an operations staff. Graduates are expected to walk directly into their first S2 role." },
+    title:"SOS: Squadron Officer School",
+    subtitle:"Maxwell AFB, AL · Company Grade PME",
+    detail:"Squadron Officer School is the Air Force's company grade professional military education, completed by distance learning as a Lieutenant with in-residence selection as a Captain. SOS focuses on leadership, joint warfighting, and operating as part of an air component staff rather than on intelligence tradecraft. Completion is expected before an officer is competitive for Major, and in-residence selection is itself a discriminator on the record." },
   { year:"2034", age:24, phase:"captain", color:"#a78bfa", icon:"⭐⭐⭐",
-    title:"Promoted to Captain (O-3): S2",
-    subtitle:"Primary Intelligence Officer · Brigade or Battalion",
-    detail:"As Captain, I assume the role of S2, the unit's primary intelligence officer and direct advisor to the commanding officer on all matters related to enemy, terrain, and weather. This is the critical KD position for every 35A. A strong S2 tour with an MQ Senior Rater block is the most important career event between commissioning and O-4 selection. I manage my intelligence section, brief commanders daily, and produce the intelligence products that drive operational decisions." },
+    title:"Promoted to Captain (O-3): Senior Intel Officer",
+    subtitle:"Primary Intelligence Officer · Squadron or Wing A2",
+    detail:"As Captain, I become the unit's primary intelligence officer and direct advisor to the commander on the adversary, the operating environment, and the threat picture. This is the critical developmental position for every 14N. A strong tour here with a top stratification from the senior rater is the most important career event between commissioning and O-4 selection. I lead my intelligence flight, brief commanders and aircrew daily, and produce the products that drive operational decisions." },
   { year:"~2035", age:25, phase:"captain", color:"#a78bfa", icon:"🌐",
-    title:"Language 1: FLPP Qualified",
+    title:"Language 1: FLPB Qualified",
     subtitle:"ILR 2+ Tested and Certified · Foreign Language Proficiency Pay Begins",
-    detail:"I test for and earn ILR 2+ proficiency in my first strategic language, qualifying for Foreign Language Proficiency Pay, up to $1,000/month additional untaxed income. Beyond the pay, the language certification opens doors to theater-specific assignments and signals to the branch manager and senior raters that I am building toward a regionally-focused intelligence career." },
+    detail:"I test for and earn ILR 2+ proficiency in my first strategic language, qualifying for the Foreign Language Proficiency Bonus, up to $1,000/month additional untaxed income. Beyond the pay, the language certification opens doors to theater-specific assignments and signals to my assignment officer and senior raters that I am building toward a regionally-focused intelligence career." },
   { year:"2040", age:30, phase:"mid", color:"#f59e0b", icon:"⭐⭐⭐⭐",
     title:"Promoted to Major (O-4)",
-    subtitle:"Division G2 Staff or Joint Assignment (NSA/DIA)",
-    detail:"As a Major, I move from direct tactical intelligence to strategic-level staff work, typically a Division G2 section, a combatant command J2, or a joint duty assignment at NSA, DIA, or NGA. Joint duty credit is essential at this stage. Officers without joint assignments are at a disadvantage for O-5 selection. My language proficiency makes me a competitive candidate for theater-specific assignments or foreign area officer broadening." },
+    subtitle:"Wing / MAJCOM A2 Staff or Joint Assignment (NSA/DIA)",
+    detail:"As a Major, I move from direct tactical intelligence to strategic-level staff work, typically a wing or MAJCOM A2 directorate, a combatant command J2, or a joint duty assignment at NSA, DIA, or NGA. Joint duty credit is essential at this stage. Officers without joint assignments are at a disadvantage for O-5 selection. My language proficiency makes me a competitive candidate for theater-specific assignments or attaché broadening." },
   { year:"~2040", age:30, phase:"mid", color:"#f59e0b", icon:"🌐",
-    title:"Language 2: Second FLPP Qualification",
-    subtitle:"ILR 2+ in Second Strategic Language · Maximum FLPP Rate",
-    detail:"I certify my second language at ILR 2+ as a Major. With two strategic languages, I qualify for maximum FLPP on both, potentially $2,000/month additional. More importantly, two languages at O-4 makes me a top candidate for the Defense Attaché Program, JSOC support billets, and senior intelligence advisory roles that are otherwise inaccessible. This is rare enough that branch managers notice." },
+    title:"Language 2: Second FLPB Qualification",
+    subtitle:"ILR 2+ in Second Strategic Language · Maximum FLPB Rate",
+    detail:"I certify my second language at ILR 2+ as a Major. With two strategic languages, I qualify for maximum FLPB on both, potentially $2,000/month additional. More importantly, two languages at O-4 makes me a top candidate for the Defense Attaché Program, JSOC support billets, and senior intelligence advisory roles that are otherwise inaccessible. This is rare enough that assignment officers notice." },
   { year:"2041", age:31, phase:"mid", color:"#f59e0b", icon:"🎓",
-    title:"Intermediate Level Education (ILE)",
-    subtitle:"~1 year · Required for O-5 Promotion",
-    detail:"ILE is a year-long Army professional education program studying advanced military doctrine, joint operations, and strategic leadership. Required for promotion to Lieutenant Colonel. Competitive graduates are selected for School of Advanced Military Studies (SAMS), a 10-month follow-on program at Fort Leavenworth that produces the Army's most selective operational planners. SAMS selection (~250 per year) is a strong indicator for battalion command and above." },
+    title:"Air Command and Staff College (ACSC)",
+    subtitle:"Maxwell AFB, AL · ~10 months · Intermediate Developmental Education",
+    detail:"ACSC is the Air Force's intermediate developmental education program at Maxwell AFB, studying air and space power doctrine, joint operations, and strategic leadership. In-residence selection is competitive and expected of officers on a command track. The most competitive graduates are selected for the School of Advanced Air and Space Studies (SAASS), a follow-on year at Maxwell that produces the Air Force's strategists. SAASS takes roughly 40 officers a year and is a strong indicator for squadron command and above." },
   { year:"2044", age:34, phase:"senior", color:"#f97316", icon:"⭐⭐⭐⭐⭐",
     title:"Promoted to Lieutenant Colonel (O-5)",
-    subtitle:"MI Battalion Command Competition",
-    detail:"O-5 is a major milestone; fewer than half of Majors are promoted. At this grade I compete for MI Battalion command, one of the most sought-after positions in the branch. Battalion command as an LTC is the prerequisite for Colonel and for serious O-7 consideration. My accumulated record: strong S2 OERs, joint duty credit, language qualifications, and ILE completion, which puts me in the competitive pool." },
+    subtitle:"ISR Squadron Command Competition",
+    detail:"O-5 is a major milestone; fewer than half of Majors are promoted. At this grade I compete for command of an intelligence or ISR squadron, one of the most sought-after positions in the career field. Squadron command as a Lt Col is the prerequisite for Colonel and for serious O-7 consideration. My accumulated record: top stratifications as a squadron intel officer, joint duty credit, language qualifications, and ACSC in residence, which puts me in the competitive pool." },
   { year:"2049", age:39, phase:"senior", color:"#b8863a", icon:"🎓",
-    title:"Army War College",
-    subtitle:"Senior Service College · ~1 year · Selective",
-    detail:"War College is the Army's highest professional education program, attended by selected O-6s and senior O-5s. Students study national security strategy, geopolitics, and interagency operations alongside peers from all U.S. military branches and partner nations. Attendance indicates selection for senior leadership and is essentially a prerequisite for O-7 consideration." },
+    title:"Air War College",
+    subtitle:"Maxwell AFB, AL · Senior Developmental Education · ~1 year · Selective",
+    detail:"Air War College is the Air Force's senior developmental education program, attended by selected O-6s and senior O-5s at Maxwell AFB. Students study national security strategy, geopolitics, and interagency operations alongside peers from every U.S. service and partner nations. In-residence attendance indicates selection for senior leadership and is essentially a prerequisite for O-7 consideration." },
   { year:"2050", age:40, phase:"senior", color:"#b8863a", icon:"🦅",
     title:"Promoted to Colonel (O-6)",
-    subtitle:"MI Brigade Command or Senior Intelligence Advisor",
-    detail:"Colonel is the terminal rank for the majority of Army officers. As a Colonel in MI branch, I may command an MI Brigade or serve as the senior intelligence officer for a corps or Army headquarters. My financial plan reaches the 20-year milestone at this rank, making Scenario A retirement available." },
+    subtitle:"ISR Group Command or Senior Intelligence Advisor",
+    detail:"Colonel is the terminal rank for the majority of Air Force officers. As a Colonel in the intelligence career field, I may command an ISR group or serve as the senior intelligence officer for a numbered air force or MAJCOM headquarters. My financial plan reaches the 20-year milestone at this rank, making Scenario A retirement available." },
   { year:"2050", age:40, phase:"retirement", color:"#30d158", icon:"🏁",
     title:"Retire at 20 Years · O-6 Colonel",
-    subtitle:"Age 40 · Army Pension Begins · Defense Contracting Begins",
-    detail:"At 20 years of active service I retire with an Army pension equal to 40% of final O-6 base pay, paid monthly for life with annual COLA adjustments. My TS/SCI clearance opens an immediate second career in defense contracting at $200-250k/year for five years. The entire investment portfolio is left completely untouched to compound at 7% during this period." },
+    subtitle:"Age 40 · Air Force Pension Begins · Defense Contracting Begins",
+    detail:"At 20 years of active service I retire with an Air Force pension equal to 40% of final O-6 base pay, paid monthly for life with annual COLA adjustments. My TS/SCI clearance opens an immediate second career in defense contracting at $200-250k/year for five years. The entire investment portfolio is left completely untouched to compound at 7% during this period." },
 
 ];
 
@@ -1242,18 +1242,18 @@ const phaseLabels = {
 };
 
 const officerRanks = [
-  { grade:"O-1", title:"Second Lieutenant", abbr:"2LT", color:"#94a3b8",
-    desc:"Entry-level Army officer. Leads a platoon of 30–40 soldiers. First leadership test." },
-  { grade:"O-2", title:"First Lieutenant", abbr:"1LT", color:"#94a3b8",
-    desc:"Continues as platoon leader or takes on staff roles. Army promotion nearly automatic at 18 months." },
-  { grade:"O-3", title:"Captain", abbr:"CPT", color:"#a78bfa",
-    desc:"Commands a company of 100–200 soldiers or serves as battalion S2. Most formative leadership position." },
-  { grade:"O-4", title:"Major", abbr:"MAJ", color:"#f59e0b",
-    desc:"Staff work at brigade/division level. First test of strategic thinking and joint operations." },
-  { grade:"O-5", title:"Lieutenant Colonel", abbr:"LTC", color:"#f97316",
-    desc:"Commands a battalion of 300–1,000 soldiers. Fewer than half of Majors reach this grade." },
-  { grade:"O-6", title:"Colonel", abbr:"COL", color:"#b8863a",
-    desc:"Commands a brigade of 3,000–5,000. Terminal rank for most Army officers and my planned exit rank." }
+  { grade:"O-1", title:"Second Lieutenant", abbr:"2d Lt", color:"#94a3b8",
+    desc:"Entry-level Air Force officer. Leads a flight of 20–40 Airmen. First leadership test." },
+  { grade:"O-2", title:"First Lieutenant", abbr:"1st Lt", color:"#94a3b8",
+    desc:"Continues as flight commander or takes on staff roles. Promotion is effectively automatic at two years of service." },
+  { grade:"O-3", title:"Captain", abbr:"Capt", color:"#a78bfa",
+    desc:"Runs a squadron's intelligence flight or serves on wing A2 staff. Most formative leadership position." },
+  { grade:"O-4", title:"Major", abbr:"Maj", color:"#f59e0b",
+    desc:"Staff work at wing, MAJCOM, or joint level. First test of strategic thinking and joint operations." },
+  { grade:"O-5", title:"Lieutenant Colonel", abbr:"Lt Col", color:"#f97316",
+    desc:"Commands a squadron of 100–300 Airmen. Fewer than half of Majors reach this grade." },
+  { grade:"O-6", title:"Colonel", abbr:"Col", color:"#b8863a",
+    desc:"Commands a group of 1,000–2,000 Airmen, or a wing. Terminal rank for most Air Force officers and my planned exit rank." }
 ];
 
 // Base pay / allowances / total comp are derived from incomeData + rankMap (not hand-typed)
@@ -1270,29 +1270,33 @@ officerRanks.forEach(r => {
 });
 
 const glossary = [
-  { term:"Commission", def:"The formal appointment as an Army officer. A commissioned officer swears an oath to support and defend the Constitution and receives legal authority to lead soldiers." },
-  { term:"ROTC", def:"Reserve Officers' Training Corps. A college program that trains officer candidates alongside a civilian degree. The Army pays tuition in exchange for a service commitment, typically 4–8 years active duty." },
-  { term:"35A", def:"The Army MOS (Military Occupational Specialty) designator for Military Intelligence Officer, specifically All-Source Intelligence Officer. Responsible for producing finished intelligence products and advising commanders." },
-  { term:"BOLC", def:"Basic Officer Leaders Course. Branch-specific school every new Army officer attends after commissioning. For 35A, conducted at Fort Huachuca, AZ. Teaches the intelligence cycle, collection management, and all-source analysis fundamentals." },
-  { term:"MICCC", def:"Military Intelligence Captain's Career Course. Required for promotion to Captain and for assuming the battalion or brigade S2 role. More advanced than BOLC, focuses on brigade-level intelligence operations." },
-  { term:"S2 / G2", def:"The intelligence officer on a unit staff. 'S' prefix indicates brigade level and below; 'G' prefix indicates division level and above. The S2/G2 is the commander's primary advisor on enemy forces, terrain, and weather." },
-  { term:"ILE", def:"Intermediate Level Education. Required for promotion to Lieutenant Colonel. A year-long program at Fort Leavenworth focused on joint military doctrine, operations, and strategic leadership." },
-  { term:"SAMS", def:"School of Advanced Military Studies. A highly selective 10-month program following ILE at Fort Leavenworth. Produces the Army's elite operational planners and strategists. ~250 seats per year." },
-  { term:"TS/SCI", def:"Top Secret / Sensitive Compartmented Information. The security clearance required for Army intelligence officers. Involves a thorough background investigation and periodic re-investigation. Highly valuable in civilian defense sectors." },
-  { term:"OER", def:"Officer Evaluation Report. The primary annual performance evaluation for Army officers. The Senior Rater block check (Most Qualified, Highly Qualified, Qualified) is the single most influential factor in promotion board decisions." },
-  { term:"KD Position", def:"Key Developmental position. Specific assignments the Army designates as critical for career progression at each grade. For 35A, the S2 role at Captain and battalion command at LTC are the primary KD positions." },
-  { term:"OML", def:"Order of Merit List. The ranked list used by ROTC programs to assign branches to cadets. Higher OML standing gives cadets more competitive access to desired branches like 35A." },
-  { term:"FLPP", def:"Foreign Language Proficiency Pay. Monthly pay (up to $1,000/language) for Army soldiers who test at ILR 2 or above in a designated language. Critical pay supplement for 35A officers with strategic language skills." },
-  { term:"DLAB", def:"Defense Language Aptitude Battery. A test that measures linguistic learning aptitude, not prior language knowledge. A high score qualifies soldiers for Category III/IV language training at the Defense Language Institute (DLI)." },
-  { term:"ILR", def:"Interagency Language Roundtable scale. The standard proficiency scale used by U.S. government agencies to rate language ability from 0 (no proficiency) to 5 (native/bilingual). FLPP begins at ILR 2." },
+  { term:"Commission", def:"The formal appointment as an Air Force officer. A commissioned officer swears an oath to support and defend the Constitution and receives legal authority to lead Airmen." },
+  { term:"ROTC", def:"Reserve Officers' Training Corps; AFROTC for the Air Force. A college program that trains officer candidates alongside a civilian degree, run out of a detachment on campus. Cadets attend Field Training between the sophomore and junior years and commission on graduation in exchange for an active duty service commitment." },
+  { term:"TASSP", def:"Texas Armed Services Scholarship Program. A Texas state scholarship for students who commit to completing a commissioning program such as ROTC and serving as a commissioned officer. Students are nominated by a state legislator." },
+  { term:"14N", def:"The Air Force AFSC (Air Force Specialty Code) for Intelligence Officer, the all-source intelligence career field. Responsible for producing finished intelligence products and advising commanders and aircrew." },
+  { term:"AFSC", def:"Air Force Specialty Code. The Air Force's job designator, equivalent to an MOS in the Army or Marine Corps. 14N is the intelligence officer code; the trailing digit denotes skill level (14N3 after initial training)." },
+  { term:"IOC", def:"Intelligence Officer Course. The 14N initial skills school at Goodfellow AFB, TX, attended after commissioning. Roughly six months covering the intelligence cycle, collection management, targeting, and all-source analysis fundamentals." },
+  { term:"SOS", def:"Squadron Officer School. The Air Force's company grade professional military education at Maxwell AFB, AL. Completed by correspondence as a Lieutenant, with competitive in-residence selection as a Captain. Expected before an officer is competitive for Major." },
+  { term:"A2 / J2", def:"The intelligence directorate on a staff. 'A' designates an Air Force component staff (wing, numbered air force, MAJCOM); 'J' designates a joint staff. The A2 or J2 is the commander's primary advisor on the adversary and the operating environment." },
+  { term:"ACSC", def:"Air Command and Staff College. The Air Force's intermediate developmental education, a ten-month program at Maxwell AFB focused on air and space power doctrine, joint operations, and strategic leadership. Expected for promotion to Lieutenant Colonel." },
+  { term:"SAASS", def:"School of Advanced Air and Space Studies. A highly selective follow-on year to ACSC at Maxwell AFB that produces the Air Force's strategists. Roughly 40 seats per year." },
+  { term:"TS/SCI", def:"Top Secret / Sensitive Compartmented Information. The security clearance required for Air Force intelligence officers. Involves a thorough background investigation and periodic re-investigation. Highly valuable in civilian defense sectors." },
+  { term:"OPR", def:"Officer Performance Report. The primary annual performance evaluation for Air Force officers, written by the rater and endorsed by the senior rater. Where the senior rater ranks an officer against their peers (stratification) is the most influential line in the document." },
+  { term:"PRF", def:"Promotion Recommendation Form. The single-page document a senior rater prepares for a promotion board, consolidating an officer's record and carrying a recommendation of Definitely Promote, Promote, or Do Not Promote This Board. DP allocations are capped, so they are the strongest signal a board sees." },
+  { term:"Stratification", def:"A senior rater's explicit ranking of an officer against their peers, written into an OPR or PRF as a line like '#1 of 14 Captains.' Boards weigh a strat from a wing commander far more heavily than unranked praise." },
+  { term:"Key Leadership Position", def:"Assignments the Air Force treats as critical for career progression at each grade. For 14N, the squadron intelligence officer role as a Captain and squadron command as a Lt Col are the primary ones." },
+  { term:"Order of Merit", def:"The ranked list AFROTC uses at the categorization board to assign cadets to a career field. Built from GPA, fitness scores, field training performance, and detachment commander ratings. Higher standing gives cadets more competitive access to categories like 14N." },
+  { term:"FLPB", def:"Foreign Language Proficiency Bonus. Monthly pay (up to $1,000/language) for Airmen who test at ILR 2 or above in a designated language. Critical pay supplement for 14N officers with strategic language skills." },
+  { term:"DLAB", def:"Defense Language Aptitude Battery. A test that measures linguistic learning aptitude, not prior language knowledge. A high score qualifies Airmen for Category III/IV language training at the Defense Language Institute (DLI)." },
+  { term:"ILR", def:"Interagency Language Roundtable scale. The standard proficiency scale used by U.S. government agencies to rate language ability from 0 (no proficiency) to 5 (native/bilingual). FLPB begins at ILR 2." },
   { term:"BAH", def:"Basic Allowance for Housing. A monthly stipend covering housing costs based on duty station and dependency status. Not subject to federal income tax. Can exceed $3,000/month in high-cost areas." },
   { term:"BAS", def:"Basic Allowance for Subsistence. A monthly food stipend ($357.55 for officers in 2024). Also not taxable." },
-  { term:"TSP", def:"Thrift Savings Plan. The military's version of a 401(k). Under the Blended Retirement System, the Army matches up to 5% of base pay in TSP contributions starting Year 2. Army match always goes to Traditional TSP." },
-  { term:"BRS", def:"Blended Retirement System. The current Army retirement plan combining a reduced pension (40% base pay at 20 years) with TSP matching. Officers who serve 20+ years receive both the pension and their TSP balance." },
+  { term:"TSP", def:"Thrift Savings Plan. The military's version of a 401(k). Under the Blended Retirement System, the Air Force matches up to 5% of base pay in TSP contributions starting Year 2. Air Force match always goes to Traditional TSP." },
+  { term:"BRS", def:"Blended Retirement System. The current military retirement plan, common to all services, combining a reduced pension (40% base pay at 20 years) with TSP matching. Officers who serve 20+ years receive both the pension and their TSP balance." },
   { term:"SWR", def:"Safe Withdrawal Rate. The 4% rule, a widely used benchmark suggesting you can withdraw 4% of a portfolio annually without depleting it over a 30-year retirement. Pre-59.5, this applies to accessible accounts only." },
   { term:"Bridge Period", def:"The years between military retirement and age 59.5 when TSP accounts and Roth IRA earnings are not yet penalty-free accessible. During the bridge, income comes from pension + taxable brokerage SWR. Locked accounts compound untouched, producing a large income step-up at 59.5." },
   { term:"Roth IRA Basis", def:"The cumulative dollar amount you have contributed to a Roth IRA (not counting growth). Under IRS rules, contributions can always be withdrawn tax-free and penalty-free at any age, making the basis a key accessible asset pre-59.5." },
-  { term:"ACFT", def:"Army Combat Fitness Test. The Army's physical fitness standard, replacing the APFT in 2022. Consists of six events including deadlift, power throw, hand-release push-up, sprint-drag-carry, leg tuck, and 2-mile run. OER readers see ACFT scores." },
+  { term:"PFA", def:"Physical Fitness Assessment. The Air Force's fitness standard, scored across aerobic, strength, and body composition components. Airmen may choose among approved alternates such as the 1.5-mile run or shuttle run, and push-up or plank variations. A failed assessment is a documented career event." },
   { term:"INDOPACOM / CENTCOM / EUCOM", def:"U.S. military combatant commands organized by geographic region. Indo-Pacific, Central, and European Commands respectively. Assignment to these commands as a staff officer provides joint duty credit essential for senior promotions." }
 ];
 
@@ -1408,7 +1412,7 @@ function renderRetirement() {
       <div class="ret-stat"><div class="ret-stat-label">MILITARY RETIREMENT</div><div class="ret-stat-val">Age ${EXIT_AGE}</div></div>
       <div class="ret-stat"><div class="ret-stat-label">CONTRACTING ENDS</div><div class="ret-stat-val">Age ${CONTRACT_END}</div></div>
       <div class="ret-stat"><div class="ret-stat-label">PORTFOLIO AT EXIT</div><div class="ret-stat-val" style="color:${colorA}">${fmtM(ex20.portfolio)}</div></div>
-      <div class="ret-stat"><div class="ret-stat-label">ARMY PENSION</div><div class="ret-stat-val">${fmt(pension20)}/yr</div></div>
+      <div class="ret-stat"><div class="ret-stat-label">AIR FORCE PENSION</div><div class="ret-stat-val">${fmt(pension20)}/yr</div></div>
     </div>
 
     <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(30,58,95,0.5);">
@@ -1417,7 +1421,7 @@ function renderRetirement() {
       <div class="ret-income-row"><span>Roth IRA contributions (basis)</span><span>${fmt(ex20.rIRABasis)} <span style="font-family:'DM Mono',monospace;font-size:9px;color:#30d158;border:1px solid rgba(48,209,88,0.3);padding:1px 5px;border-radius:3px;">ACCESSIBLE</span></span></div>
       <div class="ret-income-row"><span>Roth IRA earnings</span><span>${fmt(iraEarnings20)} <span style="font-family:'DM Mono',monospace;font-size:9px;color:#ef4444;border:1px solid rgba(239,68,68,0.3);padding:1px 5px;border-radius:3px;">LOCKED</span></span></div>
       <div class="ret-income-row"><span>Roth TSP (employee)</span><span>${fmtM(ex20.rTSP)} <span style="font-family:'DM Mono',monospace;font-size:9px;color:#ef4444;border:1px solid rgba(239,68,68,0.3);padding:1px 5px;border-radius:3px;">LOCKED</span></span></div>
-      <div class="ret-income-row"><span>Traditional TSP (army match)</span><span>${fmtM(ex20.tTSP)} <span style="font-family:'DM Mono',monospace;font-size:9px;color:#ef4444;border:1px solid rgba(239,68,68,0.3);padding:1px 5px;border-radius:3px;">LOCKED · TAXABLE</span></span></div>
+      <div class="ret-income-row"><span>Traditional TSP (Air Force match)</span><span>${fmtM(ex20.tTSP)} <span style="font-family:'DM Mono',monospace;font-size:9px;color:#ef4444;border:1px solid rgba(239,68,68,0.3);padding:1px 5px;border-radius:3px;">LOCKED · TAXABLE</span></span></div>
       <div style="display:flex;justify-content:space-between;border-top:1px solid rgba(30,58,95,0.4);margin-top:8px;padding-top:8px;">
         <span style="font-family:'DM Mono',monospace;font-size:11px;color:#30d158;">ACCESSIBLE TOTAL</span>
         <span style="font-family:'DM Mono',monospace;font-size:11px;color:#30d158;font-weight:700;">${fmtM(ex20.acc)}</span>
@@ -1474,7 +1478,7 @@ function renderRetirement() {
         <span style="font-family:'DM Mono',monospace;font-size:14px;color:#f0f6fc;font-weight:700;">${fmtM(c.totAt59)}</span>
       </div>
       <div class="ret-income-row" style="margin-top:10px;"><span>New SWR (4% of ${fmtM(c.totAt59)})</span><span>${fmt(c.swr59)}/yr</span></div>
-      <div class="ret-income-row"><span>Army pension (continues)</span><span>${fmt(pension20)}/yr</span></div>
+      <div class="ret-income-row"><span>Air Force pension (continues)</span><span>${fmt(pension20)}/yr</span></div>
       <div class="ret-total" style="margin-top:4px;">
         <span class="ret-total-label" style="color:${colorA}">TOTAL INCOME AT 59.5+</span>
         <span class="ret-total-val" style="color:${colorA}">${fmt(c.inc59)}/yr</span>
@@ -1780,7 +1784,7 @@ function renderIncomeChart() {
       datasets: [
         { label: 'Non-Taxable (BAH/BAS)', data: projection.map(r => r.nti), backgroundColor: '#1e3a5f', stack: 'a' },
         { label: 'Taxable (Base Pay)', data: projection.map(r => r.ti), backgroundColor: '#3b82f6', stack: 'a' },
-        { label: 'FLPP', data: projection.map(r => r.flpp), backgroundColor: '#30d158', stack: 'a' },
+        { label: 'FLPB', data: projection.map(r => r.flpb), backgroundColor: '#30d158', stack: 'a' },
         { label: '40% Saved', data: projection.map(r => r.savings), backgroundColor: '#a78bfa', stack: 'b' },
       ]
     },
@@ -1841,7 +1845,7 @@ function renderAccountsChart() {
           fill: true, tension: 0.4, pointRadius: 0, borderWidth: 1.5, stack: 'accts'
         },
         {
-          label: 'Traditional TSP (Army Match)',
+          label: 'Traditional TSP (Air Force Match)',
           data: projection.map(r => parseFloat((r.tTSP / 1e6).toFixed(3))),
           backgroundColor: 'rgba(245,158,11,0.45)',
           borderColor: '#f59e0b',
@@ -1909,7 +1913,7 @@ function navTo(e, id) {
 
 window.addEventListener('scroll', () => {
   document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
-  const sections = ['timeline','ranks','mos35a','oer','languages','finance','retirement','glossary','summary'];
+  const sections = ['timeline','ranks','afsc14n','opr','languages','finance','retirement','glossary','summary'];
   let current = '';
   sections.forEach(id => {
     const el = document.getElementById(id);
@@ -1964,7 +1968,7 @@ window.addEventListener('scroll', () => {
 
     const scanTargets = [
       '#timeline-events', '#rank-list', '.pay-cards',
-      '#mos35a', '#oer', '#languages', '#retirement .notes-box',
+      '#afsc14n', '#opr', '#languages', '#retirement .notes-box',
       '#glossary', '#summary'
     ];
 
@@ -2020,7 +2024,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('hero-hsgrad').textContent   = `May ${CONFIG.hsGradYear}`;
   document.getElementById('hero-commyear').textContent = CONFIG.commissionYear;
   document.getElementById('hero-commage').textContent  = CONFIG.commissionAge;
-  document.getElementById('hero-mos').textContent      = CONFIG.targetMOS;
+  document.getElementById('hero-afsc').textContent      = CONFIG.targetAFSC;
   document.getElementById('footer-commyear').textContent = CONFIG.commissionYear;
 
   renderTimeline();
