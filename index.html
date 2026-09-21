@@ -378,6 +378,7 @@
     <div class="metric-bar fade-in">
       <div class="metric-card"><div class="metric-label">20-YR TOTAL PORTFOLIO</div><div class="metric-value" id="m-port20">—</div><div class="metric-sub">Age 40 · All Accounts</div></div>
       <div class="metric-card"><div class="metric-label">20-YR ACCESSIBLE</div><div class="metric-value" id="m-acc20">—</div><div class="metric-sub">Age 40 · Pre-59.5 Only</div></div>
+      <div class="metric-card"><div class="metric-label">20-YR TOTAL COMPENSATION</div><div class="metric-value" id="m-comp20">—</div><div class="metric-sub">Base + BAH/BAS + FLPB + Continuation Pay</div></div>
 
     </div>
 
@@ -479,7 +480,7 @@
             <tr>
               <th style="text-align:left">YR</th>
               <th>YEAR</th><th>AGE</th><th>RANK</th>
-              <th>TOTAL COMP</th><th>SAVED</th>
+              <th>TOTAL COMP</th><th>CONT PAY</th><th>SAVED</th>
               <th>ROTH TSP</th><th>TRAD TSP</th><th>USAF MATCH</th>
               <th>ROTH IRA</th><th>TAXABLE</th>
               <th>ACCESSIBLE</th><th>LOCKED</th><th>TOTAL PORTFOLIO</th>
@@ -511,6 +512,7 @@
         <div class="notes-item"><span class="notes-dot">·</span>TSP employee limit: $24,500 (2026). Roth IRA limit: $7,500 (2026). Held flat in real terms, consistent with the rest of the model.</div>
         <div class="notes-item"><span class="notes-dot">·</span>Pension = 40% of high-3 base pay (average of the highest 36 months), not final base pay. High-3 = <span id="high3-text">—</span>.</div>
         <div class="notes-item"><span class="notes-dot">·</span>Roth IRA phase-out ($153k–$168k single, 2026) applied to MAGI net of Traditional TSP; at O-6 the Traditional share is sized to preserve a full contribution</div>
+        <div class="notes-item" style="grid-column:1/-1;"><span class="notes-dot" style="color:#f472b6;">·</span><strong style="color:#f0f6fc;">Continuation pay is a FLOOR-CASE assumption.</strong> <span id="contpay-note">—</span> The 2.5× multiplier is the statutory <em>minimum</em> that applies <em>if</em> continuation pay is offered. Each service sets its own multiplier and timing, and historical multipliers have varied widely by career field. It is <strong style="color:#f0f6fc;">not confirmed</strong> that every officer in every career field is guaranteed an offer at all, versus it being fully discretionary. Verify actual 14N policy before relying on this figure; treat it as a floor, and treat zero as a live possibility.</div>
         <div class="notes-item"><span class="notes-dot">·</span>Roth→Traditional tilt begins at year 14, where base pay first crosses into the 24% bracket. 24% is the ceiling this career reaches; 32% is never touched.</div>
         <div class="notes-item"><span class="notes-dot">·</span>4% SWR pre-59.5 applies to accessible accounts only (taxable + Roth IRA contributions)</div>
       </div>
@@ -879,6 +881,18 @@ const CONFIG = {
   iraPOLow:          153000,   // Single filer Roth IRA phase-out start (2026)
   iraPOHigh:         168000,   // Single filer Roth IRA phase-out end (2026)
 
+  // ── Continuation Pay (BRS mid-career retention bonus) ────────────────────
+  // BRS pays a one-time lump sum between 7 and 12 years of service in exchange
+  // for a 3-year service commitment. Each service sets its own timing and
+  // multiplier. Modeled at the LEGAL FLOOR of 2.5 × monthly base pay — the
+  // conservative, defensible planning number. Historical multipliers varied
+  // widely by career field and there is no confirmed basis for assuming
+  // above-floor treatment for 14N. See the assumptions note on the page:
+  // this is a floor-case figure IF continuation pay is offered at all, which
+  // is not confirmed to be guaranteed for every officer in every career field.
+  contPayYear:       10,       // year of service the lump sum lands (inside the 7–12 window)
+  contPayMultiple:   2.5,      // × monthly base pay — the statutory floor
+
   // ── Tax Strategy: Roth vs Traditional TSP ────────────────────────────────
   // On 2026 federal brackets this career never reaches the 32% bracket: 32%
   // starts around $217,875 of base pay (taxable income $201,775 + the $16,100
@@ -978,6 +992,8 @@ const IRA_PO_LOW     = CONFIG.iraPOLow;
 const IRA_PO_HIGH    = CONFIG.iraPOHigh;
 const TRAD_SWITCH_YR = CONFIG.tradSwitchYear;
 const TRAD_SHARE     = CONFIG.tradShare;
+const CONT_PAY_YEAR  = CONFIG.contPayYear;
+const CONT_PAY_MULT  = CONFIG.contPayMultiple;
 
 // ─── HIGH-3 BASE PAY (BRS retired pay base) ───────────────────────────────
 // BRS retired pay uses the same base as legacy High-3: the average of the
@@ -1011,6 +1027,10 @@ function highThreeAnnualBasePay(rows) {
 // real additional compensation, free money that compounds separately.
 // This is the key difference from a naive single-portfolio model.
 //
+// Continuation pay (year 10) is ordinary taxable pay, so it simply enlarges
+// that year's total compensation and runs through the identical savings rate
+// and waterfall — no special handling, no separate bucket.
+//
 // Investment order per year:
 //   1. TSP: 5% of base pay (captures full BRS match)
 //   2. Roth IRA: up to $7,500 (income phase-out applied for high earners)
@@ -1039,7 +1059,17 @@ function buildDetailedProjection() {
   let rIRABasis = 0;
 
   return incomeData.map(({ year, ti, nti, flpb }) => {
-    const total   = ti + nti + flpb;
+    // Continuation pay: one-time lump sum at CONFIG.contPayYear, sized at the
+    // statutory floor of 2.5 × monthly base pay in the year it is paid. It is
+    // ordinary taxable military pay, so it joins total compensation for that
+    // year and runs through the same savings rate and investment waterfall as
+    // every other dollar in the plan. It is tracked as its own line, never
+    // folded into base pay or the pension.
+    const contPay = year === CONT_PAY_YEAR
+      ? Math.round((ti / 12) * CONT_PAY_MULT)
+      : 0;
+
+    const total   = ti + nti + flpb + contPay;
     const savings = Math.round(total * SAVE_RATE);
     const postSwitch = year >= TRAD_SWITCH_YR;   // 24% bracket reached at year 14
 
@@ -1126,7 +1156,7 @@ function buildDetailedProjection() {
     return {
       year, age: CONFIG.commissionAge + year, calYear: CONFIG.commissionYear + year,
       rank: rankMap[year], rankName: rankNames[rankMap[year]],
-      ti, nti, flpb,
+      ti, nti, flpb, contPay,
       total: Math.round(total), savings,
       eeTSP, rothTSP, tradTSP, matchC, iraC: Math.round(iraC), taxC,
       rTSP: Math.round(rTSP), tTSP: Math.round(tTSP),
@@ -1246,6 +1276,9 @@ const pension20     = Math.round(high3 * CONFIG.pensionMultiplier);     // BRS p
 const exit20        = projection[19];
 const contracting20 = contractingBridgeSim(exit20, pension20);
 const port20        = exit20.portfolio;
+const contPayRow    = projection.find(r => r.contPay > 0);      // the continuation-pay year
+const contPay       = contPayRow ? contPayRow.contPay : 0;      // floor lump sum, 2.5 × monthly base
+const totalComp20   = projection.reduce((s, r) => s + r.total, 0);   // 20-yr gross compensation, CP included
 
 function fmt(n)  { return "$" + Math.round(n).toLocaleString(); }
 function fmtM(n) { return "$" + (n / 1e6).toFixed(2) + "M"; }
@@ -1301,6 +1334,10 @@ const timelineEvents = [
     title:"Air Command and Staff College (ACSC)",
     subtitle:"Maxwell AFB, AL · ~10 months · Intermediate Developmental Education",
     detail:"ACSC is the Air Force's intermediate developmental education program at Maxwell AFB, studying air and space power doctrine, joint operations, and strategic leadership. In-residence selection is competitive and expected of officers on a command track. The most competitive graduates are selected for the School of Advanced Air and Space Studies (SAASS), a follow-on year at Maxwell that produces the Air Force's strategists. SAASS takes roughly 40 officers a year and is a strong indicator for squadron command and above." },
+  { year:"2040", age:30, phase:"mid", color:"#f472b6", icon:"💵",
+    title:"Continuation Pay · One-Time Lump Sum",
+    subtitle:"Year 10 of Service · BRS Mid-Career Retention Bonus · 3-Year Commitment",
+    detail:"Continuation pay is the second half of the BRS bargain: in exchange for the reduced pension multiplier, the services pay a one-time mid-career lump sum somewhere between 7 and 12 years of service, in return for a 3-year additional service commitment. I model it at year 10 and at the statutory floor of 2.5 times monthly base pay, which on my year-10 O-4 pay is roughly $22,000 gross, paid once. It is ordinary taxable military pay, so it goes straight through the same 40% savings rate and the same investment waterfall as every other dollar. Important caveat: the floor is what is legally guaranteed IF continuation pay is offered. The multiplier is set by each service and has historically varied a lot by career field, and I have not confirmed that 14N officers are guaranteed an offer at all rather than it being discretionary. This is a floor-case line in the plan, not a promise." },
   { year:"2044", age:34, phase:"senior", color:"#f97316", icon:"⭐⭐⭐⭐⭐",
     title:"Promoted to Lieutenant Colonel (O-5)",
     subtitle:"ISR Squadron Command Competition",
@@ -1380,6 +1417,7 @@ const glossary = [
   { term:"BRS", def:"Blended Retirement System. The current military retirement plan, common to all services, combining a reduced pension (2.0% per year of service × high-3 base pay, so 40% at 20 years) with TSP matching. Officers who serve 20+ years receive both the pension and their TSP balance." },
   { term:"SWR", def:"Safe Withdrawal Rate. The 4% rule, a widely used benchmark suggesting you can withdraw 4% of a portfolio annually without depleting it over a 30-year retirement. Pre-59.5, this applies to accessible accounts only." },
   { term:"Bridge Period", def:"The years between military retirement and age 59.5 when TSP accounts and Roth IRA earnings are not yet penalty-free accessible. During the bridge, income comes from pension + taxable brokerage SWR. Locked accounts compound untouched, producing a large income step-up at 59.5." },
+  { term:"Continuation Pay", def:"A one-time lump-sum retention bonus under the Blended Retirement System, paid between 7 and 12 years of service in exchange for a 3-year additional service commitment. It exists to offset BRS's reduced pension multiplier (2.0%/yr vs the legacy 2.5%/yr). The statutory floor is 2.5 times monthly base pay; each service sets its own multiplier above that floor and its own timing within the window. This plan models the floor at year 10." },
   { term:"High-3", def:"The average of an officer's highest 36 months of base pay. This is the base for BRS retired pay, multiplied by 2.0% per year of service (40% at 20 years). It is not the final month's pay: averaging in the two years before the last promotion pulls the figure meaningfully below final base pay. 'Final base pay' retirement is a separate, closed legacy system for pre-1980 entrants and does not apply under BRS." },
   { term:"Roth IRA Basis", def:"The cumulative dollar amount you have contributed to a Roth IRA (not counting growth). Under IRS rules, contributions can always be withdrawn tax-free and penalty-free at any age, making the basis a key accessible asset pre-59.5." },
   { term:"PFA", def:"Physical Fitness Assessment. The Air Force's fitness standard, scored across aerobic, strength, and body composition components. Airmen may choose among approved alternates such as the 1.5-mile run or shuttle run, and push-up or plank variations. A failed assessment is a documented career event." },
@@ -1450,6 +1488,9 @@ function renderRanks() {
 function renderMetrics() {
   document.getElementById('hero-port20').textContent = fmtM(port20);
   document.getElementById('high3-text').textContent  = fmt(high3) + "/yr";
+  document.getElementById('contpay-note').textContent =
+    `Modeled as one ${fmt(contPay)} lump sum in year ${CONT_PAY_YEAR} (age ${contPayRow.age}), `
+    + `= ${CONT_PAY_MULT}× that year's ${fmt(contPayRow.ti / 12)}/mo base pay, inside the 7–12 year eligibility window.`;
 
   // Bridge-phase verdict, computed live off the corrected pension figure.
   const cb = contracting20;
@@ -1463,6 +1504,7 @@ function renderMetrics() {
     + `Surplus, not shortfall, at every stage of the bridge.`;
   document.getElementById('m-port20').textContent    = fmtM(port20);
   document.getElementById('m-acc20').textContent     = fmtM(exit20.acc);
+  document.getElementById('m-comp20').textContent    = fmtM(totalComp20);
 }
 
 function renderTable() {
@@ -1476,6 +1518,7 @@ function renderTable() {
       <td>${r.age}</td>
       <td style="color:#c9a24d">${r.rank}</td>
       <td style="color:#94a3b8">${fmt(r.total)}</td>
+      <td style="color:#f472b6">${r.contPay > 0 ? fmt(r.contPay) : '—'}</td>
       <td style="color:#30d158">${fmt(r.savings)}</td>
       <td style="color:#a78bfa">${r.rothTSP > 0 ? fmt(r.rothTSP) : '—'}</td>
       <td style="color:#60a5fa">${r.tradTSP > 0 ? fmt(r.tradTSP) : '—'}</td>
@@ -1884,6 +1927,7 @@ function renderIncomeChart() {
         { label: 'Non-Taxable (BAH/BAS)', data: projection.map(r => r.nti), backgroundColor: '#1e3a5f', stack: 'a' },
         { label: 'Taxable (Base Pay)', data: projection.map(r => r.ti), backgroundColor: '#3b82f6', stack: 'a' },
         { label: 'FLPB', data: projection.map(r => r.flpb), backgroundColor: '#30d158', stack: 'a' },
+        { label: 'Continuation Pay (one-time)', data: projection.map(r => r.contPay), backgroundColor: '#f472b6', stack: 'a' },
         { label: '40% Saved', data: projection.map(r => r.savings), backgroundColor: '#a78bfa', stack: 'b' },
       ]
     },
