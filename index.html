@@ -2027,11 +2027,11 @@ function navTo(e, id) {
 
 window.addEventListener('scroll', () => {
   document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
-  const sections = ['timeline','ranks','afsc14n','opr','languages','finance','retirement','glossary','summary'];
+  // Read section ids from the nav links so the order always matches the page.
   let current = '';
-  sections.forEach(id => {
-    const el = document.getElementById(id);
-    if (el && el.getBoundingClientRect().top < 120) current = id;
+  document.querySelectorAll('nav a').forEach(a => {
+    const el = document.getElementById(a.getAttribute('href').slice(1));
+    if (el && el.getBoundingClientRect().top < 120) current = el.id;
   });
   document.querySelectorAll('nav a').forEach(a => {
     a.classList.toggle('active', a.getAttribute('href') === `#${current}`);
