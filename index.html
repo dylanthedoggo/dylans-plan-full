@@ -16,9 +16,6 @@
   ::-webkit-scrollbar-track { background: #050a12; }
   ::-webkit-scrollbar-thumb { background: #1e3a5f; border-radius: 3px; }
 
-  .mono { font-family: 'DM Mono', monospace; }
-  .serif { font-family: 'Playfair Display', serif; }
-
   .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
   .fade-in.visible { opacity: 1; transform: translateY(0); }
 
@@ -92,7 +89,7 @@
   .timeline-line { position: absolute; left: 24px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, transparent, #1e3a5f 10%, #1e3a5f 90%, transparent); }
   .tl-item { display: flex; gap: 32px; margin-bottom: 8px; }
   .tl-dot-col { position: relative; flex-shrink: 0; width: 50px; display: flex; align-items: flex-start; padding-top: 20px; z-index: 1; }
-  .tl-dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid #050a12; margin-left: 17px; flex-shrink: 0; cursor: pointer; }
+  .tl-dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid #050a12; margin-left: 17px; flex-shrink: 0; }
   .tl-card { flex: 1; border-radius: 8px; padding: 18px 24px; cursor: pointer; transition: all 0.25s ease; margin-bottom: 8px; background: rgba(10,18,32,0.6); border: 1px solid rgba(30,58,95,0.4); }
   .tl-card.open { background: rgba(15,25,45,0.95); }
   .tl-card-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
@@ -243,9 +240,9 @@
   .ret-total-label { font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 1px; }
   .ret-total-val { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; }
   .ret-65 { display: flex; justify-content: space-between; align-items: flex-start; border-top: 1px solid rgba(30,58,95,0.2); padding-top: 10px; margin-top: 8px; }
-  .ret-65-label { font-family: 'DM Mono', monospace; font-size: 12px; color: #30d158; letter-spacing: 1px; }
+  .ret-65-label { font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 1px; }
   .ret-65-sub { font-size: 11px; color: #475569; margin-top: 2px; }
-  .ret-65-val { font-family: 'Playfair Display', serif; font-size: 20px; color: #30d158; font-weight: 700; white-space: nowrap; margin-left: 12px; }
+  .ret-65-val { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; white-space: nowrap; margin-left: 12px; }
   .notes-box { background: rgba(5,10,18,0.8); border: 1px solid rgba(30,58,95,0.4); border-radius: 8px; padding: 28px; }
   .notes-label { font-family: 'DM Mono', monospace; font-size: 10px; color: #475569; letter-spacing: 3px; margin-bottom: 16px; }
   .notes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 8px; }
@@ -362,7 +359,7 @@
       <div class="pay-card"><div class="pay-card-label">BAH</div><p class="pay-card-desc">Basic Allowance for Housing. Tax-free monthly stipend covering rent in your duty station's local market. Varies widely by location.</p></div>
       <div class="pay-card"><div class="pay-card-label">BAS</div><p class="pay-card-desc">Basic Allowance for Subsistence. A tax-free monthly food stipend paid to all officers regardless of rank.</p></div>
       <div class="pay-card"><div class="pay-card-label">TSP MATCH</div><p class="pay-card-desc">Under BRS, the Air Force matches TSP contributions up to 5% of base pay, free money starting Year 2 of service.</p></div>
-      <div class="pay-card"><div class="pay-card-label">FLPB</div><p class="pay-card-desc">Foreign Language Proficiency Pay. Up to $1,000/month extra for tested and certified language skills. Highly relevant for 14N.</p></div>
+      <div class="pay-card"><div class="pay-card-label">FLPB</div><p class="pay-card-desc">Foreign Language Proficiency Bonus. Up to $1,000/month extra for tested and certified language skills. Highly relevant for 14N.</p></div>
     </div>
   </div>
 </section>
@@ -434,13 +431,6 @@
           <div class="info-card-item">At O-6: extra Traditional to hold MAGI under the $153k Roth IRA phase-out</div>
           <div class="info-card-item">Post-retire: Roth conversions as needed</div>
         </div>
-        <div class="info-card"><div class="info-card-label">BRS MATCH DETAILS</div>
-          <div class="info-card-item">Match begins: Year 2 of service</div>
-          <div class="info-card-item">100% match up to 3% of base pay</div>
-          <div class="info-card-item">50% match from 3% to 5%</div>
-          <div class="info-card-item">Contribute 5%, receive effective +4%</div>
-          <div class="info-card-item">Fully vested at 2 years</div>
-        </div>
       </div>
     </div>
 
@@ -510,9 +500,9 @@
       <div class="notes-grid">
         <div class="notes-item"><span class="notes-dot">·</span>Air Force BRS match modeled on top of 40% savings rate (it is real additional compensation)</div>
         <div class="notes-item"><span class="notes-dot">·</span>TSP employee limit: $24,500 (2026). Roth IRA limit: $7,500 (2026). Held flat in real terms, consistent with the rest of the model.</div>
-        <div class="notes-item"><span class="notes-dot">·</span>Pension = 40% of high-3 base pay (average of the highest 36 months), not final base pay. High-3 = <span id="high3-text">—</span>.</div>
+        <div class="notes-item"><span class="notes-dot">·</span>Pension = 40% of high-3 base pay. High-3 = <span id="high3-text">—</span>.</div>
         <div class="notes-item"><span class="notes-dot">·</span>Roth IRA phase-out ($153k–$168k single, 2026) applied to MAGI net of Traditional TSP; at O-6 the Traditional share is sized to preserve a full contribution</div>
-        <div class="notes-item" style="grid-column:1/-1;"><span class="notes-dot" style="color:#f472b6;">·</span><strong style="color:#f0f6fc;">Continuation pay is a FLOOR-CASE assumption.</strong> <span id="contpay-note">—</span> The 2.5× multiplier is the statutory <em>minimum</em> that applies <em>if</em> continuation pay is offered. Each service sets its own multiplier and timing, and historical multipliers have varied widely by career field. It is <strong style="color:#f0f6fc;">not confirmed</strong> that every officer in every career field is guaranteed an offer at all, versus it being fully discretionary. Verify actual 14N policy before relying on this figure; treat it as a floor, and treat zero as a live possibility.</div>
+        <div class="notes-item" style="grid-column:1/-1;"><span class="notes-dot" style="color:#f472b6;">·</span><strong style="color:#f0f6fc;">Continuation pay is a FLOOR-CASE assumption.</strong> <span id="contpay-note">—</span> The 2.5× multiplier is the statutory <em>minimum</em> that applies <em>if</em> continuation pay is offered. Each service sets its own multiplier and timing, and historical multipliers have varied widely by career field. It is <strong style="color:#f0f6fc;">not confirmed</strong> that every officer in every career field is guaranteed an offer at all, versus it being fully discretionary. Treat it as a floor, and treat zero as a live possibility.</div>
         <div class="notes-item"><span class="notes-dot">·</span>Roth→Traditional tilt begins at year 14, where base pay first crosses into the 24% bracket. 24% is the ceiling this career reaches; 32% is never touched.</div>
         <div class="notes-item"><span class="notes-dot">·</span>4% SWR pre-59.5 applies to accessible accounts only (taxable + Roth IRA contributions)</div>
       </div>
@@ -717,7 +707,7 @@
         </div>
         <div class="lang-card" style="border-left:3px solid #c9a24d;">
           <div class="lang-card-top">
-            <div><div class="lang-card-title">Language 1 <span style="color:#64748b;font-size:14px;">by Commission</span></div><div class="lang-card-sub">Target: ILR 2+ by commissioning · Update this field with your chosen language</div></div>
+            <div><div class="lang-card-title">Language 1 <span style="color:#64748b;font-size:14px;">by Commission</span></div><div class="lang-card-sub">Target: ILR 2+ by commissioning</div></div>
             <div class="ilr-badge" style="color:#c9a24d;border-color:rgba(201,162,77,0.3);">ILR 2+ TARGET</div>
           </div>
           <div class="lang-card-body">Achieving ILR 2 (Limited Working Proficiency) in a second language before commissioning is exceptional. Most officers begin language study after IOC. Arriving at my first unit with a tested language on file immediately qualifies me for FLPB, makes me a more attractive candidate for the best intel assignments, and signals initiative to my rater. Target languages for 14N: <strong style="color:#f0f6fc;">Arabic, Mandarin, Russian, or Korean</strong>, all Category III/IV languages with the highest FLPB rates and highest operational demand.</div>
@@ -731,7 +721,7 @@
         </div>
         <div class="lang-card" style="border-left:3px solid #a78bfa;">
           <div class="lang-card-top">
-            <div><div class="lang-card-title">Language 2 <span style="color:#64748b;font-size:14px;">by O-4</span></div><div class="lang-card-sub">Target: ILR 2+ at Major · Update this field with your chosen language</div></div>
+            <div><div class="lang-card-title">Language 2 <span style="color:#64748b;font-size:14px;">by O-4</span></div><div class="lang-card-sub">Target: ILR 2+ at Major</div></div>
             <div class="ilr-badge" style="color:#a78bfa;border-color:rgba(167,139,250,0.3);">ILR 2+ TARGET</div>
           </div>
           <div class="lang-card-body">A second language at the O-4 level is a genuine differentiator. At Major, I will be operating at MAJCOM or joint staff level where OCONUS assignments, liaison roles, and theater-specific analysis drive demand for language skills. An officer fluent in two strategic languages at this rank will be actively competed over for joint duty assignments, attaché programs, and special programs. FLPB at ILR 2+ in two languages adds $1,000–$2,000/month in untaxed income.</div>
@@ -741,8 +731,8 @@
 
     <div class="lang-why-grid fade-in">
       <div class="lang-why-card">
-        <div class="lang-why-label">FLPB: LANGUAGE PAY</div>
-        <div class="lang-why-text">Foreign Language Proficiency Pay ranges from $100–$1,000/month per tested language depending on category and proficiency level. Category IV languages (Arabic, Chinese, Korean, Japanese) at ILR 2/2 pay the maximum. Two languages at max FLPB = $2,000/month tax-free on top of base compensation. That is $24,000/year additional, permanently.</div>
+        <div class="lang-why-label">FLPB: LANGUAGE BONUS</div>
+        <div class="lang-why-text">Foreign Language Proficiency Bonus ranges from $100–$1,000/month per tested language depending on category and proficiency level. Category IV languages (Arabic, Chinese, Korean, Japanese) at ILR 2/2 pay the maximum. Two languages at max FLPB = $2,000/month tax-free on top of base compensation. That is $24,000/year additional, permanently.</div>
       </div>
       <div class="lang-why-card">
         <div class="lang-why-label">DLAB: THE GATEWAY TEST</div>
@@ -764,13 +754,11 @@
         <div class="ilr-level" style="color:#ef4444;">0</div>
         <div class="ilr-name">No Proficiency</div>
         <div class="ilr-desc">No practical ability to communicate.</div>
-        <div></div>
       </div>
       <div class="ilr-row">
         <div class="ilr-level" style="color:#f59e0b;">1</div>
         <div class="ilr-name">Elementary</div>
         <div class="ilr-desc">Basic survival communication in highly predictable contexts.</div>
-        <div></div>
       </div>
       <div class="ilr-row" style="background:rgba(201,162,77,0.04);">
         <div class="ilr-level" style="color:#c9a24d;">2</div>
@@ -788,13 +776,11 @@
         <div class="ilr-level" style="color:#30d158;">4</div>
         <div class="ilr-name">Distinguished</div>
         <div class="ilr-desc">Near-native proficiency. Can operate in virtually any context in the language.</div>
-        <div></div>
       </div>
       <div class="ilr-row" style="border-bottom:none;">
         <div class="ilr-level" style="color:#94a3b8;">5</div>
         <div class="ilr-name">Native</div>
         <div class="ilr-desc">Complete mastery. The benchmark for evaluating other speakers.</div>
-        <div></div>
       </div>
     </div>
   </div>
@@ -829,7 +815,8 @@
         The early career runs through the squadron intelligence officer role as a Captain, which is the most critical developmental position for 14N. A top stratification there sets the trajectory for everything after. Mid-career brings promotion to Major, a joint assignment at NSA or DIA, two strategic language certifications, ACSC, and selection for Lieutenant Colonel. The goal is ISR squadron command as a Lt Col, then Colonel and potential ISR group command as a senior officer.
         <br><br>
         The financial plan targets retirement at 20 years (age 40) at O-6 Colonel, with a pension worth 40% of high-3 base pay, paid for life. From there, five years of defense contracting at $200-250k/year funds lifestyle while the entire investment portfolio compounds untouched. Starting at age 52, a 4% SWR on the grown portfolio plus pension produces full financial independence. At 59.5, all accounts unlock and total income steps up substantially.
-
+      </p>
+    </div>
   </div>
 </section>
 <div style="padding:32px 24px;background:#050a12;border-top:1px solid rgba(30,58,95,0.4);text-align:center;">
@@ -854,17 +841,10 @@
 const CONFIG = {
 
   // ── Identity & Timeline ──────────────────────────────────────────────────
-  name:              "Dylan McDaniel",
   hsGradYear:        2027,
-  hsGradAge:         17,
   commissionYear:    2030,
   commissionAge:     20,       // age at commission (used for all age calculations)
   targetAFSC:        "14N INTEL",
-
-  // ── Academic Record (hero stats) ─────────────────────────────────────────
-  gpa:               "4.5+",
-  sat:               1280,
-  asvab:             90,
 
   // ── Financial Assumptions ────────────────────────────────────────────────
   savingsRate:       0.40,     // 40% of total compensation saved each year
@@ -905,13 +885,11 @@ const CONFIG = {
   tradShare:         0.40,     // share of employee TSP sent to Traditional after the switch
 
   // ── Retirement Scenarios ──────────────────────────────────────────────────
-  // BRS retired pay = 2.0%/yr of service × HIGH-3 base pay (the average of the
-  // highest 36 months of base pay), NOT final base pay. "Final base pay" is a
-  // separate, closed legacy system for pre-1980 entrants and does not apply.
+  // BRS retired pay = 2.0%/yr of service × high-3 base pay (see highThreeAnnualBasePay).
   pensionMultiplier: 0.40,     // BRS pension: 2.0% × 20 years = 40% of high-3 base pay
   lifestyleTarget:   150000,   // Annual spending goal in retirement ($)
 
-  // ── Contracting Bridge (Scenario A, ages 40–44) ──────────────────────────
+  // ── Contracting Bridge (ages 40–44) ──────────────────────────
   // Add or remove years by editing this array directly
   contractingIncome: [200000, 200000, 250000, 250000, 250000],  // income per year
 
@@ -1171,9 +1149,9 @@ function buildDetailedProjection() {
 
 const projection = buildDetailedProjection();
 
-// ─── SCENARIO A: CONTRACTING BRIDGE ──────────────────────────────────────
+// ─── CONTRACTING BRIDGE ──────────────────────────────────────
 //
-// Scenario A does NOT use SWR during the bridge period. Instead:
+// The bridge does NOT use SWR during the bridge period. Instead:
 //
 //   Phase 1 (Age 40-44, 5 yrs): Defense contracting alongside pension.
 //     - Year 1-2: $200k contracting income.
@@ -1320,7 +1298,7 @@ const timelineEvents = [
     detail:"As Captain, I become the unit's primary intelligence officer and direct advisor to the commander on the adversary, the operating environment, and the threat picture. This is the critical developmental position for every 14N. A strong tour here with a top stratification from the senior rater is the most important career event between commissioning and O-4 selection. I lead my intelligence flight, brief commanders and aircrew daily, and produce the products that drive operational decisions." },
   { year:"~2035", age:25, phase:"captain", color:"#a78bfa", icon:"🌐",
     title:"Language 1: FLPB Qualified",
-    subtitle:"ILR 2+ Tested and Certified · Foreign Language Proficiency Pay Begins",
+    subtitle:"ILR 2+ Tested and Certified · Foreign Language Proficiency Bonus Begins",
     detail:"I test for and earn ILR 2+ proficiency in my first strategic language, qualifying for the Foreign Language Proficiency Bonus, up to $1,000/month additional untaxed income. Beyond the pay, the language certification opens doors to theater-specific assignments and signals to my assignment officer and senior raters that I am building toward a regionally-focused intelligence career." },
   { year:"2040", age:30, phase:"mid", color:"#f59e0b", icon:"⭐⭐⭐⭐",
     title:"Promoted to Major (O-4)",
@@ -1334,10 +1312,6 @@ const timelineEvents = [
     title:"Air Command and Staff College (ACSC)",
     subtitle:"Maxwell AFB, AL · ~10 months · Intermediate Developmental Education",
     detail:"ACSC is the Air Force's intermediate developmental education program at Maxwell AFB, studying air and space power doctrine, joint operations, and strategic leadership. In-residence selection is competitive and expected of officers on a command track. The most competitive graduates are selected for the School of Advanced Air and Space Studies (SAASS), a follow-on year at Maxwell that produces the Air Force's strategists. SAASS takes roughly 40 officers a year and is a strong indicator for squadron command and above." },
-  { year:"2040", age:30, phase:"mid", color:"#f472b6", icon:"💵",
-    title:"Continuation Pay · One-Time Lump Sum",
-    subtitle:"Year 10 of Service · BRS Mid-Career Retention Bonus · 3-Year Commitment",
-    detail:"Continuation pay is the second half of the BRS bargain: in exchange for the reduced pension multiplier, the services pay a one-time mid-career lump sum somewhere between 7 and 12 years of service, in return for a 3-year additional service commitment. I model it at year 10 and at the statutory floor of 2.5 times monthly base pay, which on my year-10 O-4 pay is roughly $22,000 gross, paid once. It is ordinary taxable military pay, so it goes straight through the same 40% savings rate and the same investment waterfall as every other dollar. Important caveat: the floor is what is legally guaranteed IF continuation pay is offered. The multiplier is set by each service and has historically varied a lot by career field, and I have not confirmed that 14N officers are guaranteed an offer at all rather than it being discretionary. This is a floor-case line in the plan, not a promise." },
   { year:"2044", age:34, phase:"senior", color:"#f97316", icon:"⭐⭐⭐⭐⭐",
     title:"Promoted to Lieutenant Colonel (O-5)",
     subtitle:"ISR Squadron Command Competition",
@@ -1349,18 +1323,18 @@ const timelineEvents = [
   { year:"2050", age:40, phase:"senior", color:"#b8863a", icon:"🦅",
     title:"Promoted to Colonel (O-6)",
     subtitle:"ISR Group Command or Senior Intelligence Advisor",
-    detail:"Colonel is the terminal rank for the majority of Air Force officers. As a Colonel in the intelligence career field, I may command an ISR group or serve as the senior intelligence officer for a numbered air force or MAJCOM headquarters. My financial plan reaches the 20-year milestone at this rank, making Scenario A retirement available." },
+    detail:"Colonel is the terminal rank for the majority of Air Force officers. As a Colonel in the intelligence career field, I may command an ISR group or serve as the senior intelligence officer for a numbered air force or MAJCOM headquarters. My financial plan reaches the 20-year milestone at this rank, making 20-year retirement available." },
   { year:"2050", age:40, phase:"retirement", color:"#30d158", icon:"🏁",
     title:"Retire at 20 Years · O-6 Colonel",
     subtitle:"Age 40 · Air Force Pension Begins · Defense Contracting Begins",
-    detail:"At 20 years of active service I retire with an Air Force pension equal to 40% of my high-3 base pay, the average of my highest 36 months of base pay, which spans my last two years as a Lieutenant Colonel and my final year as a Colonel, paid monthly for life with annual COLA adjustments. My TS/SCI clearance opens an immediate second career in defense contracting at $200-250k/year for five years. The entire investment portfolio is left completely untouched to compound at 7% during this period." },
+    detail:"At 20 years of active service I retire with an Air Force pension equal to 40% of my high-3 base pay, paid monthly for life with annual COLA adjustments. My TS/SCI clearance opens an immediate second career in defense contracting at $200-250k/year for five years. The entire investment portfolio is left completely untouched to compound at 7% during this period." },
 
 ];
 
 const phaseLabels = {
   foundation:"Foundation", commission:"Commission", early:"Early Career",
   captain:"Captain", mid:"Mid-Career", senior:"Senior Officer",
-  retirement:"Retirement", legacy:"Legacy"
+  retirement:"Retirement"
 };
 
 const officerRanks = [
@@ -1417,7 +1391,7 @@ const glossary = [
   { term:"BRS", def:"Blended Retirement System. The current military retirement plan, common to all services, combining a reduced pension (2.0% per year of service × high-3 base pay, so 40% at 20 years) with TSP matching. Officers who serve 20+ years receive both the pension and their TSP balance." },
   { term:"SWR", def:"Safe Withdrawal Rate. The 4% rule, a widely used benchmark suggesting you can withdraw 4% of a portfolio annually without depleting it over a 30-year retirement. Pre-59.5, this applies to accessible accounts only." },
   { term:"Bridge Period", def:"The years between military retirement and age 59.5 when TSP accounts and Roth IRA earnings are not yet penalty-free accessible. During the bridge, income comes from pension + taxable brokerage SWR. Locked accounts compound untouched, producing a large income step-up at 59.5." },
-  { term:"Continuation Pay", def:"A one-time lump-sum retention bonus under the Blended Retirement System, paid between 7 and 12 years of service in exchange for a 3-year additional service commitment. It exists to offset BRS's reduced pension multiplier (2.0%/yr vs the legacy 2.5%/yr). The statutory floor is 2.5 times monthly base pay; each service sets its own multiplier above that floor and its own timing within the window. This plan models the floor at year 10." },
+  { term:"Continuation Pay", def:"A one-time lump-sum retention bonus under the Blended Retirement System, paid between 7 and 12 years of service in exchange for a 3-year additional service commitment. It offsets BRS's reduced pension multiplier (2.0%/yr vs the legacy 2.5%/yr)." },
   { term:"High-3", def:"The average of an officer's highest 36 months of base pay. This is the base for BRS retired pay, multiplied by 2.0% per year of service (40% at 20 years). It is not the final month's pay: averaging in the two years before the last promotion pulls the figure meaningfully below final base pay. 'Final base pay' retirement is a separate, closed legacy system for pre-1980 entrants and does not apply under BRS." },
   { term:"Roth IRA Basis", def:"The cumulative dollar amount you have contributed to a Roth IRA (not counting growth). Under IRS rules, contributions can always be withdrawn tax-free and penalty-free at any age, making the basis a key accessible asset pre-59.5." },
   { term:"PFA", def:"Physical Fitness Assessment. The Air Force's fitness standard, scored across aerobic, strength, and body composition components. Airmen may choose among approved alternates such as the 1.5-mile run or shuttle run, and push-up or plank variations. A failed assessment is a documented career event." },
@@ -1511,7 +1485,7 @@ function renderTable() {
   const tbody = document.getElementById('table-body');
   projection.forEach(r => {
     const tr = document.createElement('tr');
-    if (r.year === 20 || r.year === 25) tr.className = 'milestone';
+    if (r.year === 20) tr.className = 'milestone';
     tr.innerHTML = `
       <td>${r.year}</td>
       <td>${r.calYear}</td>
@@ -1535,7 +1509,7 @@ function renderTable() {
 function renderRetirement() {
   const grid = document.getElementById('ret-grid');
 
-  // ── SCENARIO A: CONTRACTING BRIDGE CARD ──────────────────────────────────
+  // ── CONTRACTING BRIDGE CARD ──────────────────────────────────
   const c = contracting20;
   const ex20 = exit20;
   const iraEarnings20 = ex20.rIRA - ex20.rIRABasis;
@@ -1546,7 +1520,7 @@ function renderRetirement() {
   divA.style.border = `1px solid ${colorA}22`;
   divA.style.borderTop = `3px solid ${colorA}`;
   divA.innerHTML = `
-    <div class="ret-label" style="color:${colorA}">SCENARIO A · O-6 · 40% HIGH-3 PENSION + CONTRACTING</div>
+    <div class="ret-label" style="color:${colorA}">O-6 · 40% HIGH-3 PENSION + CONTRACTING</div>
     <div class="ret-title">20-Year Retirement + Defense Contracting</div>
     <p class="ret-desc">Retire at ${EXIT_AGE}, contract for ${CONTRACT_YRS} years at $200-250k. The entire investment portfolio compounds completely untouched until age ${DRAW_START_AGE}. No SWR until ${DRAW_START_AGE}. Portfolio never touched during contracting or post-contracting phases.</p>
 
@@ -1667,7 +1641,6 @@ function toggleGloss(i) {
 // ─── CHARTS ───────────────────────────────────────────────────────────────
 
 const chartDefaults = {
-  color: '#c9d1d9',
   plugins: { legend: { labels: { color: '#64748b', font: { family: 'DM Mono', size: 11 } } } },
   scales: {
     x: { ticks: { color: '#475569', font: { family: 'DM Mono', size: 10 } }, grid: { color: 'rgba(30,58,95,0.3)' } },
@@ -1754,8 +1727,6 @@ function buildGrowthData(expanded) {
   // After that, all accounts merge so the accessible distinction no longer applies.
   let accExpanded = null;
   if (expanded) {
-    // Service years
-    const accService = accessibleData;
     // Extension: accessible compounds untouched alongside the main portfolio until unlock
     // Phase 1+2 (indices 0-11, ages 41-52): acc compounds at 7%, no draws
     // Phase 3 (indices 12-19, ages 52-59): draws come from accessible+pool; show declining portion
@@ -1777,7 +1748,7 @@ function buildGrowthData(expanded) {
       }
       return null;
     });
-    accExpanded = [...accService, ...accExt];
+    accExpanded = [...accessibleData, ...accExt];
   }
 
   return { labels, serviceData, accessibleData: expanded ? accExpanded : accessibleData, postData };
@@ -1815,7 +1786,7 @@ function getAnnotations(expanded) {
 
 function renderGrowthChart() {
   const ctx = document.getElementById('chart-growth').getContext('2d');
-  const { labels, serviceData, accessibleData, postData } = buildGrowthData(false);
+  const { labels, serviceData, accessibleData } = buildGrowthData(false);
 
   growthChart = new Chart(ctx, {
     type: 'line',
@@ -2110,7 +2081,7 @@ window.addEventListener('scroll', () => {
     const pattern = new RegExp('\\b(' + terms.map(esc).join('|') + ')\\b', 'g');
 
     const scanTargets = [
-      '#timeline-events', '#rank-list', '.pay-cards',
+      '#timeline-events', '#rank-list',
       '#afsc14n', '#opr', '#languages', '#retirement .notes-box',
       '#glossary', '#summary'
     ];
@@ -2129,7 +2100,6 @@ window.addEventListener('scroll', () => {
           const span = document.createElement('span');
           span.className = 'term-link';
           span.textContent = term;
-          span.title = '';
           span.addEventListener('mouseenter', () => showTip(term, lookup[term], span));
           span.addEventListener('mouseleave', hideTip);
           span.addEventListener('click', e => { e.stopPropagation(); showTip(term, lookup[term], span); });
